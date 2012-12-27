@@ -4,6 +4,8 @@
     <option name="SCALAC_BEFORE" value="false" />
     <option name="COMPILER_LIBRARY_NAME" value="Maven: org.scala-lang:scala-compiler-bundle:2.9.2" />
     <option name="COMPILER_LIBRARY_LEVEL" value="Project" />
+    <option name="MAXIMUM_HEAP_SIZE" value="256" />
+    <option name="VM_PARAMETERS" value="-Xms192m -Xss1m -server" />
   </component>
 </project>
 

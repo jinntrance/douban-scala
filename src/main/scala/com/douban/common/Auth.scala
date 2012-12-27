@@ -2,6 +2,7 @@ package com.douban.common
 
 import net.liftweb.json._
 import Extraction._
+import com.douban.book.Bean
 
 
 /**
@@ -15,25 +16,29 @@ import Extraction._
  object Auth {
   val api_key="0f86acdf44c03ade2e94069dce40b09a"
   val secret="95125490b60b01ee"
-  val code="b15f1aa5c11644d1"
-  val auth_url="https://www.douban.com/service/auth2/auth"
-  val token_url="https://www.douban.com/service/auth2/token"
+  val code="41c5a7272efe6e2f"
+  val auth_url="https://www.douban.com/service/auth2/auth?"
+  val token_url="https://www.douban.com/service/auth2/token?"
   val redirect_url="http://crazyadam.net/"
   val response_type="code"
   val grant_type="authorization_code"
   val refresh_token="refresh_token"
 
 }
-case class AuthorizationCode(client_id:String=Auth.api_key,redirect_uri:String=Auth.redirect_url,response_type:String=Auth.response_type
-                        , var scope:String="",var state:String=""){
+case class AuthorizationCode(client_id:String=Auth.api_key,redirect_uri:String=Auth.redirect_url,response_type:String=Auth.response_type) extends Bean {
+  var (scope,state)=("","")
   implicit val formats = net.liftweb.json.DefaultFormats
-  def flat:String={
-    var p=""
-    flatten(decompose(this)) foreach (e=>p+="&"+e._1+"="+e._2)
-    p
+  def authUrl:String={
+    var url=Auth.auth_url
+    val json=decompose(this)
+    for {JField(k,JString(v))<-json
+    } url+='&'+k+'='+v
+    url
   }
 }
-class Token(val client_id:String=Auth.api_key,val client_secret:String=Auth.secret,val redirect_uri:String=Auth.redirect_url,grant_type:String=Auth.grant_type)
-case class AccessToken(code:String=Auth.code) extends Token
-case class AccessTokenResult(access_token:String,expires_in:Long,refresh_token:String,douban_user_id:Long)
+class Token(val client_id:String=Auth.api_key,val client_secret:String=Auth.secret,val redirect_uri:String=Auth.redirect_url,grant_type:String=Auth.grant_type) extends Bean
+case class AccessToken(code:String=Auth.code) extends Token {
+
+}
+case class AccessTokenResult(access_token:String,expires_in:Long,refresh_token:String,douban_user_id:Long) extends Bean
 case class RefreshToken(refresh_token:String=Auth.refresh_token) extends Token(grant_type = Auth.refresh_token)

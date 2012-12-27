@@ -29,12 +29,11 @@
             <artifactId>lift-json_2.9.2</artifactId>
             <version>RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
+<!--        <dependency>
+            <groupId>net.liftweb</groupId>
+            <artifactId>lift-json-ext_2.9.2</artifactId>
             <version>RELEASE</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.scalatest</groupId>
             <artifactId>scalatest_2.9.2</artifactId>
@@ -59,7 +58,7 @@
                     <sourceDir>src/main/scala</sourceDir>
                     <jvmArgs>
                         <jvmArg>-Xms64m</jvmArg>
-                        <jvmArg>-Xmx1024m</jvmArg>
+                        <jvmArg>-Xmx256m</jvmArg>
                     </jvmArgs>
                 </configuration>
             </plugin>
