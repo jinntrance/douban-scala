@@ -26,7 +26,7 @@
     <orderEntry type="library" name="Maven: net.liftweb:lift-json_2.9.2:2.5-M3" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.9.2" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scalap:2.9.2" level="project" />
-    <orderEntry type="library" name="Maven: org.scala-lang:scala-compiler:2.9.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.scala-lang:scala-compiler:2.9.2" level="project" />
     <orderEntry type="library" name="Maven: com.thoughtworks.paranamer:paranamer:2.4.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.scalatest:scalatest_2.9.2:2.0.M6-SNAP3" level="project" />
   </component>

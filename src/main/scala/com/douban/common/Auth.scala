@@ -25,20 +25,25 @@ import com.douban.book.Bean
   val refresh_token="refresh_token"
 
 }
-case class AuthorizationCode(client_id:String=Auth.api_key,redirect_uri:String=Auth.redirect_url,response_type:String=Auth.response_type) extends Bean {
-  var (scope,state)=("","")
-  implicit val formats = net.liftweb.json.DefaultFormats
-  def authUrl:String={
-    var url=Auth.auth_url
+trait Flatten{
+  implicit val formats = DefaultFormats+NoTypeHints
+  def flatten(urlPrefix:String):String={
+    var url=urlPrefix+"?"
     val json=decompose(this)
     for {JField(k,JString(v))<-json
     } url+='&'+k+'='+v
     url
   }
 }
-class Token(val client_id:String=Auth.api_key,val client_secret:String=Auth.secret,val redirect_uri:String=Auth.redirect_url,grant_type:String=Auth.grant_type) extends Bean
-case class AccessToken(code:String=Auth.code) extends Token {
-
+case class AuthorizationCode(client_id:String=Auth.api_key,redirect_uri:String=Auth.redirect_url,response_type:String=Auth.response_type) extends Bean with Flatten{
+  var (scope,state)=("","")
+  def authUrl:String=flatten(Auth.auth_url)
 }
+case class Token( client_id:String=Auth.api_key, client_secret:String=Auth.secret, redirect_uri:String=Auth.redirect_url,grant_type:String=Auth.grant_type,code:String=Auth.code,refresh_token:String=Auth.refresh_token) extends Bean with Flatten{
+  def tokenUrl:String=flatten(Auth.token_url)
+}
+
+class AccessToken extends Token(grant_type=Auth.grant_type)
 case class AccessTokenResult(access_token:String,expires_in:Long,refresh_token:String,douban_user_id:Long) extends Bean
-case class RefreshToken(refresh_token:String=Auth.refresh_token) extends Token(grant_type = Auth.refresh_token)
+
+class RefreshToken extends Token(grant_type = Auth.refresh_token,refresh_token=Auth.refresh_token)    ;

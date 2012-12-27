@@ -25,39 +25,42 @@ class HttpManager(url: String) {
   var connection: HttpURLConnection = new URL(url).openConnection().asInstanceOf[HttpURLConnection]
   var method="GET"
 
-  def post[B <: Bean,R <:Bean](request:R):HttpManager = {
+  def post[REQUEST <:Bean](request:REQUEST):HttpManager = {
     method="POST"
-    this.connect[B,R](request)
+    this.connect(request)
   }
-  def get():HttpManager=get[Bean,Bean](new Bean)
-  def get[B <: Bean,R <:Bean](request:R):HttpManager={
+  def get():HttpManager=get[Bean](new Bean)
+  def get[REQUEST <:Bean](request:REQUEST):HttpManager={
    method="GET"
-    this.connect[B,R](request)
+   this.connect(request)
   }
-  def put[B <: Bean,R <:Bean](request:R):HttpManager={
+  def put[REQUEST <:Bean](request:REQUEST):HttpManager={
     method="PUT"
-    this.connect[B,R](request)
+    this.connect(request)
   }
   def delete(id:String):Boolean={
     method="DELETE"
-    val code =this.connect[Bean,Bean]().connection.getResponseCode
+    val code =this.connect().connection.getResponseCode
     code==HTTP_OK || code ==HTTP_NO_CONTENT
   }
-  def connect[B <: Bean,R <:Bean](request:R=null):HttpManager={
+  private def connect[REQUEST <:Bean](request:REQUEST=null):HttpManager={
     val c=connection
     c.setRequestMethod(method)
     c.setDoOutput(true)
     c.setDoInput(true)
-    c.setChunkedStreamingMode(0)
-    c.setUseCaches(true)
-    c.setConnectTimeout(5000)
+//    c.setChunkedStreamingMode(0)
+//    c.setUseCaches(true)
+    c.setConnectTimeout(8000)
     c.setReadTimeout(8000)
     c.setRequestProperty("Connection", "Keep-Alive")
     c.setRequestProperty("Content-Type", "application/json")
     c.setRequestProperty("Charset", "UTF-8")
+    val paras=Serialization.write(request)
+//    c.setFixedLengthStreamingMode(paras.size)
+//    c.setRequestProperty("Content-Length", "0")
     val out = new BufferedOutputStream(c.getOutputStream)
-    val paras=Serialization.write[R](request)
     out.write(paras.getBytes("UTF-8"))
+    println(c.getRequestMethod+"ing "+c.getURL)
     c.connect()
     this
   }
@@ -68,18 +71,22 @@ class HttpManager(url: String) {
    */
   def parseJSON[R:Manifest](): R = {
     implicit val formats = net.liftweb.json.DefaultFormats
-    connection.getResponseCode match {
-      case HTTP_OK => {
-        val reader = new BufferedReader(new InputStreamReader(connection.getInputStream))
-        val content = new StringBuilder
-        var line = ""
-        while ( (line = reader.readLine()) != null) {
-          content.append(line)
-        }
+    val reader = new BufferedReader(new InputStreamReader(connection.getInputStream))
+    val content = new StringBuilder
+    var line = ""
+    while ( (line = reader.readLine()) != null) {
+      content.append(line)
+    }
+    val code=connection.getResponseCode
+    connection.disconnect()
+     code match {
+      case c:Int if c>=HTTP_OK && c<= HTTP_PARTIAL  => {
         val v:JsonAST.JValue=JsonParser.parse(content.result())
         v.extract[R]
       }
-      case c:Int => throw new HTTPException(c)
+      case c:Int => {
+        println("http status code -->"+c)
+        throw new HTTPException(c)}
     }
   }
 }
