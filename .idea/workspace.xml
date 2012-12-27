@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="987bebbf-2573-49f0-890d-a0404c648191" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_liftweb_lift_json_2_9_2_2_5_M1.xml" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_liftweb_lift_json_2_9_2_2_5_M1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_liftweb_lift_json_2_9_2_2_5_M3.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_scala_lang_scala_compiler_2_9_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_scala_lang_scala_compiler_2_9_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/douban-scala.iml" afterPath="$PROJECT_DIR$/douban-scala.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="douban-scala.iws" />
@@ -14,7 +9,7 @@
     <file path="/pom.xml" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356589027416" ignored="false" />
     <file path="/DummyFile.xpath" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356549628145" ignored="false" />
     <file path="/HttpManager.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356551758996" ignored="false" />
-    <file path="/Dummy.txt" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356589127925" ignored="false" />
+    <file path="/Dummy.txt" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356589655204" ignored="false" />
     <file path="$PROJECT_DIR$/../weiciyuan/gen/org/qii/weiciyuan/BuildConfig.java" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356521242281" ignored="false" />
     <file path="/fragment.java" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356523738105" ignored="false" />
     <file path="/Error.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356523833501" ignored="false" />
@@ -26,6 +21,7 @@
     <file path="/Auth.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356550076536" ignored="false" />
     <file path="/HttpManagerTest.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356551861874" ignored="false" />
     <file path="/Reflect.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356542911975" ignored="false" />
+    <file path="$PROJECT_DIR$/../code-de-lab/Swing/gen/com/chance/platform/service/CCIService.java" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356589694433" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +39,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -78,6 +73,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -90,7 +86,7 @@
       <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="30" selection-start="517" selection-end="517" vertical-scroll-proportion="0.22916667">
+            <state line="18" column="49" selection-start="757" selection-end="757" vertical-scroll-proportion="0.375">
               <folding />
             </state>
           </provider>
@@ -169,10 +165,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="65" />
-    <option name="y" value="24" />
-    <option name="width" value="1375" />
-    <option name="height" value="876" />
+    <option name="x" value="64" />
+    <option name="y" value="-4" />
+    <option name="width" value="1377" />
+    <option name="height" value="905" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -247,20 +243,20 @@
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="options.lastSelected" value="org.jetbrains.plugins.scala.compiler.ScalacConfigurable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../code-de-lab/Swing" />
     <property name="project.structure.side.proportion" value="0.32983682" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -359,6 +355,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -384,19 +393,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -496,11 +492,19 @@
       <created>1356589053243</created>
       <updated>1356589053243</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add the compiler bundle">
+      <created>1356589478222</created>
+      <updated>1356589478223</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add the compiler bundle">
+      <created>1356589571935</created>
+      <updated>1356589571935</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="24" width="1375" height="876" extended-state="6" />
+    <frame x="64" y="-4" width="1377" height="905" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -512,7 +516,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22091782" sideWeight="0.21878335" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16779533" sideWeight="0.99862826" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17005268" sideWeight="0.99862826" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3295711" sideWeight="0.99862826" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32870865" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -589,27 +593,26 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/common/Auth.scala">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="56" selection-start="962" selection-end="962" vertical-scroll-proportion="0.0">
+        <state line="13" column="38" selection-start="575" selection-end="575" vertical-scroll-proportion="0.0">
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/common/Auth.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="56" selection-start="962" selection-end="962" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/common/HttpManager.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="50" selection-start="1316" selection-end="1316" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="45" column="50" selection-start="1316" selection-end="1316" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/com/douban/common/HttpManagerTest.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="56" selection-start="506" selection-end="506" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#27#56#0" expanded="false" />
-          </folding>
-        </state>
+        <state line="15" column="56" selection-start="506" selection-end="506" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
@@ -621,9 +624,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/common/ListParameter.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="44" selection-start="303" selection-end="303" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="9" column="44" selection-start="303" selection-end="303" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="jar:///usr/lib/jvm/java-7-oracle/src.zip!/java/lang/reflect/Method.java">
@@ -638,58 +639,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/common/Auth.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="56" selection-start="962" selection-end="962" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="28" column="56" selection-start="962" selection-end="962" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/common/HttpManager.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="50" selection-start="1316" selection-end="1316" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="45" column="50" selection-start="1316" selection-end="1316" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/common/ListParameter.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="44" selection-start="303" selection-end="303" vertical-scroll-proportion="0.18467852">
-          <folding />
-        </state>
+        <state line="9" column="44" selection-start="303" selection-end="303" vertical-scroll-proportion="0.18467852" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/com/douban/common/HttpManagerTest.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="6" selection-start="514" selection-end="514" vertical-scroll-proportion="0.3488372">
-          <folding>
-            <element signature="e#27#56#0" expanded="false" />
-          </folding>
-        </state>
+        <state line="17" column="6" selection-start="514" selection-end="514" vertical-scroll-proportion="0.3488372" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/douban-scala.iml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="29" selection-start="645" selection-end="645" vertical-scroll-proportion="0.22980501">
-          <folding />
-        </state>
+        <state line="11" column="29" selection-start="645" selection-end="645" vertical-scroll-proportion="0.22980501" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/douban-scala.iml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/douban-scala.iml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="30" selection-start="517" selection-end="517" vertical-scroll-proportion="0.22916667">
+        <state line="18" column="49" selection-start="757" selection-end="757" vertical-scroll-proportion="0.375">
           <folding />
         </state>
       </provider>
@@ -771,7 +756,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Maven: com.thoughtworks.paranamer:paranamer:2.4.1</last-edited>
+          <last-edited>Maven: org.scala-lang:scala-compiler:2.9.2</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
