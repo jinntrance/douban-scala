@@ -23,8 +23,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.9.2" level="project" />
     <orderEntry type="library" name="Maven: net.liftweb:lift-json_2.9.2:2.5-M3" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.9.2" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scalap:2.9.2" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-compiler:2.9.2" level="project" />
     <orderEntry type="library" name="Maven: com.thoughtworks.paranamer:paranamer:2.4.1" level="project" />
