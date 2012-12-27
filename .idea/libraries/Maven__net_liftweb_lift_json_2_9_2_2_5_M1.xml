@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: net.liftweb:lift-json_2.9.2:2.5-M1">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/liftweb/lift-json_2.9.2/2.5-M1/lift-json_2.9.2-2.5-M1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/net/liftweb/lift-json_2.9.2/2.5-M1/lift-json_2.9.2-2.5-M1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/liftweb/lift-json_2.9.2/2.5-M1/lift-json_2.9.2-2.5-M1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
