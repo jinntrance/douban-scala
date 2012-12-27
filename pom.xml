@@ -32,6 +32,7 @@
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-compiler</artifactId>
+            <scope>provided</scope>
             <version>2.9.2</version>
         </dependency>
         <dependency>
