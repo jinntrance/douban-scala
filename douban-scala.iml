@@ -24,9 +24,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.9.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.scala-lang:scala-compiler:2.9.2" level="project" />
-    <orderEntry type="library" name="Maven: net.liftweb:lift-json_2.9.2:2.5-M1" level="project" />
+    <orderEntry type="library" name="Maven: net.liftweb:lift-json_2.9.2:2.5-M3" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scalap:2.9.2" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang:scala-compiler:2.9.2" level="project" />
     <orderEntry type="library" name="Maven: com.thoughtworks.paranamer:paranamer:2.4.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.11" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />

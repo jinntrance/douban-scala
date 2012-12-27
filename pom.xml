@@ -30,21 +30,15 @@
             <version>2.9.2</version>
         </dependency>
         <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-compiler</artifactId>
-            <scope>provided</scope>
-            <version>2.9.2</version>
-        </dependency>
-        <dependency>
             <groupId>net.liftweb</groupId>
             <artifactId>lift-json_2.9.2</artifactId>
-            <version>2.5-M1</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
-            <version>4.11</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.scalatest</groupId>
