@@ -8,7 +8,6 @@ import net.liftweb.json.Extraction._
 import net.liftweb.json.JsonAST.JValue._
 import net.liftweb.json.Serialization.{read, write}
 import xml.Null
-import java.util.zip.GZIPInputStream
 import com.douban.book.Bean
 import javax.xml.ws.http.HTTPException
 
@@ -27,6 +26,14 @@ class HttpManager(url: String) {
 
   def post[REQUEST <:Bean](request:REQUEST):HttpManager = {
     method="POST"
+    connection.setDoOutput(true)
+    connection.setDoInput(true)
+    val paras=Serialization.write(request)
+    //    connection.setFixedLengthStreamingMode(paras.size)
+    //    connection.setRequestProperty("Content-Length", "0")
+    val out = new BufferedOutputStream(connection.getOutputStream)
+    out.write(paras.getBytes("UTF-8"))
+
     this.connect(request)
   }
   def get():HttpManager=get[Bean](new Bean)
@@ -46,20 +53,13 @@ class HttpManager(url: String) {
   private def connect[REQUEST <:Bean](request:REQUEST=null):HttpManager={
     val c=connection
     c.setRequestMethod(method)
-    c.setDoOutput(true)
-    c.setDoInput(true)
 //    c.setChunkedStreamingMode(0)
-//    c.setUseCaches(true)
+    c.setUseCaches(true)
     c.setConnectTimeout(8000)
     c.setReadTimeout(8000)
     c.setRequestProperty("Connection", "Keep-Alive")
     c.setRequestProperty("Content-Type", "application/json")
     c.setRequestProperty("Charset", "UTF-8")
-    val paras=Serialization.write(request)
-//    c.setFixedLengthStreamingMode(paras.size)
-//    c.setRequestProperty("Content-Length", "0")
-    val out = new BufferedOutputStream(c.getOutputStream)
-    out.write(paras.getBytes("UTF-8"))
     println(c.getRequestMethod+"ing "+c.getURL)
     c.connect()
     this
