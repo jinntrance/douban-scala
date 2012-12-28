@@ -27,7 +27,6 @@ class HttpManager(url: String) {
   def post[REQUEST <:Bean](request:REQUEST):HttpManager = {
     method="POST"
     connection.setDoOutput(true)
-    connection.setDoInput(true)
     val paras=Serialization.write(request)
     //    connection.setFixedLengthStreamingMode(paras.size)
     //    connection.setRequestProperty("Content-Length", "0")
