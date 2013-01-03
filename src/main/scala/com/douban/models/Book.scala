@@ -4,6 +4,7 @@ import net.liftweb.json.{FieldSerializer, DefaultFormats, Serialization, NoTypeH
 import net.liftweb.json.Extraction._
 import net.liftweb.json.JsonAST.{JString, JField}
 import com.douban.common.Flatten
+import com.douban.models.{Bean, API}
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -16,6 +17,9 @@ object Book extends API{
   def bookUrl=API.api_prefix+"book/"
   def bookSearchUrl=bookUrl+"search"
 }
+case class Tag(count:String,title:String)
+case class Rating(max:String,min:String,value:String)
+case class Collection(book:String,book_id:String,comment:String,id:String,rating:Rating,status:String,tags:List[String],updated:String,user_id:String)
 case class Book(id:String,isbn10:String,isbn13:String,title:String,origin_title:String,
            alt_title:String,subtitle:String,url:String) {
 

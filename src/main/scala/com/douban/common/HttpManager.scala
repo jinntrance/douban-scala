@@ -4,11 +4,7 @@ import java.net.{HttpURLConnection, URL}
 import java.net.HttpURLConnection._
 import java.io._
 import net.liftweb.json._
-import net.liftweb.json.Extraction._
-import net.liftweb.json.JsonAST.JValue._
 import net.liftweb.json.Serialization.{read, write}
-import xml.Null
-import java.util.zip.GZIPInputStream
 import com.douban.models.Bean
 import javax.xml.ws.http.HTTPException
 
