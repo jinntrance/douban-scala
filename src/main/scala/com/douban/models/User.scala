@@ -1,6 +1,6 @@
 package com.douban.models
 
-import com.douban.models.{Book, Bean}
+import com.douban.models.{API, Bean}
 import com.douban.common.Flatten
 
 /**

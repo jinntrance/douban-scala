@@ -1,6 +1,5 @@
 package com.douban.common
 
-import com.douban.models.{BookSearchResult, BookSearch, API, Bean}
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -22,11 +21,5 @@ class HttpManagerTest extends BaseTest{
     val http= (new HttpManager(url).post(new Token))
     prettyJSON(http.parseJSON[AccessTokenResult]())
   }*/
-  test("the book search url"){
-    val s=new BookSearch("Book","")
-
-    val http= new HttpManager(s.searchUrl).get()
-    prettyJSON(http.parseJSON[BookSearchResult]())
-  }
 
 }
