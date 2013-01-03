@@ -8,7 +8,8 @@ import net.liftweb.json.Extraction._
 import net.liftweb.json.JsonAST.JValue._
 import net.liftweb.json.Serialization.{read, write}
 import xml.Null
-import com.douban.book.Bean
+import java.util.zip.GZIPInputStream
+import com.douban.models.Bean
 import javax.xml.ws.http.HTTPException
 
 
@@ -27,13 +28,8 @@ class HttpManager(url: String) {
   def post[REQUEST <:Bean](request:REQUEST):HttpManager = {
     method="POST"
     connection.setDoOutput(true)
-    val paras=Serialization.write[REQUEST](request)
-    //    connection.setFixedLengthStreamingMode(paras.size)
-    //    connection.setRequestProperty("Content-Length", "0")
-    val out = new BufferedOutputStream(connection.getOutputStream)
-    out.write(paras.getBytes("UTF-8"))
 
-    this.connect(request)
+    this.connect[REQUEST](request)
   }
   def get():HttpManager=get[Bean](new Bean)
   def get[REQUEST <:Bean](request:REQUEST):HttpManager={
@@ -42,16 +38,16 @@ class HttpManager(url: String) {
   }
   def put[REQUEST <:Bean](request:REQUEST):HttpManager={
     method="PUT"
-    this.connect(request)
+    this.connect[REQUEST](request)
   }
   def delete(id:String):Boolean={
     method="DELETE"
-    val code =this.connect().connection.getResponseCode
+    val code =getCode
     code==HTTP_OK || code ==HTTP_NO_CONTENT
   }
   private def connect[REQUEST <:Bean](request:REQUEST=null):HttpManager={
     val c=connection
-    c.setRequestMethod(method)
+    if(c.getRequestMethod != method ) c.setRequestMethod(method)
 //    c.setChunkedStreamingMode(0)
     c.setUseCaches(true)
     c.setConnectTimeout(8000)
@@ -60,6 +56,13 @@ class HttpManager(url: String) {
     c.setRequestProperty("Content-Type", "application/json")
     c.setRequestProperty("Charset", "UTF-8")
     println(c.getRequestMethod+"ing "+c.getURL)
+
+    if (c.getRequestMethod=="POST"||c.getRequestMethod=="PUT"){
+//      val paras=Serialization.write[REQUEST](request)
+      val paras=request.toParas
+      val out = new BufferedOutputStream(connection.getOutputStream)
+      out.write(paras.getBytes("UTF-8"))
+    }
     c.connect()
     this
   }
@@ -72,13 +75,12 @@ class HttpManager(url: String) {
     implicit val formats = net.liftweb.json.DefaultFormats
     val reader = new BufferedReader(new InputStreamReader(connection.getInputStream))
     val content = new StringBuilder
-    var line = ""
-    while ( (line = reader.readLine()) != null) {
+    var line = reader.readLine()
+    while (line!= null) {
       content.append(line)
+      line = reader.readLine()
     }
-    val code=connection.getResponseCode
-    connection.disconnect()
-     code match {
+    getCode match {
       case c:Int if c>=HTTP_OK && c<= HTTP_PARTIAL  => {
         val v:JsonAST.JValue=JsonParser.parse(content.result())
         v.extract[R]
@@ -87,5 +89,10 @@ class HttpManager(url: String) {
         println("http status code -->"+c)
         throw new HTTPException(c)}
     }
+  }
+  def getCode:Int={
+    val code=connection.getResponseCode
+    connection.disconnect()
+    code
   }
 }

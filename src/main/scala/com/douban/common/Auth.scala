@@ -2,7 +2,7 @@ package com.douban.common
 
 import net.liftweb.json._
 import Extraction._
-import com.douban.book.Bean
+import com.douban.models.Bean
 
 
 /**
@@ -27,13 +27,17 @@ import com.douban.book.Bean
 }
 trait Flatten{
   implicit val formats = DefaultFormats+NoTypeHints
-  def flatten(urlPrefix:String):String={
-    var url=urlPrefix+"?"
+  def flatten(urlPrefix:String,bean:Flatten=this):String={
+    urlPrefix+"?"+toParas
+  }
+  def toParas:String={
+    var para=""
     val json=decompose(this)
     for {JField(k,JString(v))<-json
-    } url+='&'+k+'='+v
-    url
+    } para+='&'+k+'='+v
+    para
   }
+
 }
 case class AuthorizationCode(client_id:String=Auth.api_key,redirect_uri:String=Auth.redirect_url,response_type:String=Auth.response_type) extends Bean with Flatten{
   var (scope,state)=("","")
@@ -43,7 +47,8 @@ case class Token( client_id:String=Auth.api_key, client_secret:String=Auth.secre
   def tokenUrl:String=flatten(Auth.token_url)
 }
 
+object AccessToken extends Token(grant_type=Auth.grant_type)
 class AccessToken extends Token(grant_type=Auth.grant_type)
 case class AccessTokenResult(access_token:String,expires_in:Long,refresh_token:String,douban_user_id:Long) extends Bean
 
-class RefreshToken extends Token(grant_type = Auth.refresh_token,refresh_token=Auth.refresh_token)    ;
+object RefreshToken extends Token(grant_type = Auth.refresh_token,refresh_token=Auth.refresh_token);

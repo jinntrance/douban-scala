@@ -1,6 +1,6 @@
 package com.douban.common
 
-import com.douban.book.Bean
+import com.douban.models.{BookSearchResult, BookSearch, API, Bean}
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -10,16 +10,23 @@ import com.douban.book.Bean
  * @version 1.0
  */
 class HttpManagerTest extends BaseTest{
-  test("the token url"){
+  test("the auth url"){
+    val url=AuthorizationCode().authUrl
+    val con= (new HttpManager(url).get()).connection
+    println(con.getURL)
+  }
+ /* test("the token url"){
     val token:Token=new Token()
     val url=token.tokenUrl
     println("token url is -->"+url)
-    val http= (new HttpManager(url).post(new AccessToken))
+    val http= (new HttpManager(url).post(new Token))
     prettyJSON(http.parseJSON[AccessTokenResult]())
+  }*/
+  test("the book search url"){
+    val s=new BookSearch("Book","")
+
+    val http= new HttpManager(s.searchUrl).get()
+    prettyJSON(http.parseJSON[BookSearchResult]())
   }
-  test("the auth url"){
-       val url=AuthorizationCode().authUrl
-       val con= (new HttpManager(url).get()).connection
-        println(con.getURL)
- }
+
 }

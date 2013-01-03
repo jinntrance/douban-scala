@@ -1,7 +1,7 @@
 package com.douban.common
 
-import com.douban.user.API
-import com.douban.user.API.{SearchResult, Search}
+import com.douban.models.UerSearch
+import javax.naming.directory.SearchResult
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -12,7 +12,7 @@ import com.douban.user.API.{SearchResult, Search}
  */
 class UserTest extends BaseTest{
      test("test the user"){
-       val r=new HttpManager(new Search("阿",0,10).searchUrl).get().parseJSON[SearchResult]()
+       val r=new HttpManager(new UerSearch("阿",0,10).searchUrl).get().parseJSON[SearchResult]()
        prettyJSON(r)
      }
 }
