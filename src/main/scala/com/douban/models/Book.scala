@@ -17,15 +17,25 @@ object Book extends API{
   def bookUrl=API.api_prefix+"book/"
   def bookSearchUrl=bookUrl+"search"
 }
-case class Tag(count:String,title:String)
-case class Rating(max:String,min:String,value:String)
-case class Collection(book:String,book_id:String,comment:String,id:String,rating:Rating,status:String,tags:List[String],updated:String,user_id:String)
+case class Tag(count:Int,title:String)
+case class BookTag(count:Int,name:String)
+case class Image(small:String,large:String,medium:String)
+case class Photo()
+case class Rating(max:Int,min:Int,value:Int)
+case class BookRating(max:Int,min:Int,average:String,numRaters:Int)
 case class Book(id:String,isbn10:String,isbn13:String,title:String,origin_title:String,
-           alt_title:String,subtitle:String,url:String) {
-
-}
+           alt_title:String,subtitle:String,url:String,alt:String,image:String,images:List[Image],
+           author:List[String],translator:List[String],publisher:String,pubdate:String,
+           rating:BookRating,tags:List[BookTag],binding:String,price:String,pages:String,
+           author_intro:String,summary:String
+                 )
+case class Review(id:Long,title:String,alt:String,author:User,book:Book,rating:Rating,
+                   votes:Int,useless:Int,comments:Int,summary:String,published:String,updated:String)
+case class Annotation(id:String,book_id:String,book:Book,author_id:String,author_user:User,chapter:String,page_no:Int,privacy:Int,
+                      content:String,`abstract`:String,abstract_photo:String,photos:List[Photo],last_photo:Int,comments_count:Int,hasmath:Boolean,time:String)
 case class BookSearchResult(start:Int,count:Int,total:Int,books:List[Book])
-
 case class BookSearch(q:String,tag:String,start:Int=0,count:Int=20) extends Bean{
   def searchUrl=flatten(Book.bookSearchUrl)
 }
+case class Collection(book:String,book_id:String,comment:String,id:Long,rating:Rating,status:String,tags:List[String],updated:String,user_id:String)
+
