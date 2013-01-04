@@ -3,6 +3,7 @@ package com.douban.common
 import net.liftweb.json._
 import Extraction._
 import com.douban.models.Bean
+import java.net.URLEncoder
 
 
 /**
@@ -16,13 +17,16 @@ import com.douban.models.Bean
  object Auth {
   val api_key="0f86acdf44c03ade2e94069dce40b09a"
   val secret="95125490b60b01ee"
-  val code="41c5a7272efe6e2f"
+  val code="9b8af002a2836009"
   val auth_url="https://www.douban.com/service/auth2/auth?"
   val token_url="https://www.douban.com/service/auth2/token?"
   val redirect_url="http://crazyadam.net/"
   val response_type="code"
   val grant_type="authorization_code"
-  val refresh_token="refresh_token"
+  val refresh_token_string="refresh_token"
+  val access_token="c6d6b509ad9b5fc254841f1d08d21f46"
+  val refresh_token="31ec3b9a9f76620d95c4b2cfde632627"
+  val douban_user_id="38702920"
 
 }
 trait Flatten{
@@ -34,7 +38,7 @@ trait Flatten{
     var para=""
     val json=decompose(this)
     for {JField(k,JString(v))<-json
-    } para+='&'+k+'='+v
+    } para+='&'+k+'='+URLEncoder.encode(v,"UTF-8")
     para
   }
 
@@ -43,12 +47,12 @@ case class AuthorizationCode(client_id:String=Auth.api_key,redirect_uri:String=A
   var (scope,state)=("","")
   def authUrl:String=flatten(Auth.auth_url)
 }
-case class Token( client_id:String=Auth.api_key, client_secret:String=Auth.secret, redirect_uri:String=Auth.redirect_url,grant_type:String=Auth.grant_type,code:String=Auth.code,refresh_token:String=Auth.refresh_token) extends Bean with Flatten{
+case class Token( client_id:String=Auth.api_key, client_secret:String=Auth.secret, redirect_uri:String=Auth.redirect_url,grant_type:String=Auth.grant_type,code:String=Auth.code,refresh_token:String=Auth.refresh_token_string) extends Bean with Flatten{
   def tokenUrl:String=flatten(Auth.token_url)
 }
 
 object AccessToken extends Token(grant_type=Auth.grant_type)
 class AccessToken extends Token(grant_type=Auth.grant_type)
-case class AccessTokenResult(access_token:String,expires_in:Long,refresh_token:String,douban_user_id:Long) extends Bean
+case class AccessTokenResult(access_token:String,expires_in:Long,refresh_token:String,douban_user_id:String) extends Bean
 
-object RefreshToken extends Token(grant_type = Auth.refresh_token,refresh_token=Auth.refresh_token);
+object RefreshToken extends Token(grant_type = Auth.refresh_token_string,refresh_token=Auth.refresh_token_string);

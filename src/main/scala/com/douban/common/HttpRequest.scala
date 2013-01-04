@@ -50,7 +50,7 @@ class HttpRequest(url: String) {
     c.setConnectTimeout(8000)
     c.setReadTimeout(8000)
     c.setRequestProperty("Connection", "Keep-Alive")
-    c.setRequestProperty("Content-Type", "application/json")
+//    c.setRequestProperty("Content-Type", "application/json")
     c.setRequestProperty("Charset", "UTF-8")
     println(c.getRequestMethod+"ing "+c.getURL)
 
@@ -59,6 +59,8 @@ class HttpRequest(url: String) {
       val paras=request.toParas
       val out = new BufferedOutputStream(connection.getOutputStream)
       out.write(paras.getBytes("UTF-8"))
+      out.flush()
+      out.close()
     }
     c.connect()
     this
