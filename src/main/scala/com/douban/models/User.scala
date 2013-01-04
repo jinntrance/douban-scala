@@ -1,7 +1,6 @@
 package com.douban.models
 
 import com.douban.common.Flatten
-import com.douban.models.{Bean, API}
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -18,6 +17,6 @@ case class User(id:Long,name:String,uid:String,alt:String,avatar:String) extends
 
 }
 object User extends API{
-  def userUrl=API.api_prefix+"user/"
+  def userUrl=api_prefix+"user/"
   def userSearchUrl=userUrl
 }

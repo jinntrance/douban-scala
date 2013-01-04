@@ -12,8 +12,12 @@ import com.douban.common.Flatten
 class Bean extends Flatten{
 }
 class API{
-
+  var secured=false
+  def api_prefix:String= synchronized(API.api_prefix(secured))
 }
 object API{
-  implicit val api_prefix="http://api.douban.com/v2/"
+  def api_prefix(secured:Boolean):String={
+    if (!secured) "http" else "https"
+  }+"://api.douban.com/v2/"
+
 }

@@ -34,7 +34,7 @@ import java.net.URLEncoder
   }
 }
 trait Flatten{
-  implicit val formats = DefaultFormats+NoTypeHints
+  implicit val formats = DefaultFormats+ NoTypeHints
   def flatten(urlPrefix:String,bean:Flatten=this):String={
     urlPrefix+"?"+toParas
   }
@@ -47,7 +47,7 @@ trait Flatten{
   }
 
 }
-case class AuthorizationCode(client_id:String=Auth.api_key,redirect_uri:String=Auth.redirect_url,response_type:String=Auth.response_type) extends Bean with Flatten{
+case class AuthorizationCode(client_id:String=Auth.api_key,redirect_uri:String=Auth.redirect_url,response_type:String=Auth.response_type) extends Bean{
   var (scope,state)=("","")
   def authUrl:String=flatten(Auth.auth_url)
 }
