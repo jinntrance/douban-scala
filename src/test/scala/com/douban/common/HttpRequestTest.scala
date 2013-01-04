@@ -1,5 +1,8 @@
 package com.douban.common
 
+import java.awt.Desktop
+import java.net.{URI, URL}
+
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -12,7 +15,9 @@ class HttpRequestTest extends BaseTest{
   test("the auth url"){
     val url=AuthorizationCode().authUrl
     val con= (new HttpRequest(url).get()).connection
-    println(con.getURL)
+    Desktop.getDesktop.browse(con.getURL.toURI)
+    val codeUrl=readLine("please copy the url here after authorization>\n")
+    Auth.code=Auth.extractCode(codeUrl)
   }
   test("the token url"){
     val token:Token=new Token()
