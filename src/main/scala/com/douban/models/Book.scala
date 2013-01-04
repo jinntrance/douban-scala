@@ -20,7 +20,7 @@ object Book extends API{
 case class Tag(count:String,title:String)
 case class Rating(max:String,min:String,value:String)
 case class Collection(book:String,book_id:String,comment:String,id:String,rating:Rating,status:String,tags:List[String],updated:String,user_id:String)
-case class Book(id:String,isbn10:String,isbn13:String,title:String,origin_title:String,
+case class Book(id:Int,isbn10:String,isbn13:String,title:String,origin_title:String,
            alt_title:String,subtitle:String,url:String) {
 
 }
