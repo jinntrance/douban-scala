@@ -7,6 +7,4 @@ package com.douban.error
  * @since 12/26/12 8:10 PM
  * @version 1.0
  */
-class Error(msg:String,code:String,request:String) {
-
-}
+case class Error(msg:String,code:String,request:String)

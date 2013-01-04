@@ -7,6 +7,7 @@ import net.liftweb.json._
 import net.liftweb.json.Serialization.{read, write}
 import com.douban.models.Bean
 import javax.xml.ws.http.HTTPException
+import net.liftweb.json.Extraction._
 
 
 /**
@@ -16,23 +17,23 @@ import javax.xml.ws.http.HTTPException
  * @since 12/21/12 8:38 PM
  * @version 1.0
  */
-class HttpManager(url: String) {
+class HttpRequest(url: String) {
   implicit val formats = Serialization.formats(NoTypeHints)
   var connection: HttpURLConnection = new URL(url).openConnection().asInstanceOf[HttpURLConnection]
   var method="GET"
 
-  def post[REQUEST <:Bean](request:REQUEST):HttpManager = {
+  def post[REQUEST <:Bean](request:REQUEST):HttpRequest = {
     method="POST"
     connection.setDoOutput(true)
 
     this.connect[REQUEST](request)
   }
-  def get():HttpManager=get[Bean](new Bean)
-  def get[REQUEST <:Bean](request:REQUEST):HttpManager={
+  def get():HttpRequest=get[Bean](new Bean)
+  def get[REQUEST <:Bean](request:REQUEST):HttpRequest={
    method="GET"
    this.connect(request)
   }
-  def put[REQUEST <:Bean](request:REQUEST):HttpManager={
+  def put[REQUEST <:Bean](request:REQUEST):HttpRequest={
     method="PUT"
     this.connect[REQUEST](request)
   }
@@ -41,7 +42,7 @@ class HttpManager(url: String) {
     val code =getCode
     code==HTTP_OK || code ==HTTP_NO_CONTENT
   }
-  private def connect[REQUEST <:Bean](request:REQUEST=null):HttpManager={
+  private def connect[REQUEST <:Bean](request:REQUEST=null):HttpRequest={
     val c=connection
     if(c.getRequestMethod != method ) c.setRequestMethod(method)
 //    c.setChunkedStreamingMode(0)
@@ -69,26 +70,32 @@ class HttpManager(url: String) {
    */
   def parseJSON[R:Manifest](): R = {
     implicit val formats = net.liftweb.json.DefaultFormats
-    val reader = new BufferedReader(new InputStreamReader(connection.getInputStream))
-    val content = new StringBuilder
-    var line = reader.readLine()
-    while (line!= null) {
-      content.append(line)
-      line = reader.readLine()
-    }
+
     getCode match {
       case c:Int if c>=HTTP_OK && c<= HTTP_PARTIAL  => {
-        val v:JsonAST.JValue=JsonParser.parse(content.result())
+        val v:JsonAST.JValue=JsonParser.parse(getResponse(connection.getInputStream))
+        connection.disconnect()
         v.extract[R]
       }
       case c:Int => {
-        println("http status code -->"+c)
+        val v:JsonAST.JValue=JsonParser.parse(getResponse(connection.getErrorStream))
+        connection.disconnect()
+        println(pretty(render(decompose(v.extract[com.douban.error.Error]))))
         throw new HTTPException(c)}
     }
   }
   def getCode:Int={
     val code=connection.getResponseCode
-    connection.disconnect()
     code
+  }
+  def getResponse(inputStream:InputStream):String ={
+    val reader = new BufferedReader(new InputStreamReader(inputStream))
+    val content = new StringBuilder
+    var line = reader.readLine()
+    while (line != null) {
+      content.append(line)
+      line = reader.readLine()
+    }
+    content.result()
   }
 }

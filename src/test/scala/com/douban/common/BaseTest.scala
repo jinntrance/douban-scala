@@ -13,7 +13,7 @@ import net.liftweb.json.FieldSerializer
  * @version 1.0
  */
 trait BaseTest extends FunSuite{
-  implicit val formats=net.liftweb.json.DefaultFormats;
+  implicit val formats=net.liftweb.json.DefaultFormats
    def prettyJSON(p:Any){
      println(pretty(render(decompose(p))))
    }
