@@ -1,6 +1,6 @@
 package com.douban.models
 
-import com.douban.common.Flatten
+import com.douban.common.{Req, Flatten}
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -14,6 +14,14 @@ class Bean extends Flatten{
 class API{
   var secured=false
   def api_prefix:String= synchronized(API.api_prefix(secured))
+  def get[T:Manifest](url:String):T={
+    val http= new Req(url).get()
+    http.parseJSON[T]()
+  }
+  def post[T:Manifest](url:String,paras:Bean):T={
+    val http= new Req(url).post(paras)
+    http.parseJSON[T]()
+  }
 }
 object API{
   def api_prefix(secured:Boolean):String={

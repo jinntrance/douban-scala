@@ -12,7 +12,7 @@ class BookTest extends BaseTest{
   test("the book search url"){
     val s=new BookSearch("Book","")
 
-    val http= new HttpRequest(s.searchUrl).get()
+    val http= new Req(s.searchUrl).get()
     prettyJSON(http.parseJSON[BookSearchResult]())
   }
 }

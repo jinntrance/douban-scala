@@ -12,7 +12,7 @@ import javax.naming.directory.SearchResult
  */
 class UserTest extends BaseTest{
      test("test the user"){
-       val r=new HttpRequest(new UerSearch("阿",0,10).searchUrl).get().parseJSON[SearchResult]()
+       val r=new Req(new UerSearch("阿",0,10).searchUrl).get().parseJSON[SearchResult]()
        prettyJSON(r)
      }
 }

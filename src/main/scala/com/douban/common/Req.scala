@@ -17,32 +17,38 @@ import net.liftweb.json.Extraction._
  * @since 12/21/12 8:38 PM
  * @version 1.0
  */
-class HttpRequest(url: String) {
+class Req(url: String) {
   implicit val formats = Serialization.formats(NoTypeHints)
   var connection: HttpURLConnection = new URL(url).openConnection().asInstanceOf[HttpURLConnection]
   var method="GET"
 
-  def post[REQUEST <:Bean](request:REQUEST):HttpRequest = {
+  def post[REQUEST <:Bean](request:REQUEST):Req = {
     method="POST"
     connection.setDoOutput(true)
-
+    connection.setDoInput(false)
     this.connect[REQUEST](request)
+    this
   }
-  def get():HttpRequest=get[Bean](new Bean)
-  def get[REQUEST <:Bean](request:REQUEST):HttpRequest={
+  def get():Req=get[Bean](new Bean)
+  def get[REQUEST <:Bean](request:REQUEST):Req={
    method="GET"
    this.connect(request)
+   this
   }
-  def put[REQUEST <:Bean](request:REQUEST):HttpRequest={
+  def put[REQUEST <:Bean](request:REQUEST):Req={
     method="PUT"
+    connection.setDoOutput(true)
+    connection.setDoInput(false)
     this.connect[REQUEST](request)
+    this
   }
   def delete(id:String):Boolean={
     method="DELETE"
+    connection.setDoInput(false)
     val code =getCode
     code==HTTP_OK || code ==HTTP_NO_CONTENT
   }
-  private def connect[REQUEST <:Bean](request:REQUEST=null):HttpRequest={
+  private def connect[REQUEST <:Bean](request:REQUEST=null):Int={
     val c=connection
     if(c.getRequestMethod != method ) c.setRequestMethod(method)
 //    c.setChunkedStreamingMode(0)
@@ -63,7 +69,7 @@ class HttpRequest(url: String) {
       out.close()
     }
     c.connect()
-    this
+    getCode
   }
   /**
    *

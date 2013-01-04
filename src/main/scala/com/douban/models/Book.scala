@@ -3,7 +3,7 @@ package com.douban.models
 import net.liftweb.json.{FieldSerializer, DefaultFormats, Serialization, NoTypeHints}
 import net.liftweb.json.Extraction._
 import net.liftweb.json.JsonAST.{JString, JField}
-import com.douban.common.{HttpRequest, Flatten}
+import com.douban.common.{Req, Flatten}
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -13,14 +13,23 @@ import com.douban.common.{HttpRequest, Flatten}
  * @version 1.0
  */
 object Book extends API{
-  def bookUrl=api_prefix+"book/"
+  private def bookUrl=api_prefix+"book/"
   def bookSearchUrl=bookUrl+"search"
-  def search(query:String,tag:String,page:Int=0,count:Int=20):BookSearchResult={
-    val http= new HttpRequest(BookSearch(query,tag,page*count).searchUrl).get()
-    http.parseJSON[BookSearchResult]()
-  }
+  private def bookByIdUrl=bookUrl+":%s"
+  private def bookByISBNUrl=bookUrl+"isbn/:%s"
+  private def bookPopTagsUrl=bookUrl+":%s/tags"
+  def search(query:String,tag:String,page:Int=0,count:Int=20)= get[BookSearchResult](BookSearch(query,tag,page*count).searchUrl)
+  def byId(id:String)=get[Book](bookByIdUrl.format(id))
+  def byName(name:String)=get[Book](bookByISBNUrl.format(name))
+  def popTags(id:String)=get[PopTag](bookPopTagsUrl.format(id))
 }
+
+case class BookSearch(q:String,tag:String,start:Int=0,count:Int=20) extends Bean{
+  def searchUrl=flatten(Book.bookSearchUrl)
+}
+
 case class Tag(count:Int,title:String)
+case class PopTag(start:Int,count:Int,total:Int,tags:List[Tag])
 case class BookTag(count:Int,name:String)
 case class Image(small:String,large:String,medium:String)
 case class Photo()
@@ -37,8 +46,5 @@ case class Review(id:Long,title:String,alt:String,author:User,book:Book,rating:R
 case class Annotation(id:String,book_id:String,book:Book,author_id:String,author_user:User,chapter:String,page_no:Int,privacy:Int,
                       content:String,`abstract`:String,abstract_photo:String,photos:List[Photo],last_photo:Int,comments_count:Int,hasmath:Boolean,time:String)
 case class BookSearchResult(start:Int,count:Int,total:Int,books:List[Book])
-case class BookSearch(q:String,tag:String,start:Int=0,count:Int=20) extends Bean{
-  def searchUrl=flatten(Book.bookSearchUrl)
-}
 case class Collection(book:String,book_id:String,comment:String,id:Long,rating:Rating,status:String,tags:List[String],updated:String,user_id:String)
 
