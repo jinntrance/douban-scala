@@ -24,19 +24,30 @@
         </pluginRepository>
     </pluginRepositories>
     <dependencies>
-        <dependency>
+<!--        <dependency>
             <groupId>net.liftweb</groupId>
             <artifactId>lift-json_2.9.2</artifactId>
             <version>RELEASE</version>
+        </dependency>-->
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-compiler</artifactId>
+            <scope>provided</scope>
+            <version>RELEASE</version>
         </dependency>
 <!--        <dependency>
-            <groupId>net.liftweb</groupId>
-            <artifactId>lift-json-ext_2.9.2</artifactId>
+            <groupId>com.fasterxml</groupId>
+            <artifactId>jackson-module-scala</artifactId>
             <version>RELEASE</version>
         </dependency>-->
         <dependency>
             <groupId>org.scalatest</groupId>
-            <artifactId>scalatest_2.9.2</artifactId>
+            <artifactId>scalatest_2.10</artifactId>
             <scope>test</scope>
             <version>RELEASE</version>
         </dependency>
