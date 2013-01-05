@@ -25,26 +25,25 @@ class Req(url: String) {
   def post[REQUEST <:Bean](request:REQUEST):Req = {
     method="POST"
     connection.setDoOutput(true)
-    connection.setDoInput(false)
+    connection.setRequestProperty("Range","bytes=0-0")
     this.connect[REQUEST](request)
     this
   }
   def get():Req=get[Bean](new Bean)
   def get[REQUEST <:Bean](request:REQUEST):Req={
    method="GET"
+   connection.setRequestProperty("Range","bytes=0-0")
    this.connect(request)
    this
   }
   def put[REQUEST <:Bean](request:REQUEST):Req={
     method="PUT"
     connection.setDoOutput(true)
-    connection.setDoInput(false)
     this.connect[REQUEST](request)
     this
   }
   def delete(id:String):Boolean={
     method="DELETE"
-    connection.setDoInput(false)
     val code =getCode
     code==HTTP_OK || code ==HTTP_NO_CONTENT
   }
@@ -92,10 +91,8 @@ class Req(url: String) {
         throw new HTTPException(c)}
     }
   }
-  def getCode:Int={
-    val code=connection.getResponseCode
-    code
-  }
+  def getCode=connection.getResponseCode
+
   def getResponse(inputStream:InputStream):String ={
     val reader = new BufferedReader(new InputStreamReader(inputStream))
     val content = new StringBuilder

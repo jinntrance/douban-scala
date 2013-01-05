@@ -17,15 +17,15 @@ import java.net.URLEncoder
  object Auth {
   val api_key="0f86acdf44c03ade2e94069dce40b09a"
   val secret="95125490b60b01ee"
-  var code=""
+  var code="e2b39a067b5999e8"
   val auth_url="https://www.douban.com/service/auth2/auth"
   val token_url="https://www.douban.com/service/auth2/token"
   val redirect_url="http://crazyadam.net/"
   val response_type="code"
   val grant_type="authorization_code"
   val refresh_token_string="refresh_token"
-  var access_token="c6d6b509ad9b5fc254841f1d08d21f46"
-  var refresh_token="31ec3b9a9f76620d95c4b2cfde632627"
+  var access_token="ffefa697cfce085affcef3c76f6a190e"
+  var refresh_token="99294f78905ada31cb7bee69b1108e93"
   var douban_user_id="38702920"
   def extractCode(url:String):String={
     val code="code="
