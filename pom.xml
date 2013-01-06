@@ -6,7 +6,7 @@
 
     <groupId>douban-scala</groupId>
     <artifactId>scala-api</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-SNAP</version>
     <url>https://code.google.com/p/douban-scala/</url>
     <packaging>jar</packaging>
     <repositories>

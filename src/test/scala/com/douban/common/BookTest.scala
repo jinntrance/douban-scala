@@ -11,8 +11,6 @@ import com.douban.models._
 class BookTest extends BaseTest{
   test("the book search url"){
     val s=new BookSearch("Book","")
-
-    val http= new Req(s.searchUrl).get()
-    prettyJSON(http.parseJSON[BookSearchResult]())
+    prettyJSON(Req.get[BookSearchResult](s.searchUrl))
   }
 }

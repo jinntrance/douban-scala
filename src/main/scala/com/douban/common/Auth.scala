@@ -39,7 +39,7 @@ trait Flatten{
     urlPrefix+"?"+toParas
   }
   def toParas:String={
-    var para=""
+    var para="apikey="+Auth.api_key
     val json=decompose(this)
     for {JField(k,JString(v))<-json
     } para+='&'+k+'='+URLEncoder.encode(v,"UTF-8")

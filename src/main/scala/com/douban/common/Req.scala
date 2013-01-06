@@ -17,86 +17,90 @@ import net.liftweb.json.Extraction._
  * @since 12/21/12 8:38 PM
  * @version 1.0
  */
-class Req(url: String) {
-  implicit val formats = Serialization.formats(NoTypeHints)
-  var connection: HttpURLConnection = new URL(url).openConnection().asInstanceOf[HttpURLConnection]
-  var method="GET"
+class Req
 
-  def post[REQUEST <:Bean](request:REQUEST):Req = {
-    method="POST"
-    connection.setDoOutput(true)
-    connection.setDoInput(false)
-    this.connect[REQUEST](request)
-    this
+object Req {
+  implicit val formats = Serialization.formats(NoTypeHints)
+
+  def post[RESULT: Manifest](url: String, request: Bean): RESULT = {
+    val c: HttpURLConnection = postData(url, request)
+    val r = parseJSON[RESULT](c)
+    c.disconnect()
+    r.get
   }
-  def get():Req=get[Bean](new Bean)
-  def get[REQUEST <:Bean](request:REQUEST):Req={
-   method="GET"
-   this.connect(request)
-   this
+
+  def post(url: String, request: Bean): Boolean = {
+    val c = postData(url, request)
+    val code = c.getResponseCode
+    c.disconnect()
+    succeed(code)
   }
-  def put[REQUEST <:Bean](request:REQUEST):Req={
-    method="PUT"
-    connection.setDoOutput(true)
-    connection.setDoInput(false)
-    this.connect[REQUEST](request)
-    this
+
+  def get[RESULT: Manifest](url: String): RESULT = {
+    val c = getData(url)
+    val r = parseJSON[RESULT](c)
+    c.disconnect()
+    r.get
   }
-  def delete(id:String):Boolean={
-    method="DELETE"
-    connection.setDoInput(false)
-    val code =getCode
-    code==HTTP_OK || code ==HTTP_NO_CONTENT
+
+  def put[RESULT: Manifest](url: String, request: Bean): RESULT = {
+    val c: HttpURLConnection = putData(url, request)
+    val r = parseJSON[RESULT](c)
+    c.disconnect()
+    r.get
   }
-  private def connect[REQUEST <:Bean](request:REQUEST=null):Int={
-    val c=connection
-    if(c.getRequestMethod != method ) c.setRequestMethod(method)
-//    c.setChunkedStreamingMode(0)
+
+  def put(url: String, request: Bean): Boolean = {
+    val c = putData(url, request)
+    val code = c.getResponseCode
+    c.disconnect()
+    succeed(code)
+  }
+
+  def delete(url: String): Boolean = {
+    val c = deleteData(url)
+    val code = c.getResponseCode
+    c.disconnect()
+    succeed(code)
+  }
+
+  private def connect(c: HttpURLConnection, request: Bean) {
+
     c.setUseCaches(true)
     c.setConnectTimeout(8000)
     c.setReadTimeout(8000)
     c.setRequestProperty("Connection", "Keep-Alive")
-//    c.setRequestProperty("Content-Type", "application/json")
+    c.setRequestProperty("Authorization", "Bearer " + Auth.access_token)
+    //    c.setRequestProperty("Content-Type", "application/json")
     c.setRequestProperty("Charset", "UTF-8")
-    println(c.getRequestMethod+"ing "+c.getURL)
-
-    if (c.getRequestMethod=="POST"||c.getRequestMethod=="PUT"){
-//      val paras=Serialization.write[REQUEST](request)
-      val paras=request.toParas
-      val out = new BufferedOutputStream(connection.getOutputStream)
+    println(c.getRequestMethod + "ing " + c.getURL)
+    if ((c.getRequestMethod == "POST" || c.getRequestMethod == "PUT") && null != request) {
+      val paras = request.toParas
+      //      val paras=Serialization.write[REQUEST](request)
+      val out = new BufferedOutputStream(c.getOutputStream)
       out.write(paras.getBytes("UTF-8"))
       out.flush()
       out.close()
     }
     c.connect()
-    getCode
   }
+
   /**
    *
    * @tparam R 返回值类型
    * @return
    */
-  def parseJSON[R:Manifest](): R = {
+  def parseJSON[R: Manifest](c: HttpURLConnection): Option[R] = {
     implicit val formats = net.liftweb.json.DefaultFormats
+    val v: JsonAST.JValue = JsonParser.parse(getResponse(
+      if(succeed(c.getResponseCode)) c.getInputStream  else c.getErrorStream
+    ))
+    c.disconnect()
+    println(pretty(render(v)))
+    if(succeed(c.getResponseCode)) Option(v.extract[R])  else None
+  }
 
-    getCode match {
-      case c:Int if c>=HTTP_OK && c<= HTTP_PARTIAL  => {
-        val v:JsonAST.JValue=JsonParser.parse(getResponse(connection.getInputStream))
-        connection.disconnect()
-        v.extract[R]
-      }
-      case c:Int => {
-        val v:JsonAST.JValue=JsonParser.parse(getResponse(connection.getErrorStream))
-        connection.disconnect()
-        println(pretty(render(decompose(v.extract[com.douban.error.Error]))))
-        throw new HTTPException(c)}
-    }
-  }
-  def getCode:Int={
-    val code=connection.getResponseCode
-    code
-  }
-  def getResponse(inputStream:InputStream):String ={
+  private def getResponse(inputStream: InputStream): String = {
     val reader = new BufferedReader(new InputStreamReader(inputStream))
     val content = new StringBuilder
     var line = reader.readLine()
@@ -106,4 +110,39 @@ class Req(url: String) {
     }
     content.result()
   }
+
+  private def postData(url: String, request: Bean): HttpURLConnection = {
+    val c: HttpURLConnection = getConnection(url)
+    c.setDoOutput(true)
+    c.setRequestMethod("POST")
+    this.connect(c, request)
+    c
+  }
+
+  private def putData(url: String, request: Bean): HttpURLConnection = {
+    val c: HttpURLConnection = getConnection(url)
+    c.setDoOutput(true)
+    c.setRequestMethod("PUT")
+    this.connect(c, request)
+    c
+  }
+
+  private def deleteData(url: String): HttpURLConnection = {
+    val c: HttpURLConnection = getConnection(url)
+    c.setRequestMethod("DELETE")
+    this.connect(c, null)
+    c
+  }
+
+  private def getData(url: String): HttpURLConnection = {
+    val c: HttpURLConnection = getConnection(url)
+    this.connect(c, null)
+    c
+  }
+
+  private def succeed(code: Int): Boolean = {
+    code >= HTTP_OK && code <= HTTP_PARTIAL
+  }
+
+  private def getConnection(url: String) = new URL(url).openConnection().asInstanceOf[HttpURLConnection]
 }

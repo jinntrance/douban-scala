@@ -12,16 +12,8 @@ import com.douban.common.{Req, Flatten}
 class Bean extends Flatten{
 }
 class API{
-  var secured=false
+  var secured=true
   def api_prefix:String= synchronized(API.api_prefix(secured))
-  def get[T:Manifest](url:String):T={
-    val http= new Req(url).get()
-    http.parseJSON[T]()
-  }
-  def post[T:Manifest](url:String,paras:Bean):T={
-    val http= new Req(url).post(paras)
-    http.parseJSON[T]()
-  }
 }
 object API{
   def api_prefix(secured:Boolean):String={
