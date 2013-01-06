@@ -9,13 +9,18 @@ import com.douban.models._
  * @version 1.0
  */
 class BookTest extends BaseTest{
+  val bookId="6797555"
+  val isbn="9787508832074"
   test("the book search"){
     prettyJSON(Book.search("Book",""))
   }
   test("the book byId"){
-    prettyJSON(Book.byId("1999660"))
+    prettyJSON(Book.byId(bookId))
   }
   test("the book byISBN"){
-    prettyJSON(Book.byId("1999660"))
+    prettyJSON(Book.byISBN(isbn))
+  }
+  test("the book collection"){
+    prettyJSON(Book.collectionOf(bookId))
   }
 }

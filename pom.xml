@@ -30,22 +30,6 @@
             <version>RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-library</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-compiler</artifactId>
-            <scope>provided</scope>
-            <version>RELEASE</version>
-        </dependency>
-<!--        <dependency>
-            <groupId>com.fasterxml</groupId>
-            <artifactId>jackson-module-scala</artifactId>
-            <version>RELEASE</version>
-        </dependency>-->
-        <dependency>
             <groupId>org.scalatest</groupId>
             <artifactId>scalatest_2.9.2</artifactId>
             <scope>test</scope>

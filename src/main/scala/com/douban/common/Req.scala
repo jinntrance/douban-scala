@@ -54,7 +54,7 @@ object Req {
    */
   def get[RESULT: Manifest](url: String,secured:Boolean=false): RESULT = {
     val newUrl=if (secured) url else url.replace("https://","http://")
-    val c = getData(newUrl)
+    val c = getData(newUrl,secured)
     val r = parseJSON[RESULT](c)
     c.disconnect()
     r.get
@@ -81,12 +81,12 @@ object Req {
     succeed(code)
   }
 
-  private def connect(c: HttpURLConnection, request: Bean) {
+  private def connect(c: HttpURLConnection, request: Bean,authorized:Boolean=true) {
     c.setUseCaches(true)
     c.setConnectTimeout(8000)
     c.setReadTimeout(8000)
     c.setRequestProperty("Connection", "Keep-Alive")
-    if (c.getRequestMethod != GET)
+    if (authorized)
       c.setRequestProperty("Authorization", "Bearer " + Auth.access_token)
     //    c.setRequestProperty("Content-Type", "application/json")
     c.setRequestProperty("Charset", ENCODING)
@@ -112,6 +112,7 @@ object Req {
     val v: JsonAST.JValue = JsonParser.parse(getResponse(
       if(succeed(c.getResponseCode)) c.getInputStream  else c.getErrorStream
     ))
+    println("response code-->"+c.getResponseCode)
     c.disconnect()
     println(pretty(render(v)))
     if(succeed(c.getResponseCode)) Option(v.extract[R])  else None
@@ -154,9 +155,9 @@ object Req {
     c
   }
 
-  private def getData(url: String): HttpURLConnection = {
+  private def getData(url: String,authorized:Boolean): HttpURLConnection = {
     val c: HttpURLConnection = getConnection(url)
-    this.connect(c, null)
+    this.connect(c, null,authorized)
     c
   }
 

@@ -17,7 +17,7 @@ import java.net.URLEncoder
  object Auth {
   val api_key="0f86acdf44c03ade2e94069dce40b09a"
   val secret="95125490b60b01ee"
-  var code="e2b39a067b5999e8"
+  var code="94e4a2200be75286"
   val auth_url="https://www.douban.com/service/auth2/auth"
   val token_url="https://www.douban.com/service/auth2/token"
   val redirect_url="http://crazyadam.net/"

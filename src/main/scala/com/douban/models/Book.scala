@@ -40,7 +40,7 @@ object Book extends API{
 
   def tags(userId:String)=get(userTagsUrl.format(userId))
   def collectionsOfUser(userId:String,c:CollectionSearch=new CollectionSearch)=get(c.flatten(userCollectionsUrl.format(userId)))
-  def collectionOf(bookId:String)=get[Collection](collectionUrl.format(bookId))
+  def collectionOf(bookId:String)=get[Collection](collectionUrl.format(bookId),true)
 
   def postCollection(bookId:String,c:CollectionPosted)=postNoResult(collectionUrl.format(bookId),c)
   def updateCollection(bookId:String,c:CollectionPosted)=putNoResult(collectionUrl.format(bookId),c)
