@@ -9,8 +9,13 @@ import com.douban.models._
  * @version 1.0
  */
 class BookTest extends BaseTest{
-  test("the book search url"){
-    val s=new BookSearch("Book","")
-    prettyJSON(Req.get[BookSearchResult](s.searchUrl))
+  test("the book search"){
+    prettyJSON(Book.search("Book",""))
+  }
+  test("the book byId"){
+    prettyJSON(Book.byId("1999660"))
+  }
+  test("the book byISBN"){
+    prettyJSON(Book.byId("1999660"))
   }
 }

@@ -11,7 +11,7 @@ import java.net.{URI, URL}
  * @since 12/26/12 10:37 PM
  * @version 1.0
  */
-class HttpRequestTest extends BaseTest{
+class ReqTest extends BaseTest{
   test("the auth url"){
     val url=AuthorizationCode().authUrl
     Desktop.getDesktop.browse(new URI(url))

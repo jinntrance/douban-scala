@@ -17,7 +17,7 @@ object Book extends API{
   private val bookUrl=api_prefix+"book/"
   private val byIdUrl=bookUrl+"%s"
   private val byISBNUrl=bookUrl+"isbn/%s"
-  private val bookSearchUrl=bookUrl+"search"
+   val bookSearchUrl=bookUrl+"search"
   private val popTagsUrl=bookUrl+"%s/tags"
   private val userTagsUrl=bookUrl+"user/%s/tags"
   private val userCollectionsUrl=bookUrl+"user/%s/collections"
@@ -39,7 +39,7 @@ object Book extends API{
   def deleteReview(r:ReviewPosted):Boolean=delete(reviewUpdateUrl.format(r.book))
 
   def tags(userId:String)=get(userTagsUrl.format(userId))
-  def collectionsOfUser(userId:String,c:CollectionSearch=CollectionSearch)=get(c.flatten(userCollectionsUrl.format(userId)))
+  def collectionsOfUser(userId:String,c:CollectionSearch=new CollectionSearch)=get(c.flatten(userCollectionsUrl.format(userId)))
   def collectionOf(bookId:String)=get[Collection](collectionUrl.format(bookId))
 
   def postCollection(bookId:String,c:CollectionPosted)=postNoResult(collectionUrl.format(bookId),c)
@@ -47,7 +47,7 @@ object Book extends API{
   def deleteCollection(bookId:String)=delete(collectionUrl.format(bookId))
 
   def annotationsOfUser(userId:String)=get[AnnotationSearchResult](userAnnotationsUrl.format(userId))
-  def annotationsOf(bookId:String,a:AnnotationSearch=AnnotationSearch)=get[AnnotationSearchResult](a.flatten(annotationsUrl.format(bookId)))
+  def annotationsOf(bookId:String,a:AnnotationSearch=new AnnotationSearch)=get[AnnotationSearchResult](a.flatten(annotationsUrl.format(bookId)))
   def postAnnotation(bookId:String,a:AnnotationPosted)=postNoResult(annotationPostUrl.format(bookId),a)  //TODO上传图片的问题还需要解决
 
 }
