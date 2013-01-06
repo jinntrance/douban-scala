@@ -36,8 +36,15 @@ object Req {
     succeed(code)
   }
 
-  def get[RESULT: Manifest](url: String): RESULT = {
-    val c = getData(url)
+  /**
+   *
+   * @param secured 是否使用https,默认不用
+   * @tparam RESULT 返回结果类型
+   * @return
+   */
+  def get[RESULT: Manifest](url: String,secured:Boolean=false): RESULT = {
+    val newUrl=if (secured) url else url.replace("https://","http://")
+    val c = getData(newUrl)
     val r = parseJSON[RESULT](c)
     c.disconnect()
     r.get
@@ -70,6 +77,7 @@ object Req {
     c.setConnectTimeout(8000)
     c.setReadTimeout(8000)
     c.setRequestProperty("Connection", "Keep-Alive")
+    if (c.getRequestMethod != "GET")
     c.setRequestProperty("Authorization", "Bearer " + Auth.access_token)
     //    c.setRequestProperty("Content-Type", "application/json")
     c.setRequestProperty("Charset", "UTF-8")
