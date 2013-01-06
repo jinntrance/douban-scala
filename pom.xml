@@ -24,11 +24,11 @@
         </pluginRepository>
     </pluginRepositories>
     <dependencies>
-<!--        <dependency>
+        <dependency>
             <groupId>net.liftweb</groupId>
             <artifactId>lift-json_2.9.2</artifactId>
             <version>RELEASE</version>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
@@ -47,7 +47,7 @@
         </dependency>-->
         <dependency>
             <groupId>org.scalatest</groupId>
-            <artifactId>scalatest_2.10</artifactId>
+            <artifactId>scalatest_2.9.2</artifactId>
             <scope>test</scope>
             <version>RELEASE</version>
         </dependency>

@@ -13,11 +13,5 @@ class Bean extends Flatten{
 }
 class API{
   var secured=true
-  def api_prefix:String= synchronized(API.api_prefix(secured))
-}
-object API{
-  def api_prefix(secured:Boolean):String={
-    if (!secured) "http" else "https"
-  }+"://api.douban.com/v2/"
-
+  val api_prefix:String= "https://api.douban.com/v2/"
 }

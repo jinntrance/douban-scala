@@ -20,6 +20,11 @@ import net.liftweb.json.Extraction._
 class Req
 
 object Req {
+  val PUT="PUT"
+  val POST="POST"
+  val GET="GET"
+  val DELETE="DELETE"
+  val ENCODING = "UTF-8"
   implicit val formats = Serialization.formats(NoTypeHints)
 
   def post[RESULT: Manifest](url: String, request: Bean): RESULT = {
@@ -29,7 +34,12 @@ object Req {
     r.get
   }
 
-  def post(url: String, request: Bean): Boolean = {
+  /**
+   * 只判断状态码，不读取数据
+   * @param request 参数对象
+   * @return
+   */
+  def postNoResult(url: String, request: Bean): Boolean = {
     val c = postData(url, request)
     val code = c.getResponseCode
     c.disconnect()
@@ -57,7 +67,7 @@ object Req {
     r.get
   }
 
-  def put(url: String, request: Bean): Boolean = {
+  def putNoResult(url: String, request: Bean): Boolean = {
     val c = putData(url, request)
     val code = c.getResponseCode
     c.disconnect()
@@ -72,21 +82,20 @@ object Req {
   }
 
   private def connect(c: HttpURLConnection, request: Bean) {
-
     c.setUseCaches(true)
     c.setConnectTimeout(8000)
     c.setReadTimeout(8000)
     c.setRequestProperty("Connection", "Keep-Alive")
-    if (c.getRequestMethod != "GET")
-    c.setRequestProperty("Authorization", "Bearer " + Auth.access_token)
+    if (c.getRequestMethod != GET)
+      c.setRequestProperty("Authorization", "Bearer " + Auth.access_token)
     //    c.setRequestProperty("Content-Type", "application/json")
-    c.setRequestProperty("Charset", "UTF-8")
+    c.setRequestProperty("Charset", ENCODING)
     println(c.getRequestMethod + "ing " + c.getURL)
-    if ((c.getRequestMethod == "POST" || c.getRequestMethod == "PUT") && null != request) {
+    if ((c.getRequestMethod == POST || c.getRequestMethod == PUT) && null != request) {
       val paras = request.toParas
       //      val paras=Serialization.write[REQUEST](request)
       val out = new BufferedOutputStream(c.getOutputStream)
-      out.write(paras.getBytes("UTF-8"))
+      out.write(paras.getBytes(ENCODING))
       out.flush()
       out.close()
     }
@@ -122,7 +131,7 @@ object Req {
   private def postData(url: String, request: Bean): HttpURLConnection = {
     val c: HttpURLConnection = getConnection(url)
     c.setDoOutput(true)
-    c.setRequestMethod("POST")
+    c.setRequestMethod(POST)
     this.connect(c, request)
     c
   }
@@ -130,14 +139,14 @@ object Req {
   private def putData(url: String, request: Bean): HttpURLConnection = {
     val c: HttpURLConnection = getConnection(url)
     c.setDoOutput(true)
-    c.setRequestMethod("PUT")
+    c.setRequestMethod(PUT)
     this.connect(c, request)
     c
   }
 
   private def deleteData(url: String): HttpURLConnection = {
     val c: HttpURLConnection = getConnection(url)
-    c.setRequestMethod("DELETE")
+    c.setRequestMethod(DELETE)
     this.connect(c, null)
     c
   }
