@@ -27,8 +27,8 @@ object Req {
   val ENCODING = "UTF-8"
   implicit val formats = Serialization.formats(NoTypeHints)
 
-  def post[RESULT: Manifest](url: String, request: Bean): RESULT = {
-    val c: HttpURLConnection = postData(url, request)
+  def post[RESULT: Manifest](url: String, request: Bean,withFile:Boolean=false): RESULT = {
+    val c: HttpURLConnection = postData(url, request,withFile)
     val r = parseJSON[RESULT](c)
     c.disconnect()
     r.get
@@ -39,8 +39,8 @@ object Req {
    * @param request 参数对象
    * @return
    */
-  def postNoResult(url: String, request: Bean): Boolean = {
-    val c = postData(url, request)
+  def postNoResult(url: String, request: Bean,withFile:Boolean=false): Boolean = {
+    val c = postData(url, request,withFile)
     val code = c.getResponseCode
     c.disconnect()
     succeed(code)
@@ -128,10 +128,13 @@ object Req {
     content.result()
   }
 
-  private def postData(url: String, request: Bean): HttpURLConnection = {
+  private def postData(url: String, request: Bean,withFile:Boolean): HttpURLConnection = {
     val c: HttpURLConnection = getConnection(url)
     c.setDoOutput(true)
+
     c.setRequestMethod(POST)
+    if (withFile)
+      c.setRequestProperty("Content-Type","multipart/form-data;")
     this.connect(c, request)
     c
   }

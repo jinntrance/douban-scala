@@ -60,7 +60,8 @@ case class ReviewPosted(book:String,title:String,content:String,rating:Int=0) ex
 case class CollectionSearch(status:String="",tag:String="",rating:Int=0,from:String="",to:String="") extends Bean
 case class CollectionPosted(status:String,tags:String,comment:String,rating:Int=0,privacy:String="") extends Bean
 case class AnnotationSearch(format:String="text",order:String="rank",page:Int=1) extends Bean
-case class AnnotationPosted(content:String,page:Int,chapter:String,privacy:String="") extends Bean
+case class AnnotationPosted(content:String,page:Int,chapter:String,privacy:String="",`1`:String=null) extends Bean
+
 //TODO 设置privacy为 private使仅自己可见
 case class Tag(count:Int,title:String)
 case class Status(value:String) extends Enumeration{
