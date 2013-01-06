@@ -48,7 +48,7 @@ object Book extends API{
 
   def annotationsOfUser(userId:String)=get[AnnotationSearchResult](userAnnotationsUrl.format(userId))
   def annotationsOf(bookId:String,a:AnnotationSearch=AnnotationSearch)=get[AnnotationSearchResult](a.flatten(annotationsUrl.format(bookId)))
-  def postAnnotation(bookId:String,a:AnnotationPosted)=postNoResult(annotationPostUrl.format(bookId),a)  //上传图片的问题还需要解决
+  def postAnnotation(bookId:String,a:AnnotationPosted)=postNoResult(annotationPostUrl.format(bookId),a)  //TODO上传图片的问题还需要解决
 
 }
 
