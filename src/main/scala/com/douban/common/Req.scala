@@ -4,10 +4,7 @@ import java.net.{HttpURLConnection, URL}
 import java.net.HttpURLConnection._
 import java.io._
 import net.liftweb.json._
-import net.liftweb.json.Serialization.{read, write}
 import com.douban.models.Bean
-import javax.xml.ws.http.HTTPException
-import net.liftweb.json.Extraction._
 
 
 /**
@@ -20,18 +17,16 @@ import net.liftweb.json.Extraction._
 class Req
 
 object Req {
-  val PUT="PUT"
-  val POST="POST"
-  val GET="GET"
-  val DELETE="DELETE"
+  val PUT = "PUT"
+  val POST = "POST"
+  val GET = "GET"
+  val DELETE = "DELETE"
   val ENCODING = "UTF-8"
   implicit val formats = Serialization.formats(NoTypeHints)
 
-  def post[RESULT: Manifest](url: String, request: Bean,withFile:Boolean=false): RESULT = {
-    val c: HttpURLConnection = postData(url, request,withFile)
-    val r = parseJSON[RESULT](c)
-    c.disconnect()
-    r.get
+  def post[RESULT: Manifest](url: String, request: Bean, withFile: Boolean = false): RESULT = {
+    val c: HttpURLConnection = postData(url, request, withFile)
+    parseJSON[RESULT](c)
   }
 
   /**
@@ -39,8 +34,8 @@ object Req {
    * @param request 参数对象
    * @return
    */
-  def postNoResult(url: String, request: Bean,withFile:Boolean=false): Boolean = {
-    val c = postData(url, request,withFile)
+  def postNoResult(url: String, request: Bean, withFile: Boolean = false): Boolean = {
+    val c = postData(url, request, withFile)
     val code = c.getResponseCode
     c.disconnect()
     succeed(code)
@@ -52,19 +47,16 @@ object Req {
    * @tparam RESULT 返回结果类型
    * @return
    */
-  def get[RESULT: Manifest](url: String,secured:Boolean=false): RESULT = {
-    val newUrl=if (secured) url else url.replace("https://","http://")
-    val c = getData(newUrl,secured)
-    val r = parseJSON[RESULT](c)
-    c.disconnect()
-    r.get
+  def get[RESULT: Manifest](url: String, secured: Boolean = false): RESULT = {
+    var newUrl = if (secured) url else url.replace("https://", "http://")
+    newUrl = addApiKey(newUrl)
+    val c = getData(newUrl, secured)
+    parseJSON[RESULT](c)
   }
 
   def put[RESULT: Manifest](url: String, request: Bean): RESULT = {
     val c: HttpURLConnection = putData(url, request)
-    val r = parseJSON[RESULT](c)
-    c.disconnect()
-    r.get
+    parseJSON[RESULT](c)
   }
 
   def putNoResult(url: String, request: Bean): Boolean = {
@@ -81,7 +73,7 @@ object Req {
     succeed(code)
   }
 
-  private def connect(c: HttpURLConnection, request: Bean,authorized:Boolean=true) {
+  private def connect(c: HttpURLConnection, request: Bean, authorized: Boolean = true) {
     c.setUseCaches(true)
     c.setConnectTimeout(8000)
     c.setReadTimeout(8000)
@@ -105,15 +97,15 @@ object Req {
    * @tparam R 返回值类型
    * @return
    */
-  def parseJSON[R: Manifest](c: HttpURLConnection): Option[R] = {
+  def parseJSON[R: Manifest](c: HttpURLConnection): R = {
     implicit val formats = net.liftweb.json.DefaultFormats
     val v: JsonAST.JValue = JsonParser.parse(getResponse(
-      if(succeed(c.getResponseCode)) c.getInputStream  else c.getErrorStream
+      if (succeed(c.getResponseCode)) c.getInputStream else c.getErrorStream
     ))
-    println("response code-->"+c.getResponseCode)
+    println("response code-->" + c.getResponseCode)
     c.disconnect()
     println(pretty(render(v)))
-    if(succeed(c.getResponseCode)) Option(v.extract[R])  else None
+    if (succeed(c.getResponseCode)) v.extract[R] else throw new DoubanException(v.extract[Error])
   }
 
   private def getResponse(inputStream: InputStream): String = {
@@ -127,13 +119,12 @@ object Req {
     content.result()
   }
 
-  private def postData(url: String, request: Bean,withFile:Boolean): HttpURLConnection = {
+  private def postData(url: String, request: Bean, withFile: Boolean): HttpURLConnection = {
     val c: HttpURLConnection = getConnection(url)
     c.setDoOutput(true)
-
     c.setRequestMethod(POST)
     if (withFile)
-      c.setRequestProperty("Content-Type","multipart/form-data;")
+      c.setRequestProperty("Content-Type", "multipart/form-data;")
     this.connect(c, request)
     c
   }
@@ -153,14 +144,19 @@ object Req {
     c
   }
 
-  private def getData(url: String,authorized:Boolean): HttpURLConnection = {
+  private def getData(url: String, authorized: Boolean): HttpURLConnection = {
     val c: HttpURLConnection = getConnection(url)
-    this.connect(c, null,authorized)
+    this.connect(c, null, authorized)
     c
   }
 
   private def succeed(code: Int): Boolean = {
-    code >= HTTP_OK && code <= HTTP_PARTIAL
+    code >= HTTP_OK && code <= HTTP_ACCEPTED
+  }
+
+  private def addApiKey(url: String) = {
+    if (-1 == url.indexOf('?')) url + "?" + Auth.addApiKey
+    else url + "&" + Auth.addApiKey
   }
 
   private def getConnection(url: String) = new URL(url).openConnection().asInstanceOf[HttpURLConnection]

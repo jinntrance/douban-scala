@@ -1,7 +1,7 @@
 package com.douban.common
 
 import java.awt.Desktop
-import java.net.{URI, URL}
+import java.net.URI
 
 
 /**
@@ -11,17 +11,17 @@ import java.net.{URI, URL}
  * @since 12/26/12 10:37 PM
  * @version 1.0
  */
-class ReqTest extends BaseTest{
-  test("the auth url"){
-    val url=AuthorizationCode().authUrl
+class ReqTest extends BaseTest {
+  test("the auth url") {
+    val url = AuthorizationCode().authUrl
     Desktop.getDesktop.browse(new URI(url))
-    val codeUrl=readLine("please copy the url here after authorization>\n")
-    Auth.code=Auth.extractCode(codeUrl)
+    val codeUrl = readLine("please copy the url here after authorization>\n")
+    Auth.code = Auth.extractCode(codeUrl)
   }
-  test("the token url"){
-    val token:Token=new Token()
-    val url=token.tokenUrl
-    prettyJSON(Req.post[AccessTokenResult](url,new Token))
+  test("the token url") {
+    val token: Token = new Token()
+    val url = token.tokenUrl
+    prettyJSON(Req.post[AccessTokenResult](url, new Token))
   }
 
 }
