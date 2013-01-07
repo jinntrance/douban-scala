@@ -88,12 +88,10 @@ object Req {
     c.setRequestProperty("Connection", "Keep-Alive")
     if (authorized)
       c.setRequestProperty("Authorization", "Bearer " + Auth.access_token)
-    //    c.setRequestProperty("Content-Type", "application/json")
     c.setRequestProperty("Charset", ENCODING)
     println(c.getRequestMethod + "ing " + c.getURL)
     if ((c.getRequestMethod == POST || c.getRequestMethod == PUT) && null != request) {
       val paras = request.toParas
-      //      val paras=Serialization.write[REQUEST](request)
       val out = new BufferedOutputStream(c.getOutputStream)
       out.write(paras.getBytes(ENCODING))
       out.flush()
