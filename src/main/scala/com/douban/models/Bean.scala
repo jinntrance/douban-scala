@@ -3,8 +3,12 @@ package com.douban.models
 import com.douban.common.Auth
 import net.liftweb.json.{NoTypeHints, DefaultFormats}
 import net.liftweb.json.Extraction._
-import net.liftweb.json.JsonAST.{JString, JField}
+import net.liftweb.json.JsonAST._
 import java.net.URLEncoder
+import scala._
+import net.liftweb.json.JsonAST.JField
+import net.liftweb.json.JsonAST.JObject
+import net.liftweb.json.JsonAST.JString
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -32,9 +36,20 @@ trait Flatten {
    */
   def toParas: String = {
     var para = Auth.addApiKey()
-    val json = decompose(this)
+    val json: JValue = decompose(this)
+    flat(json)
+  }
+
+  private def flat(json: JValue): String = {
+    var para = ""
     for {JField(k, JString(v)) <- json
-    } para += '&' + k + '=' + URLEncoder.encode(v, "UTF-8")
+    } {
+      para += '&' + k + '=' + URLEncoder.encode(v, "UTF-8")
+    }
+    for {JField(k, JObject(List(l))) <- json
+    } {
+      para += flat(l.value)
+    }
     para
   }
 }

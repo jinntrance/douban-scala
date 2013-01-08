@@ -173,10 +173,16 @@ case class AnnotationSearch(format: String = "text", order: String = "rank", pag
  * @param page 页码	页码或章节名选填其一，最多6位正整数
  * @param chapter 章节名	页码或章节名选填其一，最多100字
  * @param privacy 隐私设置	选填，值为'private'为设置成仅自己可见，其他默认为公开  TODO 设置privacy为 private使仅自己可见
- * @param `1`
  * @see  http://developers.douban.com/wiki/?title=book_v2#post_book_annotation
  */
-case class AnnotationPosted(content: String, page: Int, chapter: String, privacy: String = "", `1`: String = null) extends Bean
+case class AnnotationPosted(content: String, page: Int, chapter: String, privacy: String = "") extends Bean {
+  val photos = Map[String, String]()
+
+  override def toParas = {
+    var p = super.toParas
+    p
+  }
+}
 
 
 case class Tag(count: Int, title: String)
@@ -198,12 +204,6 @@ case class PopTag(start: Int, count: Int, total: Int, tags: List[Tag])
 case class BookTag(count: Int, name: String)
 
 case class Image(small: String, large: String, medium: String)
-
-/**
- * 图片按照Photo中的1,2,3自动获取
- * @param `1`
- */
-case class Photo(`1`: String = null)
 
 case class Rating(max: Int, min: Int, value: Int)
 
@@ -227,9 +227,10 @@ case class Review(id: Long, title: String, alt: String, author: User, book: Book
 
 /**
  * 笔记信息
+ * @param photos 图片按照Photo中的1,2,3...获取并对应图片url
  */
 case class Annotation(id: String, book_id: String, book: Book, author_id: String, author_user: User, chapter: String, page_no: Int, privacy: Int,
-                      content: String, `abstract`: String, abstract_photo: String, photos: List[Photo], last_photo: Int, comments_count: Int, hasmath: Boolean, time: String)
+                      content: String, `abstract`: String, abstract_photo: String, photos: Map[String, String], last_photo: Int, comments_count: Int, hasmath: Boolean, time: String) extends Bean
 
 case class AnnotationSearchResult(start: Int, count: Int, total: Int, annotations: List[Annotation])
 
