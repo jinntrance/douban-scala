@@ -1,43 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="987bebbf-2573-49f0-890d-a0404c648191" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/douban/models/Bean.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/douban/models/Bean.scala" />
+    <list default="true" id="987bebbf-2573-49f0-890d-a0404c648191" name="Default" comment="升级为lift-json 2.10">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/net/liftweb/json/Diff.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/DiffExamples.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/Examples.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/net/liftweb/json/Extraction.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/ExtractionBugs.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/ExtractionExamplesSpec.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/net/liftweb/json/FieldSerializer.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/FieldSerializerBugs.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/FieldSerializerExamples.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/net/liftweb/json/Formats.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/JValueGen.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/net/liftweb/json/JsonAST.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/JsonAstSpec.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/JsonFormatsSpec.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/net/liftweb/json/JsonParser.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/JsonParserSpec.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/JsonPrintingSpec.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/JsonQueryExamples.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/JsonXmlSpec.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/LottoExample.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/net/liftweb/json/Merge.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/MergeExamples.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/net/liftweb/json/Meta.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/ParserBugs.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/PullParserExamples.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/net/liftweb/json/ScalaSig.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/net/liftweb/json/Serialization.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/SerializationBugs.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/SerializationExamples.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/net/liftweb/json/Xml.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/XmlBugs.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/net/liftweb/json/XmlExamples.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/resources/diff-example-expected-additions.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/resources/diff-example-expected-changes.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/resources/diff-example-expected-deletions.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/resources/diff-example-json1.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/resources/diff-example-json2.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/net/liftweb/json/package.scala" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_scala_lang_scala_compiler_2_9_2.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_scala_lang_scala_library_2_9_2.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_scala_lang_scala_reflect_2_10_0.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/douban/common/Auth.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/douban/common/Auth.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/com/douban/models/Book.scala" afterPath="$PROJECT_DIR$/src/main/scala/com/douban/models/Book.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/com/douban/common/BookTest.scala" afterPath="$PROJECT_DIR$/src/test/scala/com/douban/common/BookTest.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/com/douban/common/ReqTest.scala" afterPath="$PROJECT_DIR$/src/test/scala/com/douban/common/ReqTest.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/douban-scala.iml" afterPath="$PROJECT_DIR$/douban-scala.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/scala_compiler.xml" afterPath="$PROJECT_DIR$/.idea/scala_compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="douban-scala.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/pom.xml" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357456227948" ignored="false" />
+    <file path="/pom.xml" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357668790003" ignored="false" />
     <file path="/DummyFile.xpath" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356549628145" ignored="false" />
     <file path="/HttpManager.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357277284963" ignored="false" />
-    <file path="/Dummy.txt" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357632529229" ignored="false" />
+    <file path="/Dummy.txt" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357669844608" ignored="false" />
     <file path="$PROJECT_DIR$/../weiciyuan/gen/org/qii/weiciyuan/BuildConfig.java" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356521242281" ignored="false" />
     <file path="/fragment.java" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356675176656" ignored="false" />
     <file path="/Error.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357274588284" ignored="false" />
     <file path="/Authenticator.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356533776515" ignored="false" />
     <file path="/ListParameter.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356524610164" ignored="false" />
-    <file path="/Book.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357634915096" ignored="false" />
-    <file path="/a.dummy" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357625437746" ignored="false" />
+    <file path="/Book.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357669695113" ignored="false" />
+    <file path="/a.dummy" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357462690258" ignored="false" />
     <file path="/a.java" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356534819595" ignored="false" />
-    <file path="/Auth.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357449419044" ignored="false" />
+    <file path="/Auth.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357669527664" ignored="false" />
     <file path="/HttpManagerTest.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356675333108" ignored="false" />
     <file path="/Reflect.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356542911975" ignored="false" />
     <file path="$PROJECT_DIR$/../weiciyuan/src/org/qii/weiciyuan/support/http/HttpMethod.java" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356617839156" ignored="false" />
     <file path="/HttpMethod.java" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356617613502" ignored="false" />
     <file path="/BaseTest.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356622738330" ignored="false" />
     <file path="/Scala Console" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356629161534" ignored="false" />
-    <file path="/User.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357624948944" ignored="false" />
+    <file path="/User.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356637157663" ignored="false" />
     <file path="/UserTest.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357452899724" ignored="false" />
     <file path="$PROJECT_DIR$/src/main/scala/com/douban/common/REQUEST.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356633889532" ignored="false" />
     <file path="$PROJECT_DIR$/../code-de-lab/Swing/gen/com/chance/platform/service/CCIService.java" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1356672731455" ignored="false" />
     <file path="/HttpRequest.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357289294799" ignored="false" />
     <file path="/HttpRequestTest.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357452843202" ignored="false" />
-    <file path="/Req.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357625970082" ignored="false" />
-    <file path="/BookTest.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357634789281" ignored="false" />
-    <file path="/Bean.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357636158388" ignored="false" />
+    <file path="/Req.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357667103444" ignored="false" />
+    <file path="/BookTest.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357452705999" ignored="false" />
+    <file path="/Bean.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357456551914" ignored="false" />
+    <file path="/Formats.scala" changelist="987bebbf-2573-49f0-890d-a0404c648191" time="1357670326346" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +99,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <breakpoint_rules default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -91,7 +135,7 @@
       </breakpoint>
     </breakpoint_any>
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/src/test/scala/com/douban/common/UserTest.scala" line="15" class="com.douban.common.UserTest" package="com.douban.common">
+      <breakpoint url="file://$PROJECT_DIR$/src/test/scala/com/douban/common/UserTest.scala" line="14" class="com.douban.common.UserTest" package="com.douban.common">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -105,21 +149,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/scala/com/douban/common/Req.scala" line="130" class="com.douban.common.Req$" package="com.douban.common">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/main/scala/com/douban/models/Bean.scala" line="54" class="com.douban.models.Flatten" package="com.douban.models">
+      <breakpoint url="file://$PROJECT_DIR$/src/main/scala/com/douban/common/Req.scala" line="116" class="com.douban.common.Req$" package="com.douban.common">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -134,6 +164,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </line_breakpoints>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -143,67 +174,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="BaseTest.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/com/douban/common/BaseTest.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="19" selection-start="507" selection-end="507" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Req.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/common/Req.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="182" column="43" selection-start="4915" selection-end="4915" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HttpURLConnection.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/java-7-oracle/src.zip!/java/net/HttpURLConnection.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="648" column="40" selection-start="22195" selection-end="22207" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#0#25765#0" expanded="false" />
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="87" selection-start="986" selection-end="986" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserTest.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/com/douban/common/UserTest.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="69" selection-start="479" selection-end="479" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="User.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/models/User.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="70" selection-start="517" selection-end="517" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BookTest.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/com/douban/common/BookTest.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="13" selection-start="1175" selection-end="1175" vertical-scroll-proportion="0.0">
+            <state line="7" column="11" selection-start="188" selection-end="188" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -212,27 +186,85 @@
       <file leaf-file-name="Book.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/models/Book.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="177" column="93" selection-start="5517" selection-end="5517" vertical-scroll-proportion="-3.52">
+            <state line="158" column="30" selection-start="4765" selection-end="4765" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bean.scala" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/models/Bean.scala">
+      <file leaf-file-name="Extraction.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/net/liftweb/json/Extraction.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="62" selection-start="1484" selection-end="1484" vertical-scroll-proportion="0.6197183">
+            <state line="316" column="0" selection-start="13579" selection-end="13579" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Formats.scala" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/net/liftweb/json/Formats.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="271" column="64" selection-start="9196" selection-end="9196" vertical-scroll-proportion="0.52261305">
               <folding>
-                <element signature="e#27#56#0" expanded="true" />
+                <element signature="n#!!doc" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JsonAST.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/net/liftweb/lift-json_2.9.2/2.5-M3/lift-json_2.9.2-2.5-M3-sources.jar!/net/liftweb/json/JsonAST.scala">
+      <file leaf-file-name="Meta.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/net/liftweb/json/Meta.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="30" selection-start="1080" selection-end="1086" vertical-scroll-proportion="3.2">
+            <state line="190" column="0" selection-start="7969" selection-end="7969" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JsonXmlSpec.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/net/liftweb/json/JsonXmlSpec.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="56" selection-start="787" selection-end="787" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#651#690#0" expanded="true" />
+                <element signature="e#964#976#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReqTest.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/com/douban/common/ReqTest.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="31" selection-start="693" selection-end="693" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BaseTest.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/com/douban/common/BaseTest.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="25" selection-start="421" selection-end="421" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Auth.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/common/Auth.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="53" column="18" selection-start="1919" selection-end="1919" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JsonAST.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/net/liftweb/json/JsonAST.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="522" column="70" selection-start="17310" selection-end="17310" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -261,22 +293,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/scala/com/douban/book/Book.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/douban/user/User.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/com/douban/common/HttpManagerTest.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/douban/error/Error.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/com/douban/common/BaseTest.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/douban/common/HttpManager.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/douban/common/HttpRequest.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/com/douban/common/BookTest.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/com/douban/common/HttpRequestTest.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/com/douban/common/UserTest.scala" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/scala/com/douban/common/Auth.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/com/douban/models/User.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/com/douban/common/Req.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/com/douban/common/BookTest.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/com/douban/models/Book.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/com/douban/models/Bean.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/com/douban/common/Req.scala" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/test/scala/com/douban/common/ReqTest.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/com/douban/common/Auth.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/com/douban/models/Book.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/net/liftweb/json/Formats.scala" />
       </list>
     </option>
   </component>
@@ -314,6 +346,24 @@
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
+          <option name="myItemId" value="Dependencies" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$DependenciesNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="org.scala-lang:scala-compiler:2.10.0" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$DependencyNode" />
+        </PATH_ELEMENT>
+      </PATH>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="scala-api" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
+        </PATH_ELEMENT>
+        <PATH_ELEMENT>
           <option name="myItemId" value="Plugins" />
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$PluginsNode" />
         </PATH_ELEMENT>
@@ -339,10 +389,9 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="64" />
-    <option name="y" value="-4" />
-    <option name="width" value="1377" />
-    <option name="height" value="905" />
+    <option name="y" value="24" />
+    <option name="width" value="1280" />
+    <option name="height" value="776" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -358,7 +407,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1" splitterProportion="0.5">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -369,7 +418,65 @@
       <autoscrollFromSource />
       <sortByType />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="douban-scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="douban-scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="douban-scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="douban-scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="douban-scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="douban-scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="douban-scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Modules" />
@@ -402,8 +509,7 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="options.lastSelected" value="org.jetbrains.plugins.scala.compiler.ScalacConfigurable" />
-    <property name="ChangesBrowser.SHOW_FLATTEN" value="true" />
-    <property name="project.structure.side.proportion" value="0.32983682" />
+    <property name="project.structure.side.proportion" value="0.2062937" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="options.searchVisible" value="true" />
@@ -417,7 +523,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="ScalaTest.BookTest.the annotation by Id collection">
+  <component name="RunManager" selected="ScalaTest.BookTest">
     <configuration default="false" name="BookTest" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <module name="douban-scala" />
       <setting name="path" value="com.douban.common.BookTest" />
@@ -500,33 +606,6 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Debug" />
       <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="BookTest.the annotation by Id collection" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <module name="douban-scala" />
-      <setting name="path" value="com.douban.common.BookTest" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="the annotation by Id collection" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Debug" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
-      <option name="PROGRAM_PARAMETERS" />
       <method />
     </configuration>
     <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
@@ -661,21 +740,19 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <list size="6">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Scala Console.test" />
       <item index="1" class="java.lang.String" itemvalue="ScalaTest.BookTest" />
       <item index="2" class="java.lang.String" itemvalue="ScalaTest.HttpRequestTest.the token url" />
       <item index="3" class="java.lang.String" itemvalue="ScalaTest.HttpRequestTest.the auth url" />
       <item index="4" class="java.lang.String" itemvalue="ScalaTest.HttpRequestTest" />
-      <item index="5" class="java.lang.String" itemvalue="ScalaTest.BookTest.the annotation by Id collection" />
     </list>
     <recent_temporary>
-      <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="ScalaTest.BookTest.the annotation by Id collection" />
-        <item index="1" class="java.lang.String" itemvalue="ScalaTest.BookTest" />
-        <item index="2" class="java.lang.String" itemvalue="ScalaTest.HttpRequestTest" />
-        <item index="3" class="java.lang.String" itemvalue="ScalaTest.HttpRequestTest.the auth url" />
-        <item index="4" class="java.lang.String" itemvalue="ScalaTest.HttpRequestTest.the token url" />
+      <list size="4">
+        <item index="0" class="java.lang.String" itemvalue="ScalaTest.BookTest" />
+        <item index="1" class="java.lang.String" itemvalue="ScalaTest.HttpRequestTest" />
+        <item index="2" class="java.lang.String" itemvalue="ScalaTest.HttpRequestTest.the auth url" />
+        <item index="3" class="java.lang.String" itemvalue="ScalaTest.HttpRequestTest.the token url" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -728,48 +805,32 @@
       <created>1357290494248</created>
       <updated>1357290494248</updated>
     </task>
-    <task id="LOCAL-00006" summary="完成y用戶API的文檔">
-      <created>1357624709776</created>
-      <updated>1357624709776</updated>
-    </task>
-    <task id="LOCAL-00007" summary="用戶API">
-      <created>1357625072987</created>
-      <updated>1357625072987</updated>
-    </task>
-    <task id="LOCAL-00008" summary="update User API documentation">
-      <created>1357626011450</created>
-      <updated>1357626011450</updated>
-    </task>
-    <task id="LOCAL-00009" summary="update Book API documentation">
-      <created>1357632550987</created>
-      <updated>1357632550987</updated>
-    </task>
-    <option name="localTasksCounter" value="10" />
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="-4" width="1377" height="905" extended-state="6" />
+    <frame x="0" y="24" width="1280" height="776" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32938075" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35667107" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.8005284" sideWeight="0.49736643" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.51519156" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32724506" sideWeight="0.49756888" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.8005284" sideWeight="0.49736643" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32760897" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.8005284" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32724506" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41622198" sideWeight="0.6467449" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20917983" sideWeight="0.58784676" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45137763" sideWeight="0.4885845" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5673439" sideWeight="0.672391" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2731377" sideWeight="0.6433289" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31836197" sideWeight="0.49675852" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35332254" sideWeight="0.4885845" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.51141554" sideWeight="0.49675852" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.009781791" sideWeight="0.38177013" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -811,11 +872,11 @@
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="update Book API documentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="升级为lift-json 2.10" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
-    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
-    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
     <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
     <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
@@ -828,10 +889,7 @@
     <MESSAGE value="setDoOutput make the method ot POST" />
     <MESSAGE value="add error msg handler" />
     <MESSAGE value="finish token auth" />
-    <MESSAGE value="完成y用戶API的文檔" />
-    <MESSAGE value="用戶API" />
-    <MESSAGE value="update User API documentation" />
-    <MESSAGE value="update Book API documentation" />
+    <MESSAGE value="升级为lift-json 2.10" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -845,109 +903,122 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/scala-lang/scala-library/2.9.2/scala-library-2.9.2.jar!/scala/package.class">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/net/liftweb/json/JsonParser.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="7" selection-start="156" selection-end="156" vertical-scroll-proportion="0.12032086" />
+        <state line="21" column="7" selection-start="679" selection-end="679" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/lib/jvm/java-7-oracle/src.zip!/java/lang/Object.java">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/net/liftweb/json/package.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="13" selection-start="513" selection-end="513" vertical-scroll-proportion="0.0" />
+        <state line="18" column="15" selection-start="654" selection-end="654" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/scala-lang/scala-library/2.9.2/scala-library-2.9.2.jar!/scala/None.class">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/scalatest/scalatest_2.10/2.0.M6-SNAP5/scalatest_2.10-2.0.M6-SNAP5-sources.jar!/org/scalatest/FunSuite.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-7-oracle/jre/lib/rt.jar!/sun/net/www/protocol/https/HttpsURLConnectionImpl.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="152" column="0" selection-start="6342" selection-end="6342" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/net/liftweb/lift-json_2.9.2/2.5-M3/lift-json_2.9.2-2.5-M3-sources.jar!/net/liftweb/json/package.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="12" selection-start="1523" selection-end="1529" vertical-scroll-proportion="0.0" />
+        <state line="1370" column="6" selection-start="59450" selection-end="59450" vertical-scroll-proportion="0.33246073">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/com/douban/common/BaseTest.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="19" selection-start="507" selection-end="507" vertical-scroll-proportion="0.0">
+        <state line="14" column="25" selection-start="421" selection-end="421" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/src/test/scala/com/douban/common/ReqTest.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="87" selection-start="986" selection-end="986" vertical-scroll-proportion="0.0">
+        <state line="23" column="31" selection-start="693" selection-end="693" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/com/douban/common/UserTest.scala">
+    <entry file="file://$PROJECT_DIR$/src/test/scala/net/liftweb/json/JsonXmlSpec.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="69" selection-start="479" selection-end="479" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/models/User.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="70" selection-start="517" selection-end="517" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/common/Auth.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="20" selection-start="1029" selection-end="1029" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-7-oracle/src.zip!/java/net/HttpURLConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="648" column="40" selection-start="22195" selection-end="22207" vertical-scroll-proportion="0.0">
+        <state line="24" column="56" selection-start="787" selection-end="787" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="e#0#25765#0" expanded="false" />
-            <element signature="imports" expanded="false" />
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#651#690#0" expanded="true" />
+            <element signature="e#964#976#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/common/Req.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="182" column="43" selection-start="4915" selection-end="4915" vertical-scroll-proportion="0.0">
+        <state line="7" column="11" selection-start="188" selection-end="188" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/com/douban/common/BookTest.scala">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/specs2/specs2_2.10/1.13/specs2_2.10-1.13-sources.jar!/org/specs2/mutable/Specification.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="13" selection-start="1175" selection-end="1175" vertical-scroll-proportion="0.0">
+        <state line="11" column="6" selection-start="189" selection-end="189" vertical-scroll-proportion="0.43193716">
+          <folding>
+            <element signature="e#36#52#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/net/liftweb/json/JsonQueryExamples.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="30" selection-start="681" selection-end="681" vertical-scroll-proportion="0.19633508">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="54" selection-start="6" selection-end="6" vertical-scroll-proportion="0.03797468">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/models/Book.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="177" column="93" selection-start="5517" selection-end="5517" vertical-scroll-proportion="-3.52">
+        <state line="158" column="30" selection-start="4765" selection-end="4765" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/net/liftweb/lift-json_2.9.2/2.5-M3/lift-json_2.9.2-2.5-M3-sources.jar!/net/liftweb/json/JsonAST.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/net/liftweb/json/Meta.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="30" selection-start="1080" selection-end="1086" vertical-scroll-proportion="3.2">
+        <state line="190" column="0" selection-start="7969" selection-end="7969" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/models/Bean.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/net/liftweb/json/Extraction.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="62" selection-start="1484" selection-end="1484" vertical-scroll-proportion="0.6197183">
+        <state line="316" column="0" selection-start="13579" selection-end="13579" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/com/douban/common/Auth.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="18" selection-start="1919" selection-end="1919" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/net/liftweb/json/JsonAST.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="522" column="70" selection-start="17310" selection-end="17310" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/net/liftweb/json/Formats.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="271" column="64" selection-start="9196" selection-end="9196" vertical-scroll-proportion="0.52261305">
           <folding>
-            <element signature="e#27#56#0" expanded="true" />
+            <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1009,7 +1080,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.32983682" />
+                <option value="0.2062937" />
               </list>
             </option>
           </splitter-proportions>
@@ -1029,7 +1100,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Maven: org.scala-lang:scala-compiler:2.9.2</last-edited>
+          <last-edited>Maven: org.scala-lang:scala-compiler-bundle:2.10.0</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

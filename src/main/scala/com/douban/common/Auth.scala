@@ -46,10 +46,9 @@ case class Token(client_id: String = Auth.api_key, client_secret: String = Auth.
   def tokenUrl: String = flatten(Auth.token_url)
 }
 
-case object AccessToken extends Token(grant_type = Auth.grant_type)
 
 class AccessToken extends Token(grant_type = Auth.grant_type)
 
 case class AccessTokenResult(access_token: String, expires_in: Long, refresh_token: String, douban_user_id: String) extends Bean
 
-case object RefreshToken extends Token(grant_type = Auth.refresh_token_string, refresh_token = Auth.refresh_token_string);
+class RefreshToken extends Token(grant_type = Auth.refresh_token_string, refresh_token = Auth.refresh_token_string);

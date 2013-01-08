@@ -19,7 +19,7 @@ class ReqTest extends BaseTest {
     Auth.code = Auth.extractCode(codeUrl)
   }
   test("the token url") {
-    val token: Token = new Token()
+    val token: Token = new Token
     val url = token.tokenUrl
     prettyJSON(Req.post[AccessTokenResult](url, new Token))
   }

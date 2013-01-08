@@ -25,13 +25,40 @@
     </pluginRepositories>
     <dependencies>
         <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-compiler</artifactId>
+            <scope>provided</scope>
+            <version>2.10.0</version>
+        </dependency>
+<!--        <dependency>
             <groupId>net.liftweb</groupId>
-            <artifactId>lift-json_2.9.2</artifactId>
+            <artifactId>lift-json</artifactId>
+            <version>RELEASE</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.thoughtworks.paranamer</groupId>
+            <artifactId>paranamer</artifactId>
             <version>RELEASE</version>
         </dependency>
         <dependency>
+            <groupId>org.specs2</groupId>
+            <artifactId>specs2_2.10</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scalacheck</groupId>
+            <artifactId>scalacheck_2.10</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scalap</artifactId>
+            <scope>provided</scope>
+            <version>2.10.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.scalatest</groupId>
-            <artifactId>scalatest_2.9.2</artifactId>
+            <artifactId>scalatest_2.10</artifactId>
             <scope>test</scope>
             <version>RELEASE</version>
         </dependency>
