@@ -13,15 +13,15 @@ import Req._
  */
 object Book extends API {
   val bookUrl = api_prefix + "book/"
+  val bookSearchUrl = bookUrl + "search"
   private val byIdUrl = bookUrl + "%s"
   private val byISBNUrl = bookUrl + "isbn/%s"
-  val bookSearchUrl = bookUrl + "search"
   private val popTagsUrl = bookUrl + "%s/tags"
   private val userTagsUrl = bookUrl + "user/%s/tags"
   private val userCollectionsUrl = bookUrl + "user/%s/collections"
   private val collectionUrl = bookUrl + "%s/collection"
   private val userAnnotationsUrl = bookUrl + "user/%s/annotations"
-  private val annotationsUrl = bookUrl + "%s/annotations"
+  private val bookAnnotationsUrl = bookUrl + "%s/annotations"
   private val annotationUrl = bookUrl + "annotation/%s"
   private val annotationPostUrl = bookUrl + "%s/annotations"
   private val reviewsPostUrl = bookUrl + "reviews"
@@ -101,7 +101,7 @@ object Book extends API {
   /**
    * 获取某本图书的所有笔记
    */
-  def annotationsOf(bookId: String, a: AnnotationSearch = new AnnotationSearch) = get[AnnotationSearchResult](a.flatten(annotationsUrl.format(bookId)))
+  def annotationsOf(bookId: String, a: AnnotationSearch = new AnnotationSearch) = get[AnnotationSearchResult](a.flatten(bookAnnotationsUrl.format(bookId)))
 
   /**
    * 获取某篇笔记的信息
@@ -175,16 +175,11 @@ case class AnnotationSearch(format: String = "text", order: String = "rank", pag
  * @param privacy 隐私设置	选填，值为'private'为设置成仅自己可见，其他默认为公开  TODO 设置privacy为 private使仅自己可见
  * @see  http://developers.douban.com/wiki/?title=book_v2#post_book_annotation
  */
-case class AnnotationPosted(content: String, page: Int, chapter: String, privacy: String = "") extends Bean {
-  val photos = Map[String, String]()
+case class AnnotationPosted(content: String, page: Int, chapter: String, privacy: String = "", photos: Map[String, String] = Map()) extends Bean
 
-  override def toParas = {
-    var p = super.toParas
-    p
-  }
-}
-
-
+/**
+ * 标签信息
+ */
 case class Tag(count: Int, title: String)
 
 case class Status(value: String) extends Enumeration {
@@ -207,6 +202,11 @@ case class Image(small: String, large: String, medium: String)
 
 case class Rating(max: Int, min: Int, value: Int)
 
+/**
+ *
+ * @param average 平均评分
+ * @param numRaters 评分人数
+ */
 case class BookRating(max: Int, min: Int, average: String, numRaters: Int)
 
 /**
@@ -230,7 +230,7 @@ case class Review(id: Long, title: String, alt: String, author: User, book: Book
  * @param photos 图片按照Photo中的1,2,3...获取并对应图片url
  */
 case class Annotation(id: String, book_id: String, book: Book, author_id: String, author_user: User, chapter: String, page_no: Int, privacy: Int,
-                      content: String, `abstract`: String, abstract_photo: String, photos: Map[String, String], last_photo: Int, comments_count: Int, hasmath: Boolean, time: String) extends Bean
+                      content: String, `abstract`: String, abstract_photo: String, photos: Map[String, String], last_photo: Int, comments_count: Int, hasmath: Boolean, time: String)
 
 case class AnnotationSearchResult(start: Int, count: Int, total: Int, annotations: List[Annotation])
 

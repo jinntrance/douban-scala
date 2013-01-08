@@ -30,7 +30,6 @@ class BookTest extends BaseTest {
   }
   test("the annotation by Id collection") {
     val a = Book.annotation(annoId)
-    a.toParas
     prettyJSON(a)
   }
 }
