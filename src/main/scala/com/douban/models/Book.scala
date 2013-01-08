@@ -236,7 +236,6 @@ case class BookSearchResult(start: Int, count: Int, total: Int, books: List[Book
 /**
  * 收藏信息
  */
-case class Collection(status: String, book_id: String, comment: String, id: Long, rating: Rating = null, tags: List[String], updated: String, user_id: String, user: User)
-case class CollectionWithBook(status: String, book_id: String, book: Book, comment: String, id: Long, rating: Rating = null, tags: List[String], updated: String, user_id: String, user: User)
+case class Collection(status: String, book_id: String,book:Book, comment: String, id: Long, rating: Rating = null, tags: List[String], updated: String, user_id: String, user: User)
 
 case class CollectionSearchResult(start: Int, count: Int, total: Int, collections: List[Collection])

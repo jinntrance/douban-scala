@@ -280,7 +280,7 @@ object Extraction {
       val custom = formats.customDeserializer(formats)
       if (custom.isDefinedAt(constructor.targetType, json)) custom(constructor.targetType, json)
       else json match {
-        case JNull => null
+        case JNull|JNothing => null
         case JObject(TypeHint(t, fs)) => mkWithTypeHint(t, fs, constructor.targetType)
         case JField(_, JObject(TypeHint(t, fs))) => mkWithTypeHint(t, fs, constructor.targetType)
         case _ => instantiate
@@ -399,8 +399,8 @@ object Extraction {
     case j: JValue if (targetType == classOf[JValue]) => j
     case j: JObject if (targetType == classOf[JObject]) => j
     case j: JArray if (targetType == classOf[JArray]) => j
-    case JNull => null
-    case JNothing => fail("Did not find value which can be converted into " + targetType.getName)
+    case JNull|JNothing => null
+//    case JNothing => fail("Did not find value which can be converted into " + targetType.getName)
     case JField(_, x) => convert(x, targetType, formats)
     case _ => 
       val custom = formats.customDeserializer(formats)
