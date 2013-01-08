@@ -16,10 +16,20 @@ import java.net.URLEncoder
 trait Flatten {
   implicit val formats = DefaultFormats + NoTypeHints
 
+  /**
+   * 将Bean与一个url组合
+   * @param urlPrefix 请求的原始路径
+   * @param bean 需要参数话的Bean
+   * @return  含参数的url
+   */
   def flatten(urlPrefix: String, bean: Flatten = this): String = {
     urlPrefix + "?" + toParas
   }
 
+  /**
+   *
+   * @return 把Bean转化为key=value&key1=value1的序列
+   */
   def toParas: String = {
     var para = Auth.addApiKey()
     val json = decompose(this)
@@ -35,6 +45,6 @@ class Bean extends Flatten {
 class Search(q: String, start: Int, count: Int) extends Bean
 
 class API {
-  var secured = true
+  var secured = false
   val api_prefix: String = "https://api.douban.com/v2/"
 }
