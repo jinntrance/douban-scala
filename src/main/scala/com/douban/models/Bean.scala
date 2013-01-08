@@ -4,7 +4,6 @@ import com.douban.common.Auth
 import net.liftweb.json.{NoTypeHints, DefaultFormats}
 import net.liftweb.json.Extraction._
 import net.liftweb.json.JsonAST._
-import java.net.URLEncoder
 import scala._
 import net.liftweb.json.JsonAST.JField
 import net.liftweb.json.JsonAST.JObject
@@ -35,16 +34,17 @@ trait Flatten {
    * @return 把Bean转化为key=value&key1=value1的序列
    */
   def toParas: String = {
-    var para = Auth.addApiKey()
+    val para = Auth.addApiKey()
     val json: JValue = decompose(this)
-    flat(json)
+    para + flat(json)
   }
 
   private def flat(json: JValue): String = {
     var para = ""
     for {JField(k, JString(v)) <- json
     } {
-      para += '&' + k + '=' + URLEncoder.encode(v, "UTF-8")
+      //      para += '&' + k + '=' + URLEncoder.encode(v, "UTF-8")
+      para += '&' + k + '=' + v
     }
     for {JField(k, JObject(List(l))) <- json
     } {

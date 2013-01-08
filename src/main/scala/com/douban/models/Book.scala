@@ -55,7 +55,7 @@ object Book extends API {
   /**
    * 修改评论
    */
-  def updateReview(r: ReviewPosted): Boolean = putNoResult(reviewUpdateUrl.format(r.book), r)
+  def updateReview(reviewId: String, r: ReviewPosted): Boolean = putNoResult(reviewUpdateUrl.format(reviewId), r)
 
   /**
    * 删除评论
@@ -70,7 +70,7 @@ object Book extends API {
   /**
    * 获取某个用户的所有图书收藏信息
    */
-  def collectionsOfUser(userId: String, c: CollectionSearch = new CollectionSearch) = get(c.flatten(userCollectionsUrl.format(userId)))
+  def collectionsOfUser(userId: String, c: CollectionSearch = new CollectionSearch) = get[CollectionSearchResult](c.flatten(userCollectionsUrl.format(userId)))
 
   /**
    * 获取用户对某本图书的收藏信息
@@ -165,7 +165,7 @@ case class CollectionPosted(status: String, tags: String, comment: String, ratin
  * @param order 排序	选填（最新笔记：collect, 按有用程度：rank, 按页码先后：page），默认为rank
  * @param page 按页码过滤
  */
-case class AnnotationSearch(format: String = "text", order: String = "rank", page: Int = 1) extends Bean
+case class AnnotationSearch(order: String = "rank", page: Int = 1, format: String = "text") extends Bean
 
 /**
  * 给某本图书写笔记
@@ -196,11 +196,9 @@ case class Order(value: String) extends Enumeration {
 
 case class PopTag(start: Int, count: Int, total: Int, tags: List[Tag])
 
-case class BookTag(count: Int, name: String)
-
 case class Image(small: String, large: String, medium: String)
 
-case class Rating(max: Int, min: Int, value: Int)
+case class Rating(max: Int, min: Int, value: String)
 
 /**
  *
@@ -215,9 +213,8 @@ case class BookRating(max: Int, min: Int, average: String, numRaters: Int)
 case class Book(id: String, isbn10: String, isbn13: String, title: String, origin_title: String,
                 alt_title: String, subtitle: String, url: String, alt: String, image: String, images: Image,
                 author: List[String], translator: List[String], publisher: String, pubdate: String,
-                rating: BookRating, tags: List[BookTag], binding: String, price: String, pages: String,
-                author_intro: String, summary: String
-                 )
+                rating: BookRating, tags: List[Tag], binding: String, price: String, pages: String,
+                author_intro: String, summary: String = "")
 
 /**
  * 评论信息
@@ -239,5 +236,6 @@ case class BookSearchResult(start: Int, count: Int, total: Int, books: List[Book
 /**
  * 收藏信息
  */
-case class Collection(book: String, book_id: String, comment: String, id: Long, rating: Rating, status: String, tags: List[String], updated: String, user_id: String)
+case class Collection(status: String, book_id: String, book: Book, comment: String, id: Long, rating: Rating = null, tags: List[String], updated: String, user_id: String, user: User)
 
+case class CollectionSearchResult(start: Int, count: Int, total: Int, collections: List[Collection])

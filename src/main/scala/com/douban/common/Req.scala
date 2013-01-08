@@ -5,6 +5,7 @@ import java.net.HttpURLConnection._
 import java.io._
 import net.liftweb.json._
 import com.douban.models.Bean
+import java.text.SimpleDateFormat
 
 
 /**
@@ -23,7 +24,9 @@ object Req {
   val GET = "GET"
   val DELETE = "DELETE"
   val ENCODING = "UTF-8"
-  implicit val formats = Serialization.formats(NoTypeHints)
+  implicit val formats = new DefaultFormats {
+    override def dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+  }
 
   /**
    *
@@ -45,6 +48,7 @@ object Req {
   def postNoResult(url: String, request: Bean, withFile: Boolean = false): Boolean = {
     val c = postData(url, request, withFile)
     val code = c.getResponseCode
+    if (!succeed(code)) parseJSON(c)
     c.disconnect()
     succeed(code)
   }
@@ -80,6 +84,7 @@ object Req {
   def putNoResult(url: String, request: Bean): Boolean = {
     val c = putData(url, request)
     val code = c.getResponseCode
+    if (!succeed(code)) parseJSON(c)
     c.disconnect()
     succeed(code)
   }
@@ -95,7 +100,7 @@ object Req {
     c.setUseCaches(true)
     c.setConnectTimeout(timeout)
     c.setReadTimeout(timeout)
-    //Andoird 2.3及以后的HttpConnectionUrl自动使用gzip，故此处就不再添加
+    //Android 2.3及以后的HttpConnectionUrl自动使用gzip，故此处就不再添加
     c.setRequestProperty("Connection", "Keep-Alive")
     //添加认证的access token
     if (authorized)
@@ -104,6 +109,7 @@ object Req {
     println(c.getRequestMethod + "ing " + c.getURL)
     if ((c.getRequestMethod == POST || c.getRequestMethod == PUT) && null != request) {
       val paras = request.toParas
+      println("request body-->" + paras)
       val out = new BufferedOutputStream(c.getOutputStream)
       out.write(paras.getBytes(ENCODING))
       out.flush()
@@ -120,7 +126,6 @@ object Req {
    *
    */
   def parseJSON[R: Manifest](c: HttpURLConnection): R = {
-    implicit val formats = net.liftweb.json.DefaultFormats
     val v: JsonAST.JValue = JsonParser.parse(getResponse(
       if (succeed(c.getResponseCode)) c.getInputStream else c.getErrorStream
     ))

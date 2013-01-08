@@ -2,6 +2,7 @@ package com.douban.models
 
 import com.douban.common.Req
 import Req._
+import java.util.Date
 
 
 /**
@@ -11,7 +12,7 @@ import Req._
  * @since 12/28/12 2:34 AM
  * @version 1.0
  * @see 豆瓣用户 http://developers.douban.com/wiki/?title=user_v2
- * */
+ **/
 
 object User extends API {
   val userUrl = api_prefix + "user"
@@ -45,7 +46,7 @@ object User extends API {
 }
 
 /**
- *   搜索用户需要传的参数
+ * 搜索用户需要传的参数
  * @param q  全文检索的关键词
  * @param start 开始的数量
  * @param count 返回结果的数量
@@ -63,8 +64,14 @@ case class User(id: String, name: String, uid: String, alt: String, avatar: Stri
 
 /**
  * 用户完整版信息
+ * @param avatar 头像
+ * @param alt 豆瓣首页
+ * @param created 加入豆瓣时间
+ * @param loc_name 常居地点
+ * @param signature  签名档
+ * @param desc 个人描述
  */
-case class UserInfo(id: String, uid: String, name: String, avatar: String, alt: String, created: String, loc_id: String, loc_name: String, signature: String, desc: String)
+case class UserInfo(id: String, uid: String, name: String, avatar: String, alt: String, created: Date, loc_id: String, loc_name: String, signature: String, desc: String)
 
 class Relation extends Enumeration {
   val FRIEND = Value("friend")
