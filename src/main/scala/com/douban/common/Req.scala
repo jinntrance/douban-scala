@@ -17,6 +17,7 @@ import com.douban.models.Bean
 class Req
 
 object Req {
+  val timeout = 5000
   val PUT = "PUT"
   val POST = "POST"
   val GET = "GET"
@@ -24,6 +25,13 @@ object Req {
   val ENCODING = "UTF-8"
   implicit val formats = Serialization.formats(NoTypeHints)
 
+  /**
+   *
+   * @param request 参数Bean
+   * @param withFile 是否传文件
+   * @tparam RESULT 返回的类型
+   * @return
+   */
   def post[RESULT: Manifest](url: String, request: Bean, withFile: Boolean = false): RESULT = {
     val c: HttpURLConnection = postData(url, request, withFile)
     parseJSON[RESULT](c)
@@ -49,16 +57,26 @@ object Req {
    */
   def get[RESULT: Manifest](url: String, secured: Boolean = false): RESULT = {
     var newUrl = if (secured) url else url.replace("https://", "http://")
-    newUrl = addApiKey(newUrl)
+    newUrl = addApiKey(newUrl) //添加API key，增加次数
     val c = getData(newUrl, secured)
     parseJSON[RESULT](c)
   }
 
+  /**
+   *
+   * @param request 参数Bean
+   * @return RESULT put成功后的数据
+   */
   def put[RESULT: Manifest](url: String, request: Bean): RESULT = {
     val c: HttpURLConnection = putData(url, request)
     parseJSON[RESULT](c)
   }
 
+  /**
+   * 只判断状态码，不读取数据
+   * @param request 参数Bean
+   * @return
+   */
   def putNoResult(url: String, request: Bean): Boolean = {
     val c = putData(url, request)
     val code = c.getResponseCode
@@ -75,9 +93,11 @@ object Req {
 
   private def connect(c: HttpURLConnection, request: Bean, authorized: Boolean = true) {
     c.setUseCaches(true)
-    c.setConnectTimeout(8000)
-    c.setReadTimeout(8000)
+    c.setConnectTimeout(timeout)
+    c.setReadTimeout(timeout)
+    //Andoird 2.3及以后的HttpConnectionUrl自动使用gzip，故此处就不再添加
     c.setRequestProperty("Connection", "Keep-Alive")
+    //添加认证的access token
     if (authorized)
       c.setRequestProperty("Authorization", "Bearer " + Auth.access_token)
     c.setRequestProperty("Charset", ENCODING)
@@ -93,9 +113,11 @@ object Req {
   }
 
   /**
-   *
+   * 解析返回数据，出错则抛出异常并封装进 Error
    * @tparam R 返回值类型
+   * @see com.douban.common.Error
    * @return
+   *
    */
   def parseJSON[R: Manifest](c: HttpURLConnection): R = {
     implicit val formats = net.liftweb.json.DefaultFormats
@@ -108,11 +130,15 @@ object Req {
     if (succeed(c.getResponseCode)) v.extract[R] else throw new DoubanException(v.extract[Error])
   }
 
+  /**
+   * 把返回结果读出为String
+   * @return
+   */
   private def getResponse(inputStream: InputStream): String = {
     val reader = new BufferedReader(new InputStreamReader(inputStream))
     val content = new StringBuilder
     var line = reader.readLine()
-    while (line != null) {
+    while (null != line) {
       content.append(line)
       line = reader.readLine()
     }
@@ -150,8 +176,11 @@ object Req {
     c
   }
 
+  /**
+   * 判斷狀態碼，201-203都算成功
+   */
   private def succeed(code: Int): Boolean = {
-    code >= HTTP_OK && code <= HTTP_ACCEPTED
+    code >= HTTP_OK && code <= HTTP_PARTIAL
   }
 
   private def addApiKey(url: String) = {
