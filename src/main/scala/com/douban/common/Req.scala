@@ -180,7 +180,7 @@ object Req {
    * 判斷狀態碼，201-203都算成功
    */
   private def succeed(code: Int): Boolean = {
-    code >= HTTP_OK && code <= HTTP_ACCEPTED
+    code >= HTTP_OK && code <= HTTP_PARTIAL
   }
 
   private def addApiKey(url: String) = {
