@@ -10,6 +10,7 @@ import com.douban.models._
  * @version 1.0
  */
 class BookTest extends BaseTest {
+  val userId: String = "jinntrance"
   val bookId = "6797555"
   val isbn = "9787508832074"
   val annoId = "23767505"
@@ -26,7 +27,7 @@ class BookTest extends BaseTest {
     prettyJSON(Book.annotationsOfUser("jinntrance"))
   }
   test("the book postAnnotation") {
-    prettyJSON(Book.postAnnotation(bookId,new AnnotationPosted(content,2,"")))
+    prettyJSON(Book.postAnnotation(bookId, new AnnotationPosted(content, 2, "")))
   }
   test("the book deleteAnnotation") {
     prettyJSON(Book.deleteAnnotation(annoId))
@@ -43,25 +44,31 @@ class BookTest extends BaseTest {
   test("the book popTags") {
     prettyJSON(Book.popTags(bookId))
   }
+  test("the user tags") {
+    prettyJSON(Book.tags(userId))
+  }
   test("the book postReview") {
-    prettyJSON(Book.postReview(new ReviewPosted(bookId, "呵呵", content,4)))
+    prettyJSON(Book.postReview(new ReviewPosted(bookId, "呵呵", content, 4)))
   }
   test("the book updateReview") {
-    prettyJSON(Book.updateReview(reviewId, new ReviewPosted(bookId, "呵呵", content,4)))
+    prettyJSON(Book.updateReview(reviewId, new ReviewPosted(bookId, "呵呵", content, 4)))
   }
   test("the book deleteReview") {
-     prettyJSON(Book.deleteReview(reviewId))
+    prettyJSON(Book.deleteReview(reviewId))
   }
   test("the book collectionOf") {
     prettyJSON(Book.collectionOf(bookId))
   }
   test("the book collectionOfUser") {
-    prettyJSON(Book.collectionsOfUser("jinntrance"))
+    prettyJSON(Book.collectionsOfUser(userId))
+  }
+  test("the book collection") {
+    prettyJSON(Book.collectionOf(bookId))
+  }
+  test("the book deleteCollection") {
+    prettyJSON(Book.deleteCollection(bookId))
   }
   test("the book postCollection") {
-//    prettyJSON(Book.postCollection(""))
+    prettyJSON(Book.postCollection(bookId, new CollectionPosted("read", "文政哲 Internet", "對於工具，我們應該更好的應用，而不是爲所累。信息過載的時代，利用好工具，攫取於我們最有益的信息 。")))
   }
-
-
-
 }
