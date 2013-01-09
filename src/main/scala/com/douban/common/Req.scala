@@ -1,6 +1,6 @@
 package com.douban.common
 
-import java.net.{HttpURLConnection, URL}
+import java.net.{URLDecoder, URLEncoder, HttpURLConnection, URL}
 import java.net.HttpURLConnection._
 import java.io._
 import net.liftweb.json._
@@ -109,11 +109,11 @@ object Req {
     if (authorized)
       c.setRequestProperty("Authorization", "Bearer " + Auth.access_token)
     c.setRequestProperty("Charset", ENCODING)
-    println(c.getRequestMethod + "ing " + c.getURL)
+    println(c.getRequestMethod + "ing " + URLDecoder.decode(c.getURL.toString,ENCODING))
     if ((c.getRequestMethod == POST || c.getRequestMethod == PUT) && null != request) {
       c.setRequestProperty("Content-Type","application/x-www-form-urlencoded")
       val paras = request.toParas
-      println("request body-->" + paras)
+      println("request body-->" + URLDecoder.decode(paras,ENCODING))
       val out = new BufferedOutputStream(c.getOutputStream)
       out.write(paras.getBytes(ENCODING))
       out.flush()
