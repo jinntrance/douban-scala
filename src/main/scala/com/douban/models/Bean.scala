@@ -51,13 +51,14 @@ trait Flatten {
         for {
           v: JValue <- values} {
           i += 1
-          para += '&' + i + '=' + v.extract[String]
+          para += '&' + i + '=' + encode(v.extract[String])
         }
       }
-      case v: JValue => para += '&' + k + '=' + json.\(k).extract[String]
+      case v: JValue => para += '&' + k + '=' + encode(json.\(k).extract[String])
     }
     para
   }
+  private def encode(value:String)=URLEncoder.encode(value,"utf-8")
 }
 
 class Bean extends Flatten {

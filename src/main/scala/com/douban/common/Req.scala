@@ -93,6 +93,7 @@ object Req {
   def delete(url: String): Boolean = {
     val c = deleteData(url)
     val code = c.getResponseCode
+    if (!succeed(code)) parseJSON(c)
     c.disconnect()
     succeed(code)
   }
@@ -110,6 +111,7 @@ object Req {
     c.setRequestProperty("Charset", ENCODING)
     println(c.getRequestMethod + "ing " + c.getURL)
     if ((c.getRequestMethod == POST || c.getRequestMethod == PUT) && null != request) {
+      c.setRequestProperty("Content-Type","application/x-www-form-urlencoded")
       val paras = request.toParas
       println("request body-->" + paras)
       val out = new BufferedOutputStream(c.getOutputStream)
