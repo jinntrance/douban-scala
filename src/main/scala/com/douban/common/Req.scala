@@ -18,7 +18,8 @@ import java.text.SimpleDateFormat
 class Req
 
 object Req {
-  val timeout = 5000
+  val timeout = 10*1000 //10 seconds
+  val persistenceTimeout=10*60//10 minutes
   val PUT = "PUT"
   val POST = "POST"
   val GET = "GET"
@@ -102,6 +103,7 @@ object Req {
     c.setReadTimeout(timeout)
     //Android 2.3及以后的HttpConnectionUrl自动使用gzip，故此处就不再添加
     c.setRequestProperty("Connection", "Keep-Alive")
+    c.setRequestProperty("Keep-Alive","timeout="+persistenceTimeout)
     //添加认证的access token
     if (authorized)
       c.setRequestProperty("Authorization", "Bearer " + Auth.access_token)

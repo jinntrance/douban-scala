@@ -8,6 +8,7 @@ import scala._
 import net.liftweb.json.JsonAST.JField
 import net.liftweb.json.JsonAST.JObject
 import net.liftweb.json.JsonAST.JString
+import java.net.URLEncoder
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -31,24 +32,29 @@ trait Flatten {
 
   /**
    *
-   * @return 把Bean转化为key=value&key1=value1的序列
+   * @return 把Bean转化为key=value&key1=value1的序列 ,添加apikey
    */
-  def toParas: String = {
-    val para = Auth.addApiKey()
-    val json: JValue = decompose(this)
-    para + flat(json)
-  }
+  def toParas: String =Auth.addApiKey+flat(decompose(this))
 
+  /**
+   * 层级参数全部flattened 成一层的key-value形式，
+   * List的values用 n=value,n=1,2,3,4
+   */
   private def flat(json: JValue): String = {
     var para = ""
-    for {JField(k, JString(v)) <- json
-    } {
-      //      para += '&' + k + '=' + URLEncoder.encode(v, "UTF-8")
-      para += '&' + k + '=' + v
-    }
-    for {JField(k, JObject(List(l))) <- json
-    } {
-      para += flat(l.value)
+    for {JField(k, v) <- json
+    } v match {
+      case JObject(List()) | JArray(List()) => para
+      case JObject(List(fields)) => para += flat(fields.value)
+      case JObject(List(values)) => {
+        var i = 0
+        for {
+          v: JValue <- values} {
+          i += 1
+          para += '&' + i + '=' + v.extract[String]
+        }
+      }
+      case v: JValue => para += '&' + k + '=' + json.\(k).extract[String]
     }
     para
   }
