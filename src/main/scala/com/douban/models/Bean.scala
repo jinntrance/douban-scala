@@ -73,9 +73,9 @@ abstract class API[+T: Manifest, +R: Manifest] {
 
   protected def url_prefix: String
 
-  private val byIdUrl = url_prefix + "%s"
+  protected val byIdUrl = url_prefix + "/%s"
 
-  protected def searchUrl = url_prefix + "search"
+  protected def searchUrl = url_prefix + "/search"
 
   /**
    * 通过id获取

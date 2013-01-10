@@ -12,7 +12,7 @@ import java.util.Date
  * @version 1.0
  */
 object Music extends BookMovieMusicAPI[Music, MusicSearchResult] {
-  def url_prefix = api_prefix + "music"
+  def url_prefix = api_prefix + "music/"
 
   def postReview(r: MusicReviewPosted) = super.postReview[MusicReviewPosted](r)
 

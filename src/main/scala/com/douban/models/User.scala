@@ -20,7 +20,6 @@ object User extends API[UserInfo, UserSearchResult] {
   def url_prefix = api_prefix + "user"
 
   val meUrl = url_prefix + "/~me"
-  val byIdUrl = url_prefix + "/%s"
 
   override def searchUrl = url_prefix
 
