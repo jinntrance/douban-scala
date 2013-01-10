@@ -9,4 +9,8 @@ package com.douban.common
  */
 class DoubanException(e: Error) extends Exception(e.msg)
 
-case class Error(msg: String, code: String, request: String)
+case class Error(msg: String, code: String, request: String) {
+  val error = Map(
+    106 -> "access_token 过期" //需要重新请求获取
+  )
+}
