@@ -1,6 +1,6 @@
-package com.douban.common
+package com.douban.models
 
-import com.douban.models._
+import com.douban.common.BaseTest
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>

@@ -1,7 +1,10 @@
-package com.douban.common
+package com.douban.models
 
 import java.awt.Desktop
 import java.net.URI
+import com.douban.common._
+import com.douban.common.AuthorizationCode
+import com.douban.common.Token
 
 
 /**

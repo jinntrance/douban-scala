@@ -234,13 +234,10 @@ case class Annotation(id: String, book_id: String, book: Book, author_id: String
  */
 case class Collection(status: String, book_id: String, book: Book, comment: String, id: Long, rating: Rating = null, tags: List[String], updated: String, user_id: String, user: User)
 
+case class AnnotationSearchResult(start: Int, count: Int, total: Int, annotations: List[Annotation]) extends ListResult(start, count, total)
 
-class Result(start: Int, count: Int, total: Int)
+case class BookSearchResult(start: Int, count: Int, total: Int, books: List[Book]) extends ListResult(start, count, total)
 
-case class AnnotationSearchResult(start: Int, count: Int, total: Int, annotations: List[Annotation]) extends Result(start, count, total)
+case class TagsResult(start: Int, count: Int, total: Int, tags: List[Tag]) extends ListResult(start, count, total)
 
-case class BookSearchResult(start: Int, count: Int, total: Int, books: List[Book]) extends Result(start, count, total)
-
-case class TagsResult(start: Int, count: Int, total: Int, tags: List[Tag]) extends Result(start, count, total)
-
-case class CollectionSearchResult(start: Int, count: Int, total: Int, collections: List[Collection]) extends Result(start, count, total)
+case class CollectionSearchResult(start: Int, count: Int, total: Int, collections: List[Collection]) extends ListResult(start, count, total)

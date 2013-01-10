@@ -70,3 +70,5 @@ class API {
   var secured = false
   val api_prefix: String = "https://api.douban.com/v2/"
 }
+
+class ListResult(start: Int, count: Int, total: Int)
