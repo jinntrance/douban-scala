@@ -1,6 +1,5 @@
 package com.douban.models
 
-import com.douban.models.User
 import com.douban.common.BaseTest
 
 /**
