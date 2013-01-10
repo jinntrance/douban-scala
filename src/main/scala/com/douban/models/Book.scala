@@ -6,7 +6,9 @@ import java.util.Date
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
- * Email: <a href="mailto:jinntrance@gmail.com">jinntrance@gmail.com</a>
+ * Email: <a href="mailto:jinntrance@gmail.com">jinntrance@gmail.com</a> <br/>
+ * <em>see:</em><br/>
+ * <a href="http://developers.douban.com/wiki/?title=book_v2">豆瓣图书API</a>
  * @author joseph
  * @since 12/26/12 8:07 PM
  * @version 1.0
@@ -23,9 +25,7 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult] {
   private val annotationUrl = url_prefix + "annotation/%s"
   private val annotationPostUrl = url_prefix + "%s/annotations"
 
-  def postReview(r: BookReviewPosted) = super.postReview(r)
-
-  def updateReview(r: BookReviewPosted) = super.updateReview(r.book, r)
+  def postReview(r: BookReviewPosted) = super.postReview[BookReviewPosted](r)
 
   /**
    * 根据isbn获取图书信息
@@ -97,6 +97,7 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult] {
  * @param title  评论头
  * @param content 评论内容，且多于150字
  * @param rating  打分，数字1～5为合法值，其他信息默认为不打分
+ * @see ReviewPosted
  */
 case class BookReviewPosted(book: String, title: String, content: String, rating: Int = 0) extends ReviewPosted(title, content, rating)
 
@@ -158,13 +159,13 @@ case class Image(small: String, large: String, medium: String)
 case class Book(id: String, isbn10: String, isbn13: String, title: String, origin_title: String,
                 alt_title: String, subtitle: String, url: String, alt: String, image: String, images: Image,
                 author: List[String], translator: List[String], publisher: String, pubdate: String,
-                rating: RatingDetail, tags: List[Tag], binding: String, price: String, pages: String,
+                rating: ItemRating, tags: List[Tag], binding: String, price: String, pages: String,
                 author_intro: String, summary: String = "")
 
 /**
  * 评论信息
  */
-case class BookReview(id: Long, title: String, alt: String, author: User, book: Book, rating: Rating, votes: Int, useless: Int,
+case class BookReview(id: Long, title: String, alt: String, author: User, book: Book, rating: ReviewRating, votes: Int, useless: Int,
                       comments: Int, summary: String, published: Date, updated: Date)
   extends Review(id, title, alt, author, rating, votes, useless, comments, summary, published, updated)
 
@@ -178,7 +179,7 @@ case class Annotation(id: String, book_id: String, book: Book, author_id: String
 /**
  * 收藏信息
  */
-case class Collection(status: String, book_id: String, book: Book, comment: String, id: Long, rating: Rating = null, tags: List[String], updated: String, user_id: String, user: User)
+case class Collection(status: String, book_id: String, book: Book, comment: String, id: Long, rating: ReviewRating = null, tags: List[String], updated: String, user_id: String, user: User)
 
 case class AnnotationSearchResult(start: Int, count: Int, total: Int, annotations: List[Annotation]) extends ListResult(start, count, total)
 

@@ -7,7 +7,9 @@ import java.util.Date
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
- * Email: <a href="mailto:jinntrance@gmail.com">jinntrance@gmail.com</a> <br/>
+ * Email: <a href="mailto:jinntrance@gmail.com">jinntrance@gmail.com</a> <br/> <br/>
+ * <em>see:</em><br/>
+ * <a href="http://developers.douban.com/wiki/?title=user_v2">豆瓣用户API</a>
  * @author joseph
  * @since 12/28/12 2:34 AM
  * @version 1.0

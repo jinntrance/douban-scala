@@ -22,16 +22,16 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.scala-lang:scala-compiler:2.10.0" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-lang:scala-compiler:2.10.0" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.10.0" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-reflect:2.10.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: com.thoughtworks.paranamer:paranamer:2.5.2" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.specs2:specs2_2.10:1.13" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.specs2:scalaz-core_2.10:7.0.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.specs2:scalaz-concurrent_2.10:7.0.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.specs2:scalaz-effect_2.10:7.0.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.scalacheck:scalacheck_2.10:1.10.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.scala-tools.testing:test-interface:0.5" level="project" />
+    <orderEntry type="library" name="Maven: com.thoughtworks.paranamer:paranamer:2.5.2" level="project" />
+    <orderEntry type="library" name="Maven: org.specs2:specs2_2.10:1.13" level="project" />
+    <orderEntry type="library" name="Maven: org.specs2:scalaz-core_2.10:7.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.specs2:scalaz-concurrent_2.10:7.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.specs2:scalaz-effect_2.10:7.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.scalacheck:scalacheck_2.10:1.10.0" level="project" />
+    <orderEntry type="library" name="Maven: org.scala-tools.testing:test-interface:0.5" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-actors:2.10.0" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scalap:2.10.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.scalatest:scalatest_2.10:2.0.M6-SNAP5" level="project" />

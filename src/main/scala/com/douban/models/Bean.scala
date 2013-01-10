@@ -104,10 +104,14 @@ abstract class BookMovieMusicAPI[+T: Manifest, +R: Manifest] extends API[T, R] {
    */
   protected def postReview[R <: ReviewPosted](r: R): Boolean = postNoResult(reviewsPostUrl, r)
 
+  //  protected def postReviewWithResult[I<:ReviewPosted,O<:Review](r: I) = post[O](reviewsPostUrl, r)
+
   /**
    * 修改评论
    */
-  protected def updateReview[R <: ReviewPosted](reviewId: String, r: R): Boolean = putNoResult(reviewUpdateUrl.format(reviewId), r)
+  def updateReview[R <: ReviewPosted](reviewId: String, r: R): Boolean = putNoResult(reviewUpdateUrl.format(reviewId), r)
+
+  //  def updateReviewWithResult[I<:ReviewPosted,O<:Review](r: I) = put[O](reviewUpdateUrl.format(reviewId), r)
 
   /**
    * 删除评论
@@ -123,9 +127,9 @@ abstract class BookMovieMusicAPI[+T: Manifest, +R: Manifest] extends API[T, R] {
 }
 
 /**
- * 标签信息
+ * 标签信息 图书、电影用name，音乐、图书用title
  */
-case class Tag(count: Int, name: String)
+case class Tag(count: Int, name: String, title: String)
 
 /**
  *
@@ -136,25 +140,32 @@ case class Tag(count: Int, name: String)
  */
 case class Search(q: String, start: Int = 0, count: Int = 20, tags: String = "") extends Bean
 
-case class Rating(max: Int, min: Int, value: String)
-
 /**
  *
+ * @param max 5
+ * @param min 1
+ * @param value 平均
+ */
+case class ReviewRating(max: Int, min: Int, value: String)
+
+/**
+ * @param max 10
+ * @param min  0
  * @param average 平均评分
  * @param numRaters 评分人数
  */
-case class RatingDetail(max: Int, min: Int, average: String, numRaters: Int)
+case class ItemRating(max: Int, min: Int, average: String, numRaters: Int)
 
 class ListResult(start: Int, count: Int, total: Int)
 
-class Review(id: Long, title: String, alt: String, author: User, rating: Rating,
+class Review(id: Long, title: String, alt: String, author: User, rating: ReviewRating,
              votes: Int, useless: Int, comments: Int, summary: String, published: Date, updated: Date)
 
 /**
  *
  * @param title 标题
  * @param content 内容
- * @param rating  打分1-5
+ * @param rating  打分1-5 //TODO no ever case class
  */
 class ReviewPosted(title: String, content: String, rating: Int = 0) extends Bean
 
