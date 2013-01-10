@@ -14,18 +14,11 @@ import java.util.Date
  * @see 豆瓣用户 http://developers.douban.com/wiki/?title=user_v2
  **/
 
-object User extends API {
-  val userUrl = api_prefix + "user"
-  val meUrl = userUrl + "/~me"
-  val byIdUrl = userUrl + "/%s"
+object User extends API[UserInfo] {
+  def url_prefix = api_prefix + "user/"
+  val meUrl = url_prefix + "~me"
+  val byIdUrl = url_prefix + "%s"
 
-  /**
-   * 获取用户信息
-   * @param id  用户uid或者数字id
-   * @return UserInfo
-   * @example val user=User.byId("jinntrance")
-   */
-  def byId(id: String) = get[UserInfo](byIdUrl.format(id))
 
   /**
    * 获取当前授权用户信息
@@ -42,20 +35,11 @@ object User extends API {
    * @return UserSearchResult
    * @example val user=User.search("刘瑜")
    */
-  def search(query: String, page: Int = 0, count: Int = 20) = get[UserSearchResult](UserSearch(query, page * count, count).searchUrl)
+  def search(query: String, page: Int = 0, count: Int = 20) = super.search[UserSearchResult](query,page,count)
 }
 
-/**
- * 搜索用户需要传的参数
- * @param q  全文检索的关键词
- * @param start 开始的数量
- * @param count 返回结果的数量
- */
-case class UserSearch(q: String, start: Int = 0, count: Int = 20) extends Search(q, start, count) {
-  def searchUrl = flatten(User.userUrl)
-}
 
-case class UserSearchResult(start: Int, count: Int, total: Int, users: List[User])
+case class UserSearchResult(start: Int, count: Int, total: Int, users: List[User]) extends ListResult(start,count,total)
 
 /**
  * 用户简版

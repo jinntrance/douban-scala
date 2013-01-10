@@ -2,6 +2,7 @@ package com.douban.models
 
 import com.douban.common.Req
 import Req._
+import java.util.Date
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -11,61 +12,25 @@ import Req._
  * @version 1.0
  * @see http://developers.douban.com/wiki/?title=book_v2
  */
-object Book extends API {
-  val bookUrl = api_prefix + "book/"
-  val bookSearchUrl = bookUrl + "search"
-  private val byIdUrl = bookUrl + "%s"
-  private val byISBNUrl = bookUrl + "isbn/%s"
-  private val popTagsUrl = bookUrl + "%s/tags"
-  private val userTagsUrl = bookUrl + "user/%s/tags"
-  private val userCollectionsUrl = bookUrl + "user/%s/collections"
-  private val collectionUrl = bookUrl + "%s/collection"
-  private val userAnnotationsUrl = bookUrl + "user/%s/annotations"
-  private val bookAnnotationsUrl = bookUrl + "%s/annotations"
-  private val annotationUrl = bookUrl + "annotation/%s"
-  private val annotationPostUrl = bookUrl + "%s/annotations"
-  private val reviewsPostUrl = bookUrl + "reviews"
-  private val reviewUpdateUrl = bookUrl + "review/%s"
-
-  /**
-   * 搜索图书
-   */
-  def search(query: String, tag: String, page: Int = 0, count: Int = 20) = get[BookSearchResult](BookSearch(query, tag, page * count, count).searchUrl)
-
-  /**
-   * 通过id获取图书信息
-   */
-  def byId(id: String) = get[Book](byIdUrl.format(id))
+object Book extends BookMovieMusicAPI[Book] {
+  def url_prefix = api_prefix + "book/"
+  private val byISBNUrl = url_prefix + "isbn/%s"
+  private val userCollectionsUrl = url_prefix + "user/%s/collections"
+  private val collectionUrl = url_prefix + "%s/collection"
+  private val userAnnotationsUrl = url_prefix + "user/%s/annotations"
+  private val bookAnnotationsUrl = url_prefix + "%s/annotations"
+  private val annotationUrl = url_prefix + "annotation/%s"
+  private val annotationPostUrl = url_prefix + "%s/annotations"
 
   /**
    * 根据isbn获取图书信息
    */
   def byISBN(isbn: String) = get[Book](byISBNUrl.format(isbn))
-
   /**
-   * 获取某个图书中标记最多的标签
+   * 搜索图书
    */
-  def popTags(bookId: String) = get[PopTag](popTagsUrl.format(bookId))
+  def search(query: String, tag: String, page: Int = 0, count: Int = 20) = super.search[BookSearchResult](query,page,count,tag)
 
-  /**
-   * 发表新评论
-   */
-  def postReview(r: ReviewPosted): Boolean = postNoResult(reviewsPostUrl, r)
-
-  /**
-   * 修改评论
-   */
-  def updateReview(reviewId: String, r: ReviewPosted): Boolean = putNoResult(reviewUpdateUrl.format(reviewId), r)
-
-  /**
-   * 删除评论
-   */
-  def deleteReview(reviewId: String): Boolean = delete(reviewUpdateUrl.format(reviewId))
-
-  /**
-   * 获取用户对图书的所有标签
-   */
-  def tags(userId: String) = get[TagsResult](userTagsUrl.format(userId))
 
   /**
    * 获取某个用户的所有图书收藏信息
@@ -126,10 +91,6 @@ object Book extends API {
   def deleteAnnotation(annotationId: String) = delete(annotationUrl.format(annotationId))
 }
 
-case class BookSearch(q: String, tag: String, start: Int = 0, count: Int = 20) extends Search(q, start, count) {
-  def searchUrl = flatten(Book.bookSearchUrl)
-}
-
 /**
  * 发表新评论内容
  * @param book 评论所针对的book id
@@ -137,7 +98,7 @@ case class BookSearch(q: String, tag: String, start: Int = 0, count: Int = 20) e
  * @param content 评论内容，且多于150字
  * @param rating  打分，数字1～5为合法值，其他信息默认为不打分
  */
-case class ReviewPosted(book: String, title: String, content: String, rating: Int = 0) extends Bean
+case class BookReviewPosted(book: String, title: String, content: String, rating: Int = 0) extends ReviewPosted(title,content,rating)
 
 /**
  * 图书收藏信息
@@ -177,11 +138,6 @@ case class AnnotationSearch(order: String = "rank", page: Int = 1, format: Strin
  */
 case class AnnotationPosted(content: String, page: Int, chapter: String, privacy: String = "", photos: Map[String, String] = Map()) extends Bean
 
-/**
- * 标签信息
- */
-case class Tag(count: Int, title: String)
-
 case class Status(value: String) extends Enumeration {
   val WISH = Value("wish")
   val READING = Value("reading")
@@ -194,18 +150,7 @@ case class Order(value: String) extends Enumeration {
   val PAGE = Value("page")
 }
 
-case class PopTag(start: Int, count: Int, total: Int, tags: List[Tag])
-
 case class Image(small: String, large: String, medium: String)
-
-case class Rating(max: Int, min: Int, value: String)
-
-/**
- *
- * @param average 平均评分
- * @param numRaters 评分人数
- */
-case class BookRating(max: Int, min: Int, average: String, numRaters: Int)
 
 /**
  * 图书信息
@@ -213,14 +158,15 @@ case class BookRating(max: Int, min: Int, average: String, numRaters: Int)
 case class Book(id: String, isbn10: String, isbn13: String, title: String, origin_title: String,
                 alt_title: String, subtitle: String, url: String, alt: String, image: String, images: Image,
                 author: List[String], translator: List[String], publisher: String, pubdate: String,
-                rating: BookRating, tags: List[Tag], binding: String, price: String, pages: String,
+                rating: RatingDetail, tags: List[Tag], binding: String, price: String, pages: String,
                 author_intro: String, summary: String = "")
 
 /**
  * 评论信息
  */
-case class Review(id: Long, title: String, alt: String, author: User, book: Book, rating: Rating,
-                  votes: Int, useless: Int, comments: Int, summary: String, published: String, updated: String)
+case class BookReview(id: Long, title: String, alt: String, author: User, book: Book, rating: Rating, votes: Int, useless: Int,
+                      comments: Int, summary: String, published: Date, updated: Date)
+      extends Review(id, title, alt, author, rating, votes, useless, comments, summary, published, updated)
 
 /**
  * 笔记信息
