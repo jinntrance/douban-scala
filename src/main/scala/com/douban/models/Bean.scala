@@ -107,7 +107,7 @@ abstract class BookMovieMusicAPI[+T: Manifest, +R: Manifest] extends API[T, R] {
   /**
    * 修改评论
    */
-  def updateReview(reviewId: String, r: ReviewPosted): Boolean = putNoResult(reviewUpdateUrl.format(reviewId), r)
+  protected def updateReview[R <: ReviewPosted](reviewId: String, r: R): Boolean = putNoResult(reviewUpdateUrl.format(reviewId), r)
 
   /**
    * 删除评论

@@ -25,6 +25,8 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult] {
 
   def postReview(r: BookReviewPosted) = super.postReview(r)
 
+  def updateReview(r: BookReviewPosted) = super.updateReview(r.book, r)
+
   /**
    * 根据isbn获取图书信息
    */
