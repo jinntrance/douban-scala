@@ -71,7 +71,7 @@ abstract class API[+T: Manifest, +R: Manifest] {
   var secured = false
   val api_prefix: String = "https://api.douban.com/v2/"
 
-  def url_prefix: String
+  protected def url_prefix: String
 
   private val byIdUrl = url_prefix + "%s"
 
@@ -116,7 +116,7 @@ abstract class BookMovieMusicAPI[+T: Manifest, +R: Manifest] extends API[T, R] {
 
 
   /**
-   * 获取用户对图书的所有标签
+   * 获取用户对Items的所有标签
    */
   def tags(userId: String) = get[TagsResult](tagsUrl.format(userId))
 
@@ -150,5 +150,11 @@ class ListResult(start: Int, count: Int, total: Int)
 class Review(id: Long, title: String, alt: String, author: User, rating: Rating,
              votes: Int, useless: Int, comments: Int, summary: String, published: Date, updated: Date)
 
+/**
+ *
+ * @param title 标题
+ * @param content 内容
+ * @param rating  打分1-5
+ */
 class ReviewPosted(title: String, content: String, rating: Int = 0) extends Bean
 

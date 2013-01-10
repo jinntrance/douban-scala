@@ -16,7 +16,7 @@ import Req._
 object Movie extends BookMovieMusicAPI[Movie, MovieSearchResult] {
   def url_prefix = api_prefix + "movie/"
 
-  val byImdbUrl = url_prefix + "imdb/%s"
+  private val byImdbUrl = url_prefix + "imdb/%s"
 
   def byImdb(imdb: String) = get[Movie](byImdbUrl.format(imdb))
 

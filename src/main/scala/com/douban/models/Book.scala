@@ -13,7 +13,7 @@ import java.util.Date
  * @see http://developers.douban.com/wiki/?title=book_v2
  */
 object Book extends BookMovieMusicAPI[Book, BookSearchResult] {
-  def url_prefix = api_prefix + "book/"
+  protected def url_prefix = api_prefix + "book/"
 
   private val byISBNUrl = url_prefix + "isbn/%s"
   private val userCollectionsUrl = url_prefix + "user/%s/collections"
