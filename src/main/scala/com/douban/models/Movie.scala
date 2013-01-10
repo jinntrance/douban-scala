@@ -13,7 +13,7 @@ import Req._
  * @see http://developers.douban.com/wiki/?title=api_v2
  */
 
-object Movie extends API{
+object Movie extends API[Movie,MovieSearchResult]{
    def url_prefix=api_prefix+"movie/"
    val byIdUrl=url_prefix+"%s"
    val byImdbUrl=url_prefix+"imdb/%s"
@@ -22,7 +22,6 @@ object Movie extends API{
    val postReviewUrl=url_prefix+"reviews"
    val updateReviewUrl=url_prefix+"review/%s"
    def byImdb(imdb:String)=get[Movie](byImdbUrl.format(imdb))
-   def search(query: String, tag: String, page: Int = 0, count: Int = 20) = super.search[MovieSearchResult](query,page,count,tag)
    def popTags(movieId:String)=get[TagsResult](popTagsUrl.format(movieId))
    def postReview(r:MovieReviewPosted)=postNoResult(postReviewUrl,r)
    def updateReview(r:MovieReviewPosted)=postNoResult(postReviewUrl,r)

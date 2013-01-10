@@ -12,7 +12,7 @@ import java.util.Date
  * @version 1.0
  * @see http://developers.douban.com/wiki/?title=book_v2
  */
-object Book extends BookMovieMusicAPI[Book] {
+object Book extends BookMovieMusicAPI[Book,BookSearchResult] {
   def url_prefix = api_prefix + "book/"
   private val byISBNUrl = url_prefix + "isbn/%s"
   private val userCollectionsUrl = url_prefix + "user/%s/collections"
@@ -26,11 +26,6 @@ object Book extends BookMovieMusicAPI[Book] {
    * 根据isbn获取图书信息
    */
   def byISBN(isbn: String) = get[Book](byISBNUrl.format(isbn))
-  /**
-   * 搜索图书
-   */
-  def search(query: String, tag: String, page: Int = 0, count: Int = 20) = super.search[BookSearchResult](query,page,count,tag)
-
 
   /**
    * 获取某个用户的所有图书收藏信息

@@ -14,7 +14,7 @@ import java.util.Date
  * @see 豆瓣用户 http://developers.douban.com/wiki/?title=user_v2
  **/
 
-object User extends API[UserInfo] {
+object User extends API[UserInfo,UserSearchResult] {
   def url_prefix = api_prefix + "user/"
   val meUrl = url_prefix + "~me"
   val byIdUrl = url_prefix + "%s"
@@ -26,16 +26,6 @@ object User extends API[UserInfo] {
    * @example val user=User.ofMe
    */
   def ofMe = get[UserInfo](meUrl, secured = true)
-
-  /**
-   * 搜索用户
-   * @param query 全文检索的关键词
-   * @param page 查询开始页码，默认为0
-   * @param count 返回结果的数量，每页显示条数，默认为20
-   * @return UserSearchResult
-   * @example val user=User.search("刘瑜")
-   */
-  def search(query: String, page: Int = 0, count: Int = 20) = super.search[UserSearchResult](query,page,count)
 }
 
 

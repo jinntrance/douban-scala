@@ -66,7 +66,7 @@ trait Flatten {
 class Bean extends Flatten {
 }
 
-abstract class API[T:Manifest] {
+abstract class API[+T:Manifest,+R:Manifest] {
   var secured = false
   val api_prefix: String = "https://api.douban.com/v2/"
   def url_prefix:String
@@ -80,9 +80,9 @@ abstract class API[T:Manifest] {
   /**
    * 搜索
    */
-  protected def search[R<:ListResult](query: String, page: Int = 0, count: Int = 20, tag: String="") = get[R](new Search(query, page * count, count,tag).flatten(searchUrl))
+  protected def search(query: String, page: Int = 0, count: Int = 20, tag: String="") = get[R](new Search(query, page * count, count,tag).flatten(searchUrl))
 }
-abstract class BookMovieMusicAPI[T:Manifest] extends API[T]{
+abstract class BookMovieMusicAPI[+T:Manifest,+R:Manifest] extends API[T,R]{
   private val popTagsUrl = url_prefix + "%s/tags"
   private val reviewsPostUrl = url_prefix + "reviews"
   private val reviewUpdateUrl = url_prefix + "review/%s"
