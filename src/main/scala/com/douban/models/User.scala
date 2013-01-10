@@ -14,10 +14,13 @@ import java.util.Date
  * @see 豆瓣用户 http://developers.douban.com/wiki/?title=user_v2
  **/
 
-object User extends API[UserInfo,UserSearchResult] {
-  def url_prefix = api_prefix + "user/"
-  val meUrl = url_prefix + "~me"
-  val byIdUrl = url_prefix + "%s"
+object User extends API[UserInfo, UserSearchResult] {
+  def url_prefix = api_prefix + "user"
+
+  val meUrl = url_prefix + "/~me"
+  val byIdUrl = url_prefix + "/%s"
+
+  override def searchUrl = url_prefix
 
 
   /**
@@ -29,7 +32,7 @@ object User extends API[UserInfo,UserSearchResult] {
 }
 
 
-case class UserSearchResult(start: Int, count: Int, total: Int, users: List[User]) extends ListResult(start,count,total)
+case class UserSearchResult(start: Int, count: Int, total: Int, users: List[User]) extends ListResult(start, count, total)
 
 /**
  * 用户简版

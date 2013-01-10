@@ -12,8 +12,9 @@ import java.util.Date
  * @version 1.0
  * @see http://developers.douban.com/wiki/?title=book_v2
  */
-object Book extends BookMovieMusicAPI[Book,BookSearchResult] {
+object Book extends BookMovieMusicAPI[Book, BookSearchResult] {
   def url_prefix = api_prefix + "book/"
+
   private val byISBNUrl = url_prefix + "isbn/%s"
   private val userCollectionsUrl = url_prefix + "user/%s/collections"
   private val collectionUrl = url_prefix + "%s/collection"
@@ -21,6 +22,8 @@ object Book extends BookMovieMusicAPI[Book,BookSearchResult] {
   private val bookAnnotationsUrl = url_prefix + "%s/annotations"
   private val annotationUrl = url_prefix + "annotation/%s"
   private val annotationPostUrl = url_prefix + "%s/annotations"
+
+  def postReview(r: BookReviewPosted) = super.postReview(r)
 
   /**
    * 根据isbn获取图书信息
@@ -93,7 +96,7 @@ object Book extends BookMovieMusicAPI[Book,BookSearchResult] {
  * @param content 评论内容，且多于150字
  * @param rating  打分，数字1～5为合法值，其他信息默认为不打分
  */
-case class BookReviewPosted(book: String, title: String, content: String, rating: Int = 0) extends ReviewPosted(title,content,rating)
+case class BookReviewPosted(book: String, title: String, content: String, rating: Int = 0) extends ReviewPosted(title, content, rating)
 
 /**
  * 图书收藏信息
@@ -161,7 +164,7 @@ case class Book(id: String, isbn10: String, isbn13: String, title: String, origi
  */
 case class BookReview(id: Long, title: String, alt: String, author: User, book: Book, rating: Rating, votes: Int, useless: Int,
                       comments: Int, summary: String, published: Date, updated: Date)
-      extends Review(id, title, alt, author, rating, votes, useless, comments, summary, published, updated)
+  extends Review(id, title, alt, author, rating, votes, useless, comments, summary, published, updated)
 
 /**
  * 笔记信息

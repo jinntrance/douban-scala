@@ -74,7 +74,8 @@ abstract class API[+T: Manifest, +R: Manifest] {
   def url_prefix: String
 
   private val byIdUrl = url_prefix + "%s"
-  private val searchUrl = url_prefix + "search"
+
+  protected def searchUrl = url_prefix + "search"
 
   /**
    * 通过id获取
@@ -101,7 +102,7 @@ abstract class BookMovieMusicAPI[+T: Manifest, +R: Manifest] extends API[T, R] {
   /**
    * 发表新评论
    */
-  def postReview[R <: ReviewPosted](r: R): Boolean = postNoResult(reviewsPostUrl, r)
+  protected def postReview[R <: ReviewPosted](r: R): Boolean = postNoResult(reviewsPostUrl, r)
 
   /**
    * 修改评论

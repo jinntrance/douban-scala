@@ -13,25 +13,25 @@ import Req._
  * @see http://developers.douban.com/wiki/?title=api_v2
  */
 
-object Movie extends API[Movie,MovieSearchResult]{
-   def url_prefix=api_prefix+"movie/"
-   val byIdUrl=url_prefix+"%s"
-   val byImdbUrl=url_prefix+"imdb/%s"
-   val searchUrl=url_prefix+"search"
-   val popTagsUrl=url_prefix+"%s/tags"
-   val postReviewUrl=url_prefix+"reviews"
-   val updateReviewUrl=url_prefix+"review/%s"
-   def byImdb(imdb:String)=get[Movie](byImdbUrl.format(imdb))
-   def popTags(movieId:String)=get[TagsResult](popTagsUrl.format(movieId))
-   def postReview(r:MovieReviewPosted)=postNoResult(postReviewUrl,r)
-   def updateReview(r:MovieReviewPosted)=postNoResult(postReviewUrl,r)
+object Movie extends BookMovieMusicAPI[Movie, MovieSearchResult] {
+  def url_prefix = api_prefix + "movie/"
+
+  val byImdbUrl = url_prefix + "imdb/%s"
+
+  def byImdb(imdb: String) = get[Movie](byImdbUrl.format(imdb))
+
+  def postReview(r: MovieReviewPosted) = super.postReview(r)
 }
-case class Author(name:String)
-case class Attribute(language:List[String],pubdate:List[String],title:List[String],country:List[String],writer:List[String],director:List[String],cast:List[String],movie_duration:List[String],year:List[String],movie_type:List[String])
+
+case class Author(name: String)
+
+case class Attribute(language: List[String], pubdate: List[String], title: List[String], country: List[String], writer: List[String], director: List[String], cast: List[String], movie_duration: List[String], year: List[String], movie_type: List[String])
+
 case class MovieReview(id: Long, title: String, alt: String, author: User, movie: Movie, rating: Rating,
-                      votes: Int, useless: Int, comments: Int, summary: String, published: Date, updated: Date)
-      extends Review(id,title,alt,author,rating,votes,useless,comments,summary,published,updated)
-case class Movie(id:String,title:String,author:List[Author],image:String,rating:RatingDetail,summary:String,tags:List[Tag],alt:String,alt_title:String,mobile_link:String,attrs:Attribute)
+                       votes: Int, useless: Int, comments: Int, summary: String, published: Date, updated: Date)
+  extends Review(id, title, alt, author, rating, votes, useless, comments, summary, published, updated)
+
+case class Movie(id: String, title: String, author: List[Author], image: String, rating: RatingDetail, summary: String, tags: List[Tag], alt: String, alt_title: String, mobile_link: String, attrs: Attribute)
 
 /**
  *
@@ -40,5 +40,6 @@ case class Movie(id:String,title:String,author:List[Author],image:String,rating:
  * @param content 内容
  * @param rating  打分1-5
  */
-case class MovieReviewPosted(movie: String, title: String, content: String, rating: Int = 0) extends ReviewPosted(title,content,rating)
-case class MovieSearchResult(start:Int,count:Int,total:Int,movies:List[Movie])
+case class MovieReviewPosted(movie: String, title: String, content: String, rating: Int = 0) extends ReviewPosted(title, content, rating)
+
+case class MovieSearchResult(start: Int, count: Int, total: Int, movies: List[Movie])
