@@ -65,7 +65,7 @@ object Book extends API {
   /**
    * 获取用户对图书的所有标签
    */
-  def tags(userId: String) = get(userTagsUrl.format(userId))
+  def tags(userId: String) = get[TagsResult](userTagsUrl.format(userId))
 
   /**
    * 获取某个用户的所有图书收藏信息
@@ -229,13 +229,18 @@ case class Review(id: Long, title: String, alt: String, author: User, book: Book
 case class Annotation(id: String, book_id: String, book: Book, author_id: String, author_user: User, chapter: String, page_no: Int, privacy: Int,
                       content: String, `abstract`: String, abstract_photo: String, photos: Map[String, String], last_photo: Int, comments_count: Int, hasmath: Boolean, time: String)
 
-case class AnnotationSearchResult(start: Int, count: Int, total: Int, annotations: List[Annotation])
-
-case class BookSearchResult(start: Int, count: Int, total: Int, books: List[Book])
-
 /**
  * 收藏信息
  */
-case class Collection(status: String, book_id: String,book:Book, comment: String, id: Long, rating: Rating = null, tags: List[String], updated: String, user_id: String, user: User)
+case class Collection(status: String, book_id: String, book: Book, comment: String, id: Long, rating: Rating = null, tags: List[String], updated: String, user_id: String, user: User)
 
-case class CollectionSearchResult(start: Int, count: Int, total: Int, collections: List[Collection])
+
+class Result(start: Int, count: Int, total: Int)
+
+case class AnnotationSearchResult(start: Int, count: Int, total: Int, annotations: List[Annotation]) extends Result(start, count, total)
+
+case class BookSearchResult(start: Int, count: Int, total: Int, books: List[Book]) extends Result(start, count, total)
+
+case class TagsResult(start: Int, count: Int, total: Int, tags: List[Tag]) extends Result(start, count, total)
+
+case class CollectionSearchResult(start: Int, count: Int, total: Int, collections: List[Collection]) extends Result(start, count, total)
