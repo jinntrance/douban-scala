@@ -80,7 +80,7 @@ abstract class API[+T:Manifest,+R:Manifest] {
   /**
    * 搜索
    */
-  protected def search(query: String, page: Int = 0, count: Int = 20, tag: String="") = get[R](new Search(query, page * count, count,tag).flatten(searchUrl))
+  def search(query: String, page: Int = 0, count: Int = 20, tag: String="") = get[R](new Search(query, page * count, count,tag).flatten(searchUrl))
 }
 abstract class BookMovieMusicAPI[+T:Manifest,+R:Manifest] extends API[T,R]{
   private val popTagsUrl = url_prefix + "%s/tags"

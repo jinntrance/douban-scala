@@ -33,7 +33,7 @@ class BookTest extends BaseTest {
     prettyJSON(Book.deleteAnnotation(annoId))
   }
   test("the book search") {
-    prettyJSON(Book.search("Book", ""))
+    prettyJSON(Book.search("Book"))
   }
   test("the book byId") {
     prettyJSON(Book.byId(bookId))
