@@ -1,6 +1,6 @@
 package com.douban.common
 
-import com.douban.models.{Flatten, Bean}
+import com.douban.models.Bean
 
 
 /**
@@ -17,7 +17,7 @@ object Auth {
   var code = "94e4a2200be75286"
   val auth_url = "https://www.douban.com/service/auth2/auth"
   val token_url = "https://www.douban.com/service/auth2/token"
-  val redirect_url = "http://crazyadam.net/"
+  var redirect_url = "http://crazyadam.net/"
   val response_type = "code"
   val grant_type = "authorization_code"
   val refresh_token_string = "refresh_token"
@@ -42,13 +42,14 @@ case class AuthorizationCode(client_id: String = Auth.api_key, redirect_uri: Str
 
 case class AuthorizationConfirm(ck: String, ssid: String, confirm: String = "授权")
 
-case class Token(client_id: String = Auth.api_key, client_secret: String = Auth.secret, redirect_uri: String = Auth.redirect_url, grant_type: String = Auth.grant_type, code: String = Auth.code, refresh_token: String = Auth.refresh_token_string) extends Bean with Flatten {
+class Token(redirect_uri: String, client_id: String, client_secret: String, grant_type: String) extends Bean {
   def tokenUrl: String = flatten(Auth.token_url)
 }
 
-
-class AccessToken extends Token(grant_type = Auth.grant_type)
+case class AccessToken(code: String, redirect_uri: String, client_id: String = Auth.api_key, client_secret: String = Auth.secret, grant_type: String = Auth.grant_type)
+  extends Token(redirect_uri, client_id, client_secret, grant_type)
 
 case class AccessTokenResult(access_token: String, expires_in: Long, refresh_token: String, douban_user_id: String) extends Bean
 
-class RefreshToken extends Token(grant_type = Auth.refresh_token_string, refresh_token = Auth.refresh_token_string);
+case class RefreshToken(refresh_token: String, redirect_uri: String, client_id: String = Auth.api_key, client_secret: String = Auth.secret, grant_type: String = Auth.refresh_token_string)
+  extends Token(redirect_uri, client_id, client_secret, grant_type)

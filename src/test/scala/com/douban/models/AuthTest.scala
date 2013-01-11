@@ -22,9 +22,9 @@ class AuthTest extends BaseTest {
     Auth.code = Auth.extractCode(codeUrl)
   }
   test("the token url") {
-    val token: Token = new Token
+    val token: Token = new RefreshToken(Auth.refresh_token, Auth.redirect_url)
     val url = token.tokenUrl
-    prettyJSON(Req.post[AccessTokenResult](url, new Token))
+    prettyJSON(Req.post[AccessTokenResult](url, token))
   }
 
 }

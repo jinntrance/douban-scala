@@ -1,6 +1,6 @@
 package com.douban.common
 
-import java.net.{URLDecoder, URLEncoder, HttpURLConnection, URL}
+import java.net.{URLDecoder, HttpURLConnection, URL}
 import java.net.HttpURLConnection._
 import java.io._
 import net.liftweb.json._
@@ -18,8 +18,10 @@ import java.text.SimpleDateFormat
 class Req
 
 object Req {
-  val timeout = 10*1000 //10 seconds
-  val persistenceTimeout=10*60//10 minutes
+  val timeout = 10 * 1000
+  //10 seconds
+  val persistenceTimeout = 10 * 60
+  //10 minutes
   val PUT = "PUT"
   val POST = "POST"
   val GET = "GET"
@@ -28,6 +30,8 @@ object Req {
   implicit val formats = new DefaultFormats {
     override def dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
   }
+
+  implicit def string2int(s: String) = s.toInt
 
   /**
    *
@@ -104,16 +108,16 @@ object Req {
     c.setReadTimeout(timeout)
     //Android 2.3及以后的HttpConnectionUrl自动使用gzip，故此处就不再添加
     c.setRequestProperty("Connection", "Keep-Alive")
-    c.setRequestProperty("Keep-Alive","timeout="+persistenceTimeout)
+    c.setRequestProperty("Keep-Alive", "timeout=" + persistenceTimeout)
     //添加认证的access token
     if (authorized)
       c.setRequestProperty("Authorization", "Bearer " + Auth.access_token)
     c.setRequestProperty("Charset", ENCODING)
-    println(c.getRequestMethod + "ing " + URLDecoder.decode(c.getURL.toString,ENCODING))
+    println(c.getRequestMethod + "ing " + URLDecoder.decode(c.getURL.toString, ENCODING))
     if ((c.getRequestMethod == POST || c.getRequestMethod == PUT) && null != request) {
-      c.setRequestProperty("Content-Type","application/x-www-form-urlencoded")
+      c.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
       val paras = request.toParas
-      println("request body-->" + URLDecoder.decode(paras,ENCODING))
+      println("request body-->" + URLDecoder.decode(paras, ENCODING))
       val out = new BufferedOutputStream(c.getOutputStream)
       out.write(paras.getBytes(ENCODING))
       out.flush()
