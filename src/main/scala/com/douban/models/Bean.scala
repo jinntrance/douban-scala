@@ -73,14 +73,14 @@ abstract class API[+T: Manifest, +R: Manifest] {
 
   protected def url_prefix: String
 
-  protected val byIdUrl = url_prefix + "/%s"
+  protected val idUrl = url_prefix + "/%s"
 
   protected def searchUrl = url_prefix + "/search"
 
   /**
    * 通过id获取
    */
-  def byId(id: String) = get[T](byIdUrl.format(id))
+  def byId(id: String) = get[T](idUrl.format(id))
 
   /**
    * 搜索
@@ -89,6 +89,8 @@ abstract class API[+T: Manifest, +R: Manifest] {
 }
 
 abstract class BookMovieMusicAPI[+T: Manifest, +R: Manifest] extends API[T, R] {
+  protected type REVIEWPOSTED
+  protected type REVIEW
   private val popTagsUrl = url_prefix + "%s/tags"
   private val reviewsPostUrl = url_prefix + "reviews"
   private val reviewUpdateUrl = url_prefix + "review/%s"

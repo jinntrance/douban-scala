@@ -19,9 +19,9 @@ object Discussion extends API[Discussion, DiscussionsResult] {
 
   def postDiscussion(id: String, d: Discussion) = postNoResult(discussionsUrl.format(id), d)
 
-  def updateDiscussion(discussionId: String, d: Discussion) = putNoResult(byIdUrl.format(discussionId), d)
+  def updateDiscussion(discussionId: String, d: Discussion) = putNoResult(idUrl.format(discussionId), d)
 
-  def deleteDiscussion(discussionId: String) = delete(byIdUrl.format(discussionId))
+  def deleteDiscussion(discussionId: String) = delete(idUrl.format(discussionId))
 
   def discussions(id: String) = get[DiscussionsResult](discussionsUrl.format(id))
 
