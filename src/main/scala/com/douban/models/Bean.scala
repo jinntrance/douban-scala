@@ -67,7 +67,7 @@ trait Flatten {
 class Bean extends Flatten {
 }
 
-abstract class API[+T: Manifest, +R: Manifest] {
+abstract class API[+B: Manifest, +R: Manifest] {
   var secured = false
   val api_prefix: String = "https://api.douban.com/v2/"
 
@@ -80,7 +80,7 @@ abstract class API[+T: Manifest, +R: Manifest] {
   /**
    * 通过id获取
    */
-  def byId(id: String) = get[T](idUrl.format(id))
+  def byId(id: String) = get[B](idUrl.format(id))
 
   /**
    * 搜索
@@ -88,9 +88,7 @@ abstract class API[+T: Manifest, +R: Manifest] {
   def search(query: String, page: Int = 0, count: Int = 20, tag: String = "") = get[R](new Search(query, page * count, count, tag).flatten(searchUrl))
 }
 
-abstract class BookMovieMusicAPI[+T: Manifest, +R: Manifest] extends API[T, R] {
-  protected type REVIEWPOSTED
-  protected type REVIEW
+abstract class BookMovieMusicAPI[+B: Manifest, +RT: Manifest, +RV: Manifest] extends API[B, RT] {
   private val popTagsUrl = url_prefix + "%s/tags"
   private val reviewsPostUrl = url_prefix + "reviews"
   private val reviewUpdateUrl = url_prefix + "review/%s"
@@ -104,16 +102,16 @@ abstract class BookMovieMusicAPI[+T: Manifest, +R: Manifest] extends API[T, R] {
   /**
    * 发表新评论
    */
-  protected def postReview[R <: ReviewPosted](r: R): Boolean = postNoResult(reviewsPostUrl, r)
+  def postReview[R <: ReviewPosted](r: R): Boolean = postNoResult(reviewsPostUrl, r)
 
-  //  protected def postReviewWithResult[I<:ReviewPosted,O<:Review](r: I) = post[O](reviewsPostUrl, r)
+  def postReviewWithResult[R <: ReviewPosted](r: R) = post[RV](reviewsPostUrl, r)
 
   /**
    * 修改评论
    */
   def updateReview[R <: ReviewPosted](reviewId: String, r: R): Boolean = putNoResult(reviewUpdateUrl.format(reviewId), r)
 
-  //  def updateReviewWithResult[I<:ReviewPosted,O<:Review](r: I) = put[O](reviewUpdateUrl.format(reviewId), r)
+  def updateReviewWithResult[R <: ReviewPosted](reviewId: String, r: R) = put[RV](reviewUpdateUrl.format(reviewId), r)
 
   /**
    * 删除评论
@@ -169,5 +167,5 @@ class Review(id: Long, title: String, alt: String, author: User, rating: ReviewR
  * @param content 内容
  * @param rating  打分1-5 //TODO no ever case class
  */
-class ReviewPosted(title: String, content: String, rating: Int = 0) extends Bean
+class ReviewPosted protected(title: String, content: String, rating: Int = 0) extends Bean
 

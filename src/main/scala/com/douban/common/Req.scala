@@ -31,8 +31,6 @@ object Req {
     override def dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
   }
 
-  implicit def string2int(s: String) = s.toInt
-
   /**
    *
    * @param request 参数Bean

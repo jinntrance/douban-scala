@@ -14,14 +14,13 @@ import Req._
  * @version 1.0
  */
 
-object Movie extends BookMovieMusicAPI[Movie, MovieSearchResult] {
-  def url_prefix = api_prefix + "movie/"
+object Movie extends BookMovieMusicAPI[Movie, MovieSearchResult, MovieReview] {
+  protected def url_prefix = api_prefix + "movie/"
 
   private val byImdbUrl = url_prefix + "imdb/%s"
 
   def byImdb(imdb: String) = get[Movie](byImdbUrl.format(imdb))
 
-  def postReview(r: MovieReviewPosted) = super.postReview[MovieReviewPosted](r)
 
 }
 
@@ -42,6 +41,6 @@ case class Movie(id: String, title: String, author: List[Author], image: String,
  * @param content 内容
  * @param rating  打分1-5
  */
-case class MovieReviewPosted(movie: String, title: String, content: String, rating: Int) extends ReviewPosted(title, content, rating)
+case class MovieReviewPosted(movie: String, title: String, content: String, rating: Int = 0) extends ReviewPosted(title, content, rating)
 
 case class MovieSearchResult(start: Int, count: Int, total: Int, movies: List[Movie])

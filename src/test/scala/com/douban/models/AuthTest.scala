@@ -21,7 +21,12 @@ class AuthTest extends BaseTest {
     val codeUrl = readLine("please copy the url here after authorization>\n")
     Auth.code = Auth.extractCode(codeUrl)
   }
-  test("the token url") {
+  test("the acess token url") {
+    val token: Token = new AccessToken(Auth.code, Auth.redirect_url)
+    val url = token.tokenUrl
+    prettyJSON(Req.post[AccessTokenResult](url, token))
+  }
+  test("the refresh token url") {
     val token: Token = new RefreshToken(Auth.refresh_token, Auth.redirect_url)
     val url = token.tokenUrl
     prettyJSON(Req.post[AccessTokenResult](url, token))

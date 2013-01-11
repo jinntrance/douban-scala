@@ -11,12 +11,9 @@ import java.util.Date
  * @since 1/11/13 1:19 AM
  * @version 1.0
  */
-object Music extends BookMovieMusicAPI[Music, MusicSearchResult] {
+object Music extends BookMovieMusicAPI[Music, MusicSearchResult, MusicReview] {
   def url_prefix = api_prefix + "music/"
 
-  def postReview(r: MusicReviewPosted) = super.postReview[MusicReviewPosted](r)
-
-  //  def postReviewWithResult(r:MusicReviewPosted)=super.postReviewWithResult[MusicReviewPosted,MusicReview](r)
 }
 
 case class MusicAttribute(publisher: List[String], singer: List[String], discs: List[String], pubdate: List[String], title: List[String], media: List[String], tracks: List[String]) {
@@ -39,6 +36,6 @@ case class MusicReview(id: Long, title: String, alt: String, author: User, music
  * @param music 评论所针对的music id
  * @param rating 1-5分，其他为不评分
  */
-case class MusicReviewPosted(music: String, title: String, content: String, rating: Int) extends ReviewPosted(title, content, rating)
+case class MusicReviewPosted(music: String, title: String, content: String, rating: Int = 0) extends ReviewPosted(title, content, rating)
 
-case class Music(id: Long, title: String, alt: String, author: List[Author], alt_title: String, tags: List[Tag], summary: String, image: String, mobile_link: String, attrs: MusicAttribute, rating: ItemRating)
+case class Music(id: String, title: String, alt: String, author: List[Author], alt_title: String, tags: List[Tag], summary: String, image: String, mobile_link: String, attrs: MusicAttribute, rating: ItemRating)

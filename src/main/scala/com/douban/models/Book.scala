@@ -14,7 +14,9 @@ import java.util.Date
  * @version 1.0
  * @see http://developers.douban.com/wiki/?title=book_v2
  */
-object Book extends BookMovieMusicAPI[Book, BookSearchResult] {
+object Book extends BookMovieMusicAPI[Book, BookSearchResult, BookReview] {
+
+
   protected def url_prefix = api_prefix + "book/"
 
   private val byISBNUrl = url_prefix + "isbn/%s"
@@ -24,8 +26,6 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult] {
   private val bookAnnotationsUrl = url_prefix + "%s/annotations"
   private val annotationUrl = url_prefix + "annotation/%s"
   private val annotationPostUrl = url_prefix + "%s/annotations"
-
-  def postReview(r: BookReviewPosted) = super.postReview[BookReviewPosted](r)
 
   /**
    * 根据isbn获取图书信息

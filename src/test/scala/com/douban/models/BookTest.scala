@@ -51,7 +51,7 @@ class BookTest extends BaseTest {
     prettyJSON(Book.postReview(new BookReviewPosted(bookId, "呵呵", content, 4)))
   }
   test("the book updateReview") {
-    prettyJSON(Book.updateReview(reviewId, new ReviewPosted("呵呵", content, 4)))
+    prettyJSON(Book.updateReview(reviewId, new BookReviewPosted("", "呵呵", content, 4)))
   }
   test("the book deleteReview") {
     prettyJSON(Book.deleteReview(reviewId))
