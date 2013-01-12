@@ -18,7 +18,7 @@ class MovieTest extends BaseTest {
     prettyJSON(Movie.byId(movieId))
   }
   test("tesing movie search") {
-    prettyJSON(Movie.search("Love"))
+    prettyJSON(Movie.search("Love", ""))
   }
   test("tesing movie popTags") {
     prettyJSON(Movie.popTags(movieId))

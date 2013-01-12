@@ -28,7 +28,7 @@ class BookTest extends BaseTest {
     prettyJSON(Book.deleteAnnotation(a.id))
   }
   test("the book search") {
-    prettyJSON(Book.search("Book"))
+    prettyJSON(Book.search("Book", ""))
   }
   test("the book byId") {
     prettyJSON(Book.byId(bookId))
@@ -47,6 +47,7 @@ class BookTest extends BaseTest {
     prettyJSON(review)
     prettyJSON(Book.updateReviewWithResult(review.id, new BookReviewPosted("", "呵呵", content, 4)))
     prettyJSON(Book.deleteReview(review.id))
+    prettyJSON(Book.deleteCollection(bookId))
   }
   test("the book collectionOfUser") {
     prettyJSON(Book.collectionsOfUser(userId))

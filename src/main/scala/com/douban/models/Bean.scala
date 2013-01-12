@@ -67,7 +67,7 @@ trait Flatten {
 class Bean extends Flatten {
 }
 
-abstract class API[+B: Manifest, +R: Manifest] {
+abstract class API[+B: Manifest] {
   var secured = false
   val api_prefix: String = "https://api.douban.com/v2/"
 
@@ -75,23 +75,21 @@ abstract class API[+B: Manifest, +R: Manifest] {
 
   protected val idUrl = url_prefix + "/%s"
 
-  protected def searchUrl = url_prefix + "/search"
 
   /**
    * 通过id获取
    */
   def byId(id: String) = get[B](idUrl.format(id))
 
-  /**
-   * 搜索
-   */
-  def search(query: String, page: Int = 0, count: Int = 20, tag: String = "") = get[R](new Search(query, page * count, count, tag).flatten(searchUrl))
 }
 
-abstract class BookMovieMusicAPI[+B: Manifest, +RT: Manifest, +RV: Manifest] extends API[B, RT] {
+abstract class BookMovieMusicAPI[+B: Manifest, +RT: Manifest, +RV: Manifest] extends API[B] {
   private val popTagsUrl = url_prefix + "%s/tags"
   private val reviewsPostUrl = url_prefix + "reviews"
   private val reviewUpdateUrl = url_prefix + "review/%s"
+
+  protected def searchUrl = url_prefix + "/search"
+
   private val tagsUrl = url_prefix + "user_tags/%s"
 
   /**
@@ -124,6 +122,16 @@ abstract class BookMovieMusicAPI[+B: Manifest, +RT: Manifest, +RV: Manifest] ext
    */
   def tags(userId: String) = get[TagsResult](tagsUrl.format(userId))
 
+  /**
+   * 搜索，query/tag必传其一
+   * @param query  查询关键字
+   * @param tag   查询标签
+   * @param page  显示第几页
+   * @param count  每页显示数量
+   * @return
+   */
+  def search(query: String, tag: String, page: Int = 1, count: Int = 20) = get[RT](new Search(query, tag, (page - 1) * count, count).flatten(searchUrl))
+
 }
 
 /**
@@ -136,14 +144,14 @@ case class Tag(count: Int, name: String, title: String)
  * @param q 查询关键字
  * @param start 开始数量
  * @param count 返回总数
- * @param tags  图书 电影可以传tags
+ * @param tag  图书 电影可以传tags
  */
-case class Search(q: String, start: Int = 0, count: Int = 20, tags: String = "") extends Bean
+case class Search(q: String, tag: String, start: Int = 0, count: Int = 20) extends Bean
 
 /**
  *
  * @param max  5 最大值
- * @param min 1  最小值
+ * @param min 0  最小值
  * @param value  評分
  */
 case class ReviewRating(max: Int, min: Int, value: String)

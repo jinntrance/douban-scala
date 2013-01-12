@@ -10,23 +10,27 @@ import java.util.Date
  * @since 1/11/13 3:32 AM
  * @version 1.0
  */
-object Discussion extends API[Discussion, DiscussionsResult] {
+object Discussion extends API[Discussion] {
   override def url_prefix = api_prefix + "discussion/"
 
-  override def searchUrl = api_prefix + "/target/%s/discussions"
+  val discussionsUrl = api_prefix + "/event/%s/discussions" //TODO event 右可能为其他
 
-  val discussionsUrl = "/target/%s/discussions"
+  def postDiscussion(eventId: String, d: DiscussionPosted) = postNoResult(discussionsUrl.format(eventId), d)
 
-  def postDiscussion(id: String, d: Discussion) = postNoResult(discussionsUrl.format(id), d)
+  def postDiscussionWithResult(eventId: String, d: DiscussionPosted) = post[Discussion](discussionsUrl.format(eventId), d)
 
-  def updateDiscussion(discussionId: String, d: Discussion) = putNoResult(idUrl.format(discussionId), d)
+  def updateDiscussion(discussionId: String, d: DiscussionPosted) = putNoResult(idUrl.format(discussionId), d)
+
+  def updateDiscussionWithResult(discussionId: String, d: DiscussionPosted) = put[Discussion](idUrl.format(discussionId), d)
 
   def deleteDiscussion(discussionId: String) = delete(idUrl.format(discussionId))
 
-  def discussions(id: String) = get[DiscussionsResult](discussionsUrl.format(id))
+  def discussions(eventId: String, page: Int = 0, count: Int = 20, query: String = "") = get[DiscussionsResult](new Search(query, "", page * count, count).flatten(discussionsUrl.format(eventId)))
 
 }
 
-case class Discussion(id: String, title: String, alt: String, created: Date, updated: Date, content: String, comments_count: Int, author: User) extends Bean
+case class Discussion(id: String, title: String, alt: String, created: Date, updated: Date, content: String, comments_count: Int, author: User)
+
+case class DiscussionPosted(title: String, content: String) extends Bean
 
 case class DiscussionsResult(start: Int, count: Int, total: Int, discussions: List[Discussion]) extends ListResult(start, count, total)

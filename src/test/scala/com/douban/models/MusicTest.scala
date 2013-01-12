@@ -17,7 +17,7 @@ class MusicTest extends BaseTest {
     prettyJSON(Music.byId(musicId))
   }
   test("tesing music search") {
-    prettyJSON(Music.search("Love"))
+    prettyJSON(Music.search("", "Love"))
   }
   test("tesing music popTags") {
     prettyJSON(Music.popTags(musicId))

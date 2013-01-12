@@ -16,12 +16,12 @@ import java.util.Date
  * @see 豆瓣用户 http://developers.douban.com/wiki/?title=user_v2
  **/
 
-object User extends API[UserInfo, UserSearchResult] {
+object User extends API[UserInfo] {
   def url_prefix = api_prefix + "user"
 
   val meUrl = url_prefix + "/~me"
 
-  override def searchUrl = url_prefix
+  def searchUrl = url_prefix
 
 
   /**
@@ -30,6 +30,14 @@ object User extends API[UserInfo, UserSearchResult] {
    * @example val user=User.ofMe
    */
   def ofMe = get[UserInfo](meUrl, secured = true)
+
+  /**
+   * 搜索用户，不需要tag
+   * @param query 查询关键字
+   * @param page 第几页
+   * @param count 每页显示数量
+   */
+  def search(query: String, page: Int = 1, count: Int = 20) = get[UserSearchResult](new Search(query, "", (page - 1) * count, count).flatten(searchUrl))
 }
 
 
