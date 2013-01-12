@@ -24,7 +24,7 @@ object Event extends API[Event] {
   /**
    * @param p 时间格式：“％Y-％m-％d”，无此参数则时间待定
    */
-  def participate(eventId: String, p: ParticipateDate = new ParticipateDate("")) = postNoResult(participantsUrl.format(eventId), p)
+  def participate(eventId: String, p: ParticipateDate = null) = postNoResult(participantsUrl.format(eventId), p)
 
   def unParticipate(eventId: String) = delete(participantsUrl.format(eventId))
 
@@ -73,7 +73,7 @@ case class GPS(latitude: Double, longitude: Double)
 case class EventList(start: Int, count: Int, total: Int, events: List[Event]) extends ListResult(start, count, total)
 
 /**
- * @param participate_date 时间格式：“％Y-％m-％d”，无此参数则时间待定
+ * @param participate_date  时间格式：“％Y-％m-％d”，无此参数则时间待定
  */
 case class ParticipateDate(participate_date: String) extends Bean
 
