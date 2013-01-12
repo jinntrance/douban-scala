@@ -28,7 +28,7 @@ case class Author(name: String)
 
 case class MovieAttribute(language: List[String], pubdate: List[String], title: List[String], country: List[String], writer: List[String], director: List[String], cast: List[String], movie_duration: List[String], year: List[String], movie_type: List[String])
 
-case class MovieReview(id: Long, title: String, alt: String, author: User, movie: Movie, rating: ReviewRating,
+case class MovieReview(id: String, title: String, alt: String, author: User, movie: Movie, rating: ReviewRating,
                        votes: Int, useless: Int, comments: Int, summary: String, published: Date, updated: Date)
   extends Review(id, title, alt, author, rating, votes, useless, comments, summary, published, updated)
 

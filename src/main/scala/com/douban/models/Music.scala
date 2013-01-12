@@ -28,7 +28,7 @@ case class MusicAttribute(publisher: List[String], singer: List[String], discs: 
 
 case class MusicSearchResult(start: Int, count: Int, total: Int, musics: List[Music]) extends ListResult(start, count, total)
 
-case class MusicReview(id: Long, title: String, alt: String, author: User, music: Music, rating: ReviewRating,
+case class MusicReview(id: String, title: String, alt: String, author: User, music: Music, rating: ReviewRating,
                        votes: Int, useless: Int, comments: Int, summary: String, published: Date, updated: Date) extends Review(id, title, alt, author, rating, votes, useless, comments, summary, published, updated)
 
 /**

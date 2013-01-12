@@ -142,15 +142,15 @@ case class Search(q: String, start: Int = 0, count: Int = 20, tags: String = "")
 
 /**
  *
- * @param max 5
- * @param min 1
- * @param value 平均
+ * @param max  5 最大值
+ * @param min 1  最小值
+ * @param value  評分
  */
 case class ReviewRating(max: Int, min: Int, value: String)
 
 /**
- * @param max 10
- * @param min  0
+ * @param max 10 評分結果最大值
+ * @param min  0 評分結果最小值
  * @param average 平均评分
  * @param numRaters 评分人数
  */
@@ -158,7 +158,7 @@ case class ItemRating(max: Int, min: Int, average: String, numRaters: Int)
 
 class ListResult(start: Int, count: Int, total: Int)
 
-class Review(id: Long, title: String, alt: String, author: User, rating: ReviewRating,
+class Review(id: String, title: String, alt: String, author: User, rating: ReviewRating,
              votes: Int, useless: Int, comments: Int, summary: String, published: Date, updated: Date)
 
 /**

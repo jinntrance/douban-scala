@@ -47,10 +47,14 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult, BookReview] {
    */
   def postCollection(bookId: String, c: CollectionPosted) = postNoResult(collectionUrl.format(bookId), c)
 
+  def postCollectionWithResult(bookId: String, c: CollectionPosted) = post[Collection](collectionUrl.format(bookId), c)
+
   /**
    * 用户修改对某本图书的收藏
    */
   def updateCollection(bookId: String, c: CollectionPosted) = putNoResult(collectionUrl.format(bookId), c)
+
+  def updateCollectionWithResult(bookId: String, c: CollectionPosted) = put[Collection](collectionUrl.format(bookId), c)
 
   /**
    * 用户删除对某本图书的收藏
@@ -80,10 +84,14 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult, BookReview] {
    */
   def postAnnotation(bookId: String, a: AnnotationPosted) = postNoResult(annotationPostUrl.format(bookId), a)
 
+  def postAnnotationWithResult(bookId: String, a: AnnotationPosted) = post[Annotation](annotationPostUrl.format(bookId), a)
+
   /**
    * 用户修改某篇笔记
    */
   def updateAnnotation(annotationId: String, a: AnnotationPosted) = putNoResult(annotationUrl.format(annotationId), a)
+
+  def updateAnnotationWithResult(annotationId: String, a: AnnotationPosted) = put[Annotation](annotationUrl.format(annotationId), a)
 
   /**
    * 用户刪除某篇笔记
@@ -165,7 +173,7 @@ case class Book(id: String, isbn10: String, isbn13: String, title: String, origi
 /**
  * 评论信息
  */
-case class BookReview(id: Long, title: String, alt: String, author: User, book: Book, rating: ReviewRating, votes: Int, useless: Int,
+case class BookReview(id: String, title: String, alt: String, author: User, book: Book, rating: ReviewRating, votes: Int, useless: Int,
                       comments: Int, summary: String, published: Date, updated: Date)
   extends Review(id, title, alt, author, rating, votes, useless, comments, summary, published, updated)
 
