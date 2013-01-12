@@ -52,7 +52,7 @@ class BookTest extends BaseTest {
     prettyJSON(Book.collectionsOfUser(userId))
   }
   test("the book collection") {
-    val p = new CollectionPosted("read", "文政哲 Internet", "對於工具，我們應該更好的應用，而不是爲所累。信息過載的時代，利用好工具，攫取於我們最有益的信息 。")
+    val p = new CollectionPosted("read", "文政哲 Internet", "對於工具，我們應該更好的應用，而不是爲所累。信息過載的時代，利用好工具，攫取於我們最有益的信息 。", 5)
     val c = Book.postCollection(bookId, p)
     prettyJSON(c)
     prettyJSON(Book.collectionOf(bookId))
