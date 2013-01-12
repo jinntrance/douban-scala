@@ -22,50 +22,85 @@ object Event extends API[Event] {
   val listUrl = url_prefix + "list"
 
   /**
+   * 参加活动
    * @param p 时间格式：“％Y-％m-％d”，无此参数则时间待定
    */
   def participate(eventId: String, p: ParticipateDate = null) = postNoResult(participantsUrl.format(eventId), p)
 
+  /**
+   * 取消参加活动
+   */
   def unParticipate(eventId: String) = delete(participantsUrl.format(eventId))
 
+  /**
+   * 感兴趣
+   */
   def wish(eventId: String) = postNoResult(wishersUrl.format(eventId), null)
 
+  /**
+   * 不感兴趣
+   */
   def unWish(eventId: String) = delete(wishersUrl.format(eventId))
 
+  /**
+   * 活动参与人
+   */
   def participants(eventId: String) = get[UserSearchResult](participantsUrl.format(eventId))
 
+  /**
+   * 活动感兴趣的
+   */
   def wishers(eventId: String) = get[UserSearchResult](wishersUrl.format(eventId))
 
+  /**
+   * 用户创建的活动
+   */
   def eventsUserCreated(userId: String) = get[EventList](user_createdUrl.format(userId))
 
+  /**
+   * 用户参加的
+   */
   def eventsUserParticipated(userId: String) = get[EventList](user_participatedUrl.format(userId))
 
+  /**
+   * 用户感兴趣的活动
+   * @return EventList
+   */
   def eventsUserWished(userId: String) = get[EventList](user_wishedUrl.format(userId))
 
-  def events(s: EventSearch) = get[EventList](s.flatten(listUrl))
+  /**
+   * 查询活动
+   * @param location 城市id
+   * @param dayType 时间类型	future, week, weekend, today, tomorrow
+   * @param eventType 活动类型	all,music, film, drama, commonweal, salon, exhibition, party, sports, travel, others
+   * @return
+   */
+  def events(location: String, dayType: String = "", eventType: String = "") = get[EventList](new EventSearch(location, dayType, eventType).flatten(listUrl))
 
 
   implicit def string2geo(s: String): GPS = {
     val locs = s.split(' ')
     GPS(locs(0).toDouble, locs(1).toDouble)
   }
+
+  implicit def string2bool(s: String): Boolean = if (s.equalsIgnoreCase("yes") || s.equalsIgnoreCase("true")) true else false
 }
 
 object Loc extends API[Loc] {
-  def url_prefix = api_prefix + "loc"
+  def url_prefix = api_prefix + "loc/"
 
-  val listUrl = url_prefix + "list"
+  val listUrl = url_prefix + "/list"
 
-  def list(s: Search = new Search("", "")) = get[LocList](s.flatten(listUrl))
+  def list = get[LocList](listUrl)
 }
 
 case class Loc(parent: String, habitable: String, id: String, name: String, uid: String)
 
 case class LocList(start: Int, count: Int, total: Int, locs: List[Loc]) extends ListResult(start, count, total)
 
-case class EventSearch(loc: String, day_type: String, `type`: String) extends Bean
+case class EventSearch(loc: String, day_type: String = "", `type`: String = "") extends Bean
 
-case class Event(is_priv: String, participant_count: Int, image: String, adapt_url: String, begin_time: Date, owner: User, alt: String, geo: GPS, id: String, album: String, title: String,
+case class Event(is_priv: String, participant_count: Int, image: String, adapt_url: String, begin_time: Date, owner: User, alt: String, geo: String, id: String, album: String, title: String,
                  wisher_count: Int, content: String, `image-hlarge`: String, end_time: Date, `image-lmobile`: String, has_invited: String, can_invite: String, address: String, loc_name: String, loc_id: String)
 
 case class GPS(latitude: Double, longitude: Double)
