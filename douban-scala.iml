@@ -23,6 +23,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="lift-json" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-compiler:2.10.0" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.10.0" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-reflect:2.10.0" level="project" />
@@ -36,7 +37,6 @@
     <orderEntry type="library" name="Maven: org.scala-lang:scala-actors:2.10.0" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scalap:2.10.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.scalatest:scalatest_2.10:2.0.M6-SNAP5" level="project" />
-    <orderEntry type="library" name="lift-json" level="project" />
   </component>
 </module>
 

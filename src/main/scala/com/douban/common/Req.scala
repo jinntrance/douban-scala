@@ -114,7 +114,7 @@ object Req {
     println(c.getRequestMethod + "ing " + URLDecoder.decode(c.getURL.toString, ENCODING))
     if ((c.getRequestMethod == POST || c.getRequestMethod == PUT) && null != request) {
       if (withFile) {
-        c.setRequestProperty("Content-Type", "multipart/form-data;") //TODO to set the mulripart/form-data
+        c.setRequestProperty("Content-Type", "multipart/form-data;") //TODO to set the mulripart/form-data2
       }
       else {
         c.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
