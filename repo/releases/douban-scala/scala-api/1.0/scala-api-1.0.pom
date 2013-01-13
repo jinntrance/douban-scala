@@ -78,6 +78,9 @@
                 </executions>
                 <configuration>
                     <sourceDir>src/main/scala</sourceDir>
+                    <excludes>
+                        <exclude>**/net/liftjson/json/**/*.scala</exclude>
+                    </excludes>
                     <jvmArgs>
                         <jvmArg>-Xms64m</jvmArg>
                         <jvmArg>-Xmx256m</jvmArg>
@@ -98,4 +101,8 @@
             <!--<url>https://raw.github.com/jinntrance/douban-scala/master/repo/snapshots</url>-->
         </snapshotRepository>
     </distributionManagement>
+    <properties>
+        <scala.version>2.10</scala.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 </project>

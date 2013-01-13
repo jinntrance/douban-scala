@@ -12,9 +12,10 @@ import com.douban.models.Bean
  */
 
 object Auth {
-  val api_key = "0f86acdf44c03ade2e94069dce40b09a"
-  val secret = "95125490b60b01ee"
+  var api_key = "0f86acdf44c03ade2e94069dce40b09a"
+  var secret = "95125490b60b01ee"
   var code = "ab3174023f3296b9"
+  var scope = ""
   val auth_url = "https://www.douban.com/service/auth2/auth"
   val token_url = "https://www.douban.com/service/auth2/token"
   var redirect_url = "http://crazyadam.net/"
@@ -34,9 +35,7 @@ object Auth {
   def addApiKey() = "apikey=" + api_key
 }
 
-case class AuthorizationCode(client_id: String = Auth.api_key, redirect_uri: String = Auth.redirect_url, response_type: String = Auth.response_type) extends Bean {
-  var (scope, state) = ("", "")
-
+case class AuthorizationCode(client_id: String = Auth.api_key, redirect_uri: String = Auth.redirect_url, scope: String = Auth.scope, response_type: String = Auth.response_type) extends Bean {
   def authUrl: String = flatten(Auth.auth_url)
 }
 

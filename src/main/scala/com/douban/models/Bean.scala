@@ -8,9 +8,11 @@ import scala._
 import java.net.URLEncoder
 import java.util.Date
 import com.douban.common.Req._
-import net.liftweb.json.JsonAST.JField
+import java.io.{FileInputStream, BufferedInputStream, BufferedOutputStream}
+import scala.Predef._
 import net.liftweb.json.JsonAST.JObject
 import net.liftweb.json.JsonAST.JArray
+import net.liftweb.json.JsonAST.JField
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -42,7 +44,7 @@ trait Flatten {
    * 层级参数全部flattened 成一层的key-value形式，
    * List的values用 n=value,n=1,2,3,4
    */
-  private def flat(json: JValue): String = {
+  private def flat(json: JValue, multipart: Boolean = false, boundary: String = "", isFile: Boolean = false, out: BufferedOutputStream = null): String = {
     var para = ""
     for {JField(k, v) <- json
     } v match {
@@ -53,15 +55,37 @@ trait Flatten {
         for {
           v: JValue <- values} {
           i += 1
-          para += '&' + i + '=' + encode(v.extract[String])
+          para += encapsulate(i.toString, v.extract[String])
         }
       }
-      case v: JValue => para += '&' + k + '=' + encode(json.\(k).extract[String])
+      case v: JValue => para += encapsulate(k, json.\(k).extract[String])
     }
     para
   }
 
-  private def encode(value: String) = URLEncoder.encode(value, "utf-8")
+  def flattenToMultipart(boundary: String) = flat(decompose(this), multipart = true, boundary) //TODO boundary在最開始和最末位都有
+
+  private def encapsulate(key: String, value: String, multipart: Boolean = false, boundary: String = "", isFile: Boolean = false, out: BufferedOutputStream = null) = {
+    if (!multipart) '&' + key + '=' + URLEncoder.encode(value, "utf-8")
+    else {
+      val lineEnd = "\r\n"
+      if (!isFile) {
+        val s = "--" + boundary + lineEnd + "Content-Disposition: form-data; name=\"" + key + "\"" + lineEnd + value + lineEnd
+        out.write(s.getBytes)
+      }
+      else {
+        val s = "--" + boundary + lineEnd + "Content-Disposition: form-data;Content-Type:application/octet-stream; name=\"" + key + "\"" + lineEnd
+        out.write(s.getBytes)
+        val file = new BufferedInputStream(new FileInputStream(value))
+        val buf = new Array[Byte](1024)
+        Stream.continually(file.read(buf))
+          .takeWhile(_ != -1)
+          .foreach(out.write(buf, 0, _))
+        out.write(lineEnd.getBytes)
+      }
+      ""
+    }
+  }
 }
 
 class Bean extends Flatten {
