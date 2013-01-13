@@ -100,7 +100,7 @@ object Req {
     succeed(code)
   }
 
-  private def connect(c: HttpURLConnection, request: Bean, authorized: Boolean = true) {
+  private def connect(c: HttpURLConnection, request: Bean, authorized: Boolean = true, withFile: Boolean = false) {
     c.setUseCaches(true)
     c.setConnectTimeout(timeout)
     c.setReadTimeout(timeout)
@@ -113,13 +113,18 @@ object Req {
     c.setRequestProperty("Charset", ENCODING)
     println(c.getRequestMethod + "ing " + URLDecoder.decode(c.getURL.toString, ENCODING))
     if ((c.getRequestMethod == POST || c.getRequestMethod == PUT) && null != request) {
-      c.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
-      val paras = request.toParas
-      println("request body-->" + URLDecoder.decode(paras, ENCODING))
-      val out = new BufferedOutputStream(c.getOutputStream)
-      out.write(paras.getBytes(ENCODING))
-      out.flush()
-      out.close()
+      if (withFile) {
+        c.setRequestProperty("Content-Type", "multipart/form-data;") //TODO to set the mulripart/form-data
+      }
+      else {
+        c.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
+        val paras = request.toParas
+        println("request body-->" + URLDecoder.decode(paras, ENCODING))
+        val out = new BufferedOutputStream(c.getOutputStream)
+        out.write(paras.getBytes(ENCODING))
+        out.flush()
+        out.close()
+      }
     }
     c.connect()
   }
@@ -160,9 +165,7 @@ object Req {
     val c: HttpURLConnection = getConnection(url)
     c.setDoOutput(true)
     c.setRequestMethod(POST)
-    if (withFile)
-      c.setRequestProperty("Content-Type", "multipart/form-data;")
-    this.connect(c, request)
+    this.connect(c, request, withFile = withFile)
     c
   }
 
