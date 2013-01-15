@@ -20,9 +20,9 @@ import org.specs2.files
  */
 trait Bean {
   implicit val formats = DefaultFormats + NoTypeHints
-  protected var f:Map[String, String] = Map()
-  def files_=(fs:Map[String,String]) {f=fs}
-  def files=f
+  protected var _files:Map[String, String] = Map()
+  def files_=(fs:Map[String,String]) {_files=fs}
+  def files=_files
 
   /**
    * 将Bean与一个url组合

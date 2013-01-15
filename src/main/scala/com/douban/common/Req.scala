@@ -7,6 +7,9 @@ import java.net.{URLDecoder, HttpURLConnection, URL}
 import java.text.SimpleDateFormat
 import java.util.Random
 import net.liftweb.json._
+import scala.concurrent._
+import duration._
+import com.douban.common.Error
 
 
 /**
@@ -20,6 +23,7 @@ class Req
 
 object Req {
   val timeout = 20 * 1000
+  val duration=Duration(2,SECONDS)
   //10 seconds
   val persistenceTimeout = 10 * 60
   //10 minutes
@@ -35,7 +39,6 @@ object Req {
   /**
    *
    * @param request 参数Bean
-   * @param withFile 是否传文件
    * @tparam RESULT 返回的类型
    * @return
    */
@@ -148,15 +151,15 @@ object Req {
    * @return
    *
    */
-  def parseJSON[R: Manifest](c: HttpURLConnection): R = {
-    val v: JsonAST.JValue = JsonParser.parse(getResponse(
-      if (succeed(c.getResponseCode)) c.getInputStream else c.getErrorStream
-    ))
-    println(s"response code-->${c.getResponseCode}")
-    c.disconnect()
-    println(pretty(render(v)))
-    if (succeed(c.getResponseCode)) v.extract[R] else throw new DoubanException(v.extract[Error])
-  }
+  def parseJSON[R: Manifest](c: HttpURLConnection): R ={
+      val v: JsonAST.JValue = JsonParser.parse(getResponse(
+        if (succeed(c.getResponseCode)) c.getInputStream else c.getErrorStream
+      ))
+      println(s"response code-->${c.getResponseCode}")
+      c.disconnect()
+      println(pretty(render(v)))
+      if (succeed(c.getResponseCode)) v.extract[R] else throw new DoubanException(v.extract[Error])
+    }
 
   /**
    * 把返回结果读出为String
@@ -242,14 +245,13 @@ object Req {
       out.write(s.getBytes(ENCODING))
       val file = new BufferedInputStream(new FileInputStream(value))
       val buf = new Array[Byte](1024)
-      Stream.continually(file.read(buf))
-        .takeWhile(_ != -1)
+      Stream.continually(file.read(buf)).takeWhile(_ != -1)
         .foreach(out.write(buf, 0, _))
     }
 
   }
 
-  def genBoundary: String = {
+  private def genBoundary: String = {
     val multipartChars = "_1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray
     val buffer = new StringBuilder
     val rand = new Random()

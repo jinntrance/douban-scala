@@ -3,7 +3,6 @@ package com.douban.models
 import java.util.Date
 import com.douban.common.Req
 import Req._
-import org.specs2.Specification
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -140,7 +139,7 @@ case class AnnotationSearch(order: String = "rank", page: Int = 1, format: Strin
 
 /**
  * 给某本图书写笔记
- * @param content 笔记内容	必填，需多于15字
+ * @param content 笔记内容	必填，需多于15字,上传图片后，可为空
  * @param page 页码	页码或章节名选填其一，最多6位正整数
  * @param chapter 章节名	页码或章节名选填其一，最多100字
  * @param privacy 隐私设置	选填，值为'private'为设置成仅自己可见，其他默认为公开  TODO 设置privacy为 private使仅自己可见
@@ -148,10 +147,10 @@ case class AnnotationSearch(order: String = "rank", page: Int = 1, format: Strin
  */
 case class AnnotationPosted(var content: String, page: Int, chapter: String, privacy: String = "public") extends Bean{
   override def files={
-    for (i<- 1 to f.size if !content.contains(s"<图片$i>")){
+    for (i<- 1 to _files.size if !content.contains(s"<图片$i>")){
       content+=s"<图片$i>"
      }
-    f
+    _files
   }
 }
 
