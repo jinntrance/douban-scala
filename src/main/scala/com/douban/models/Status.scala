@@ -14,6 +14,7 @@ object Status extends API[Status]{
   protected def url_prefix = shuo_prefix+"statuses/"
   private val postUrl=url_prefix
   private val feedsUrl=url_prefix+"home_timeline"
+  private val userFeedsUrl=feedsUrl+"/%s"
   private val commentsUrl=idUrl+"comments"
 
 
@@ -26,16 +27,28 @@ object Status extends API[Status]{
 
   /**
    * 获取当前登录用户及其所关注用户的最新广播消息。
-   * @return 请求参数
+   * @param s 请求参数
    */
   def feeds(s:StatusSearch=new StatusSearch)=get[List[Status]](s.flatten(feedsUrl),secured = true)
+
+  /**
+   * 获取用户发布的广播列表
+   * @param userId user_id/screen_name
+   * @param s 请求参数
+   */
+  def feedsOfUser(userId:String,s:StatusSearch=new StatusSearch)=get[List[Status]](s.flatten(userFeedsUrl.format(userId)),secured = true)
 
   /**
    * 删除一条广播
    */
   def delete(statusId:String)=Req.delete(idUrl.format(statusId))
 
+  /**
+   *打包的信息
+   * @return
+   */
   def byIdPacked(statusId:String)=get[PackedStatus](s"$idUrl?pack=true")
+
 
 }
 case class Status(category:String,reshared_count:Int,text:String,created_at:Date,title:String,can_reply:Int,liked:Boolean,attachments:List[Attachment]
@@ -43,7 +56,7 @@ case class Status(category:String,reshared_count:Int,text:String,created_at:Date
 case class Source   //TODO
 case class StatusUser(uid:String,id:String,`type`:String,description:String,small_avatar:String,large_avatar:String,screen_name:String)
 case class Size(small:List[Int],raw:List[Int],median:List[Int])
-case class Media(src:String,sizes:Size,secret_pid:String,original_src:String,href:String,'type':String)
+case class Media(src:String,sizes:Size,secret_pid:String,original_src:String,href:String,`type`:String)
 case class Properties(href:String,uid:String,name:String)
 case class Topic(text:String,indices:List[Int])
 //TODO user_mentions
