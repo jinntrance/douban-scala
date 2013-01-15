@@ -9,6 +9,7 @@ import net.liftweb.json.JsonAST._
 import net.liftweb.json.{NoTypeHints, DefaultFormats}
 import scala.Predef._
 import scala._
+import org.specs2.files
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -19,7 +20,9 @@ import scala._
  */
 trait Bean {
   implicit val formats = DefaultFormats + NoTypeHints
-  var files: Map[String, String] = Map()
+  protected var f:Map[String, String] = Map()
+  def files_=(fs:Map[String,String]) {f=fs}
+  def files=f
 
   /**
    * 将Bean与一个url组合
