@@ -21,11 +21,18 @@ class BookTest extends BaseTest {
     prettyJSON(Book.annotationsOfUser("jinntrance"))
   }
   test("the book postAnnotation") {
-    val a = Book.postAnnotationWithResult(bookId, new AnnotationPosted(content, 2, ""))
+    //    val a = Book.postAnnotationWithResult(bookId, new AnnotationPosted(content, 2, "第一章"))
+    val photos = Map(
+      "1" -> "/home/joseph/Downloads/Coffee-Book-1565471.jpg"
+      , "2" -> "/home/joseph/Downloads/8062382-a-cup-of-coffee-on-the-book.jpg"
+    )
+    val a2p = new AnnotationPosted(content, 2, "第三章")
+    a2p.files = photos
+    val a = Book.postAnnotationWithResult(bookId, a2p)
     prettyJSON(a)
     prettyJSON(Book.annotation(a.id))
-    prettyJSON(Book.updateAnnotationWithResult(a.id, new AnnotationPosted(content, 3, "")))
-    prettyJSON(Book.deleteAnnotation(a.id))
+    //    prettyJSON(Book.updateAnnotationWithResult(a.id, new AnnotationPosted(content, 3, "第二章")))
+    //    prettyJSON(Book.deleteAnnotation(a.id))
   }
   test("the book search") {
     prettyJSON(Book.search("Book", ""))

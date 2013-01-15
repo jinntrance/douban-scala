@@ -1,8 +1,8 @@
 package com.douban.models
 
+import java.util.Date
 import com.douban.common.Req
 import Req._
-import java.util.Date
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -145,7 +145,7 @@ case class AnnotationSearch(order: String = "rank", page: Int = 1, format: Strin
  * @param privacy 隐私设置	选填，值为'private'为设置成仅自己可见，其他默认为公开  TODO 设置privacy为 private使仅自己可见
  * @see  http://developers.douban.com/wiki/?title=book_v2#post_book_annotation
  */
-case class AnnotationPosted(content: String, page: Int, chapter: String, privacy: String = "", photos: Map[String, String] = Map()) extends Bean
+case class AnnotationPosted(content: String, page: Int, chapter: String, privacy: String = "public") extends Bean
 
 case class Status(value: String) extends Enumeration {
   val WISH = Value("wish")

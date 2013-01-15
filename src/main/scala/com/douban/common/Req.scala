@@ -1,12 +1,12 @@
 package com.douban.common
 
-import java.net.{URLDecoder, HttpURLConnection, URL}
-import java.net.HttpURLConnection._
-import java.io._
-import net.liftweb.json._
 import com.douban.models.Bean
+import java.io._
+import java.net.HttpURLConnection._
+import java.net.{URLDecoder, HttpURLConnection, URL}
 import java.text.SimpleDateFormat
-import net.liftweb.json.JValue
+import java.util.Random
+import net.liftweb.json._
 
 
 /**
@@ -19,7 +19,7 @@ import net.liftweb.json.JValue
 class Req
 
 object Req {
-  val timeout = 10 * 1000
+  val timeout = 20 * 1000
   //10 seconds
   val persistenceTimeout = 10 * 60
   //10 minutes
@@ -39,8 +39,8 @@ object Req {
    * @tparam RESULT 返回的类型
    * @return
    */
-  def post[RESULT: Manifest](url: String, request: Bean, withFile: Boolean = false): RESULT = {
-    val c: HttpURLConnection = postData(url, request, withFile)
+  def post[RESULT: Manifest](url: String, request: Bean): RESULT = {
+    val c: HttpURLConnection = postData(url, request)
     parseJSON[RESULT](c)
   }
 
@@ -49,8 +49,8 @@ object Req {
    * @param request 参数对象
    * @return
    */
-  def postNoResult(url: String, request: Bean, withFile: Boolean = false): Boolean = {
-    val c = postData(url, request, withFile)
+  def postNoResult(url: String, request: Bean): Boolean = {
+    val c = postData(url, request)
     val code = c.getResponseCode
     if (!succeed(code)) parseJSON(c)
     c.disconnect()
@@ -75,8 +75,8 @@ object Req {
    * @param request 参数Bean
    * @return RESULT put成功后的数据
    */
-  def put[RESULT: Manifest](url: String, request: Bean, withFile: Boolean = false): RESULT = {
-    val c: HttpURLConnection = putData(url, request, withFile)
+  def put[RESULT: Manifest](url: String, request: Bean): RESULT = {
+    val c: HttpURLConnection = putData(url, request)
     parseJSON[RESULT](c)
   }
 
@@ -85,8 +85,8 @@ object Req {
    * @param request 参数Bean
    * @return
    */
-  def putNoResult(url: String, request: Bean, withFile: Boolean = false): Boolean = {
-    val c = putData(url, request, withFile)
+  def putNoResult(url: String, request: Bean): Boolean = {
+    val c = putData(url, request)
     val code = c.getResponseCode
     if (!succeed(code)) parseJSON(c)
     c.disconnect()
@@ -101,33 +101,41 @@ object Req {
     succeed(code)
   }
 
-  private def connect(c: HttpURLConnection, request: Bean, authorized: Boolean = true, withFile: Boolean = false) {
+  private def connect(c: HttpURLConnection, request: Bean, authorized: Boolean = true) {
     c.setUseCaches(true)
     c.setConnectTimeout(timeout)
     c.setReadTimeout(timeout)
     //Android 2.3及以后的HttpConnectionUrl自动使用gzip，故此处就不再添加
     c.setRequestProperty("Connection", "Keep-Alive")
-    c.setRequestProperty("Keep-Alive", "timeout=" + persistenceTimeout)
+    c.setRequestProperty("Keep-Alive", s"timeout=$persistenceTimeout")
     //添加认证的access token
     if (authorized)
-      c.setRequestProperty("Authorization", "Bearer " + Auth.access_token)
+      c.setRequestProperty("Authorization", s"Bearer ${Auth.access_token}")
     c.setRequestProperty("Charset", ENCODING)
     println(c.getRequestMethod + "ing " + URLDecoder.decode(c.getURL.toString, ENCODING))
     if ((c.getRequestMethod == POST || c.getRequestMethod == PUT) && null != request) {
-      val out = new BufferedOutputStream(c.getOutputStream)
-      if (withFile) {
-        val b = genBoundary
-        c.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + b)
-        upload(b, out, Extraction.decompose(request))
-        out.write(b.getBytes(ENCODING))
-      }
-      else {
+      if (request.files.size == 0) {
         c.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
+        val out = new BufferedOutputStream(c.getOutputStream)
         val paras = request.toParas
         println("request body-->" + URLDecoder.decode(paras, ENCODING))
         out.write(paras.getBytes(ENCODING))
         out.flush()
         out.close()
+      } else {
+        val b = genBoundary
+        c.setRequestProperty("Content-Type", s"multipart/form-data;boundary=$b")
+        println(s"request body with boundary-->$b")
+        val out = new BufferedOutputStream(c.getOutputStream)
+        upload(b, out, Extraction.decompose(request))
+        request.files.foreach {
+          case (k, v) => uploadFile(b, out, k, v, withoutFile = false)
+        }
+        val boundaryString = s"\r\n--$b--\r\n"
+        out.write(boundaryString.getBytes(ENCODING))
+        out.flush()
+        out.close()
+        print(boundaryString)
       }
     }
     c.connect()
@@ -144,7 +152,7 @@ object Req {
     val v: JsonAST.JValue = JsonParser.parse(getResponse(
       if (succeed(c.getResponseCode)) c.getInputStream else c.getErrorStream
     ))
-    println("response code-->" + c.getResponseCode)
+    println(s"response code-->${c.getResponseCode}")
     c.disconnect()
     println(pretty(render(v)))
     if (succeed(c.getResponseCode)) v.extract[R] else throw new DoubanException(v.extract[Error])
@@ -162,22 +170,23 @@ object Req {
       content.append(line)
       line = reader.readLine()
     }
+    println(content.result())
     content.result()
   }
 
-  private def postData(url: String, request: Bean, withFile: Boolean): HttpURLConnection = {
+  private def postData(url: String, request: Bean): HttpURLConnection = {
     val c: HttpURLConnection = getConnection(url)
     c.setDoOutput(true)
     c.setRequestMethod(POST)
-    this.connect(c, request, withFile = withFile)
+    this.connect(c, request)
     c
   }
 
-  private def putData(url: String, request: Bean, withFile: Boolean = false): HttpURLConnection = {
+  private def putData(url: String, request: Bean): HttpURLConnection = {
     val c: HttpURLConnection = getConnection(url)
     c.setDoOutput(true)
     c.setRequestMethod(PUT)
-    this.connect(c, request, withFile = withFile)
+    this.connect(c, request)
     c
   }
 
@@ -209,43 +218,42 @@ object Req {
   private def getConnection(url: String) = new URL(url).openConnection().asInstanceOf[HttpURLConnection]
 
   private def upload(boundary: String, out: BufferedOutputStream, json: JValue) {
-    for {JField(k, v) <- json
-    } v match {
-      case JObject(List()) | JArray(List()) =>
-      case JObject(List(fields)) => upload(boundary, out, fields.value)
-      case JObject(List(values)) => {
-        var i = 0
-        for {
-          v: JValue <- values} {
-          i += 1 //TODO 上传图片是否都是1，2，3，4....?
-          uploadFile(boundary, out, i.toString, v.extract[String], withoutFile = false)
-        }
-      }
-      case v: JValue => uploadFile(boundary, out, k, json.\(k).extract[String])
+    for {JField(k, vs) <- json
+    } vs match {
+      case JString(_) | JInt(_) | JDouble(_) | JBool(_) => uploadFile(boundary, out, k, vs.extract[String])
+      case _ =>
     }
   }
 
   private def uploadFile(boundary: String, out: BufferedOutputStream, key: String, value: String, withoutFile: Boolean = true) {
-    val lineEnd = "\r\n" //没个数据用lineEnd分开
+    val k = "\"" + key + "\""
+    val lineEnd = "\r\n" //每一数据用lineEnd分开
+    val boundaryString = lineEnd + "--" + boundary + lineEnd
     if (withoutFile) {
-      val s = "--" + boundary + lineEnd + "Content-Disposition: form-data; name=\"" + key + "\"" + lineEnd + value + lineEnd
+      //there must be no extra space chars in s string
+      val s = s"${boundaryString}Content-Disposition:form-data;name=$k$lineEnd$lineEnd$value"
+      print(s)
       out.write(s.getBytes(ENCODING))
     }
-
     else {
-      val s = "--" + boundary + lineEnd + "Content-Disposition: form-data;Content-Type:application/octet-stream; name=\"" + key + "\";filename=\"" + value + "\"" + lineEnd
+      val v = "\"" + value + "\""
+      val s = s"${boundaryString}Content-Disposition:form-data;name=$k;filename=$v${lineEnd}Content-Type: image/jpg$lineEnd$lineEnd"
+      print(s)
       out.write(s.getBytes(ENCODING))
       val file = new BufferedInputStream(new FileInputStream(value))
       val buf = new Array[Byte](1024)
       Stream.continually(file.read(buf))
         .takeWhile(_ != -1)
         .foreach(out.write(buf, 0, _))
-      out.write(lineEnd.getBytes(ENCODING))
     }
 
   }
 
   def genBoundary: String = {
-    "" //TODO gennarate
+    val multipartChars = "_1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray
+    val buffer = new StringBuilder
+    val rand = new Random()
+    for (i <- 1 to 8) buffer.append(multipartChars.charAt(rand.nextInt(multipartChars.length)))
+    buffer.result()
   }
 }

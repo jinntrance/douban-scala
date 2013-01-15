@@ -1,18 +1,14 @@
 package com.douban.models
 
 import com.douban.common.Auth
-import net.liftweb.json.{NoTypeHints, DefaultFormats}
-import net.liftweb.json.Extraction._
-import net.liftweb.json.JsonAST._
-import scala._
+import com.douban.common.Req._
 import java.net.URLEncoder
 import java.util.Date
-import com.douban.common.Req._
+import net.liftweb.json.Extraction._
+import net.liftweb.json.JsonAST._
+import net.liftweb.json.{NoTypeHints, DefaultFormats}
 import scala.Predef._
-import net.liftweb.json.JsonAST.JObject
-import net.liftweb.json.JsonAST.JArray
-import net.liftweb.json.JsonAST.JField
-import tools.nsc.transform.Flatten
+import scala._
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -23,6 +19,7 @@ import tools.nsc.transform.Flatten
  */
 trait Bean {
   implicit val formats = DefaultFormats + NoTypeHints
+  var files: Map[String, String] = Map()
 
   /**
    * 将Bean与一个url组合
@@ -30,7 +27,7 @@ trait Bean {
    * @param bean 需要参数话的Bean
    * @return  含参数的url
    */
-  def flatten(urlPrefix: String, bean: Flatten = this): String = {
+  def flatten(urlPrefix: String, bean: Bean = this): String = {
     urlPrefix + "?" + toParas
   }
 
@@ -48,18 +45,10 @@ trait Bean {
     var para = ""
     for {JField(k, v) <- json
     } v match {
-      case JObject(List()) | JArray(List()) => para
-      case JObject(List(fields)) => para += flat(fields.value)
-      case JObject(List(values)) => {
-        var i = 0
-        for {
-          v: JValue <- values} {
-          i += 1
-          para += encode(i.toString, v.extract[String])
-        }
-      }
-      case v: JValue => para += encode(k, json.\(k).extract[String])
+      case JString(_) | JInt(_) | JDouble(_) | JBool(_) => para += encode(k, v.extract[String])
+      case _ =>
     }
+
     para
   }
 
