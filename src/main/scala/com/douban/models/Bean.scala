@@ -62,7 +62,8 @@ trait Bean {
 
 abstract class API[+B: Manifest] {
   var secured = false
-  val api_prefix: String = "https://api.douban.com/v2/"
+  val api_prefix= "https://api.douban.com/v2/"
+  val shuo_prefix="https://api.douban.com/shuo/v2/"
 
   protected def url_prefix: String
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-    <groupId>douban-scala</groupId>
-    <artifactId>scala-api</artifactId>
-    <version>1.0</version>
-    <versioning>
-        <versions>
-            <version>1.0</version>
-        </versions>
-        <lastUpdated>20130115055102</lastUpdated>
-    </versioning>
+  <groupId>douban-scala</groupId>
+  <artifactId>scala-api</artifactId>
+  <version>1.0</version>
+  <versioning>
+    <versions>
+      <version>1.0</version>
+    </versions>
+    <lastUpdated>20130115155405</lastUpdated>
+  </versioning>
 </metadata>
