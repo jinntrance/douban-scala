@@ -60,7 +60,7 @@ object Status extends API[Status]{
   /**
    * 添加一条评论
    */
-  def comment(statusId:String,c:Comment)=postNoResult(commentsUrl.format(statusId),c)
+  def comment(statusId:String,comment:String)=postNoResult(commentsUrl.format(statusId),CommentContent(comment))
 
   /**
    * 获取单条回复的内容
@@ -77,7 +77,6 @@ object Status extends API[Status]{
 case class Status(category:String,reshared_count:Int,text:String,created_at:Date,title:String,can_reply:Int,liked:Boolean,attachments:List[Attachment]
                   ,source:Source,like_count:Int,comments_count:Int,user:StatusUser,is_follow:Boolean,has_photo:Boolean,`type`:String,id:Long,reshared_status:Status)
 case class Source   //TODO
-case class Comment extends Bean //TODO
 case class StatusUser(uid:String,id:String,`type`:String,description:String,small_avatar:String,large_avatar:String,screen_name:String)
 case class Size(small:List[Int],raw:List[Int],median:List[Int])
 case class Media(src:String,sizes:Size,secret_pid:String,original_src:String,href:String,`type`:String)

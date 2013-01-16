@@ -14,10 +14,10 @@ class DiscussionTest extends BaseTest {
   val eventId = "17946058"
 
   test("test discussions list") {
-    prettyJSON(Discussion.discussions(eventId))
+    prettyJSON(Event.discussions(eventId))
   }
   test("test discussion") {
-    val d = Discussion.postDiscussionWithResult(eventId, new DiscussionPosted("Test", "test"))
+    val d = Event.postDiscussionWithResult(eventId, new DiscussionPosted("Test", "test"))
     prettyJSON(d)
     prettyJSON(Discussion.updateDiscussionWithResult(d.id, new DiscussionPosted("Test2", "test2")))
     prettyJSON(Discussion.deleteDiscussion(d.id))

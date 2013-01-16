@@ -10,14 +10,8 @@ import java.util.Date
  * @since 1/11/13 3:32 AM
  * @version 1.0
  */
-trait DiscussionTrait extends API[Discussion] {
+object Discussion extends API[Discussion] {
   override def url_prefix = api_prefix + "discussion/"
-
-  val discussionsUrl = idUrl + "/discussions"
-
-  def postDiscussion(targetId: String, d: DiscussionPosted) = postNoResult(discussionsUrl.format(targetId), d)
-
-  def postDiscussionWithResult(targetId: String, d: DiscussionPosted) = post[Discussion](discussionsUrl.format(targetId), d)
 
   def updateDiscussion(discussionId: String, d: DiscussionPosted) = putNoResult(idUrl.format(discussionId), d)
 
@@ -25,8 +19,17 @@ trait DiscussionTrait extends API[Discussion] {
 
   def deleteDiscussion(discussionId: String) = delete(idUrl.format(discussionId))
 
-  def discussions(eventId: String, page: Int = 0, count: Int = 20, query: String = "") = get[DiscussionsResult](new Search(query, "", page * count, count).flatten(discussionsUrl.format(eventId)))
+}
 
+trait DiscussionTrait[T] extends API[T]{
+
+  val discussionsUrl = idUrl + "/discussions"
+
+  def postDiscussion(targetId: String, d: DiscussionPosted) = postNoResult(discussionsUrl.format(targetId), d)
+
+  def postDiscussionWithResult(targetId: String, d: DiscussionPosted) = post[Discussion](discussionsUrl.format(targetId), d)
+
+  def discussions(targetId: String, page: Int = 0, count: Int = 20, query: String = "") = get[DiscussionsResult](new Search(query, "", page * count, count).flatten(discussionsUrl.format(targetId)))
 }
 
 case class Discussion(id: String, title: String, alt: String, created: Date, updated: Date, content: String, comments_count: Int, author: User)

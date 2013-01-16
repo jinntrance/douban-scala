@@ -10,7 +10,7 @@ import com.douban.common.Req._
  * @since 1/16/13 2:25 PM
  * @version 1.0
  */
-object Note extends API[Note] with CommentTrait{
+object Note extends API[Note] with CommentTrait[Note]{
   protected def url_prefix = api_prefix+"note/"
   private val userCreatedUrl=url_prefix+"user_created/%s"
   private val userLikedUrl=url_prefix+"user_liked/%s"

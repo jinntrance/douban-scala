@@ -9,7 +9,7 @@ import com.douban.common.Req._
  * @since 1/16/13 8:03 PM
  * @version 1.0
  */
-trait CommentTrait extends API{
+trait CommentTrait[T] extends API[T]{
   val commentsUrl=idUrl+"/comments"
   val commentUrl=idUrl+"/comment/%s"
 
@@ -29,7 +29,7 @@ trait CommentTrait extends API{
    */
   def deleteComment(targetId:String,commentId:String)=delete(commentUrl.format(targetId,commentId))
 }
-case class Comment(id:String,created:Date,content:String,author:User)
+case class Comment(id:String,created:Date,content:String,author:User) extends Bean
 
 case class CommentResult(start:Int,count:Int,total:Int,comments:List[Comment]) extends ListResult(start,count,total)
 
