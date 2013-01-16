@@ -9,7 +9,6 @@ import java.util.Random
 import net.liftweb.json._
 import scala.concurrent._
 import duration._
-import com.douban.common.Error
 
 
 /**

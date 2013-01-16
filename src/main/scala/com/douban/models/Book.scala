@@ -154,7 +154,7 @@ case class AnnotationPosted(var content: String, page: Int, chapter: String, pri
   }
 }
 
-case class Status(value: String) extends Enumeration {
+case class BookStatus(value: String) extends Enumeration {
   val WISH = Value("wish")
   val READING = Value("reading")
   val READ = Value("read")
