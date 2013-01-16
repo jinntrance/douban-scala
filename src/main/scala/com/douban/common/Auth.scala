@@ -14,7 +14,7 @@ import com.douban.models.Bean
 object Auth {
   var api_key = "0f86acdf44c03ade2e94069dce40b09a"
   var secret = "95125490b60b01ee"
-  var code = "fb742cb685aa1196"
+  var code = ""
   var scope = ""
   val auth_url = "https://www.douban.com/service/auth2/auth"
   val token_url = "https://www.douban.com/service/auth2/token"

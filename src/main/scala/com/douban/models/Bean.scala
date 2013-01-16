@@ -73,7 +73,7 @@ abstract class API[+B: Manifest] {
   /**
    * 通过id获取
    */
-  def byId(id: String) = get[B](idUrl.format(id))
+  def byId(id: String) = get[B](idUrl.format(id),secured = true)
 
 }
 

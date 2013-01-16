@@ -16,11 +16,12 @@ object Doumail extends API[Doumail]{
   private val outboxUrl=url_prefix+"/outbox"
   private val unreadUrl=inboxUrl+"/unread"
   private val readUrl=url_prefix+"/read"
-  private val sendUrl=url_prefix
+  private val deleteUrl=url_prefix+"/read"
+  private val sendUrl=api_prefix+"/doumails"
   /**
    * 请求一封豆邮件状态还是未读
    */
-  def byIdKeepUnread(doumailId:String)=get[Doumail](s"$idUrl?keep-unread=true",secured = true)
+  def byIdKeepUnread(doumailId:String)=get[Doumail](s"${idUrl.format(doumailId)}?keep-unread=true",secured = true)
   def inbox=get[List[Doumail]](inboxUrl,secured = true)
   def outbox=get[List[Doumail]](outboxUrl,secured = true)
 
@@ -34,14 +35,27 @@ object Doumail extends API[Doumail]{
    * @param doumailIds  需要标记为已读的豆邮id
    * @return
    */
-  def read(doumailIds:List[String])=putNoResult(readUrl,new DoumailIds(doumailIds.mkString(",")))
+  def readMails(doumailIds:List[String])=putNoResult(readUrl,new DoumailIds(doumailIds.mkString(",")))
 
   /**
    *批量删除豆邮
    * @return
    */
-  def delete(doumailIds:List[String])=Req.delete(s"$readUrl?ids=${doumailIds.mkString(",")}")
+  def deleteMails(doumailIds:List[String])=Req.delete(s"$deleteUrl?ids=${doumailIds.mkString(",")}")
+
+  /**
+   * 发送一封豆邮
+   * @param m 请求参数
+   */
+  def send(m:DoumailSent)=postNoResult(sendUrl,m)
+
+  def delete(doumailId:String)=Req.delete(idUrl.format(doumailId))
 }
+
+/**
+ *
+ * @param status  U:表示这封邮还未读 R:表示已读
+ */
 case class Doumail(status:String,id:String,sender:User,receiver:User,title:String,published:Date,content:String)
 case class DoumailIds(ids:String) extends Bean
 
@@ -51,7 +65,7 @@ case class DoumailIds(ids:String) extends Bean
  * @param captcha_token 系统验证码 token ,当用户发送邮件过于频繁需要使用
  * @param captcha_string 用户输入验证码  //TODO
  */
-case class DoumailSent(title:String,content:String,receiver_id:String,captcha_token:String="",captcha_string:String) extends Bean
+case class DoumailSent(title:String,content:String,receiver_id:String,captcha_token:String="",captcha_string:String="") extends Bean
 
 /**
  *  用户发送邮件过于频繁,403 返回
