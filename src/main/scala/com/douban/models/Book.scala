@@ -97,6 +97,13 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult, BookReview] {
    * 用户刪除某篇笔记
    */
   def deleteAnnotation(annotationId: String) = delete(annotationUrl.format(annotationId))
+
+  /**
+   * 添加笔记图片，
+   * @param index 图片序号，本笔记中第几个图片
+   * @return 图片展示的tag,直接添加到笔记内容中
+   */
+  def addAnnotationPicture(index:Int)=s"<图片$index>"
 }
 
 /**

@@ -10,14 +10,14 @@ import java.util.Date
  * @since 1/11/13 3:32 AM
  * @version 1.0
  */
-object Discussion extends API[Discussion] {
+trait DiscussionTrait extends API[Discussion] {
   override def url_prefix = api_prefix + "discussion/"
 
-  val discussionsUrl = api_prefix + "/event/%s/discussions" //TODO event 右可能为其他
+  val discussionsUrl = idUrl + "/discussions"
 
-  def postDiscussion(eventId: String, d: DiscussionPosted) = postNoResult(discussionsUrl.format(eventId), d)
+  def postDiscussion(targetId: String, d: DiscussionPosted) = postNoResult(discussionsUrl.format(targetId), d)
 
-  def postDiscussionWithResult(eventId: String, d: DiscussionPosted) = post[Discussion](discussionsUrl.format(eventId), d)
+  def postDiscussionWithResult(targetId: String, d: DiscussionPosted) = post[Discussion](discussionsUrl.format(targetId), d)
 
   def updateDiscussion(discussionId: String, d: DiscussionPosted) = putNoResult(idUrl.format(discussionId), d)
 
