@@ -22,7 +22,7 @@ class Req
 
 object Req {
   val timeout = 20 * 1000
-  val duration=Duration(2,SECONDS)
+  val duration = Duration(2, SECONDS)
   //10 seconds
   val persistenceTimeout = 10 * 60
   //10 minutes
@@ -66,8 +66,7 @@ object Req {
    * @return
    */
   def get[RESULT: Manifest](url: String, secured: Boolean = false): RESULT = {
-    var newUrl = if (secured) url else url.replace("https://", "http://")
-    newUrl = addApiKey(newUrl) //添加API key，增加次数
+    val newUrl = if (secured) url else addApiKey(url.replace("https://", "http://")) //添加API key，增加次数
     val c = getData(newUrl, secured)
     parseJSON[RESULT](c)
   }
@@ -150,15 +149,15 @@ object Req {
    * @return
    *
    */
-  def parseJSON[R: Manifest](c: HttpURLConnection): R ={
-      val v: JsonAST.JValue = JsonParser.parse(getResponse(
-        if (succeed(c.getResponseCode)) c.getInputStream else c.getErrorStream
-      ))
-      println(s"response code-->${c.getResponseCode}")
-      c.disconnect()
-      println(pretty(render(v)))
-      if (succeed(c.getResponseCode)) v.extract[R] else throw new DoubanException(v.extract[Error])
-    }
+  def parseJSON[R: Manifest](c: HttpURLConnection): R = {
+    val v: JsonAST.JValue = JsonParser.parse(getResponse(
+      if (succeed(c.getResponseCode)) c.getInputStream else c.getErrorStream
+    ))
+    println(s"response code-->${c.getResponseCode}")
+    c.disconnect()
+    println(pretty(render(v)))
+    if (succeed(c.getResponseCode)) v.extract[R] else throw new DoubanException(v.extract[Error])
+  }
 
   /**
    * 把返回结果读出为String
@@ -239,7 +238,8 @@ object Req {
     }
     else {
       val v = "\"" + value + "\""
-      val s = s"${boundaryString}Content-Disposition:form-data;name=$k;filename=$v${lineEnd}Content-Type: image/jpg$lineEnd$lineEnd"
+      val contentType="Content-Type: image/jpg"
+      val s = s"${boundaryString}Content-Disposition:form-data;name=$k;filename=$v$lineEnd$contentType$lineEnd$lineEnd"
       print(s)
       out.write(s.getBytes(ENCODING))
       val file = new BufferedInputStream(new FileInputStream(value))

@@ -41,11 +41,11 @@
             <artifactId>paranamer</artifactId>
             <version>RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>org.specs2</groupId>
-            <artifactId>specs2_2.10</artifactId>
-            <version>RELEASE</version>
-        </dependency>
+        <!--        <dependency>
+                    <groupId>org.specs2</groupId>
+                    <artifactId>specs2_2.10</artifactId>
+                    <version>RELEASE</version>
+                </dependency>-->
         <dependency>
             <groupId>org.scalacheck</groupId>
             <artifactId>scalacheck_2.10</artifactId>

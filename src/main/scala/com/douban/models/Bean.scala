@@ -9,7 +9,6 @@ import net.liftweb.json.JsonAST._
 import net.liftweb.json.{NoTypeHints, DefaultFormats}
 import scala.Predef._
 import scala._
-import org.specs2.files
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -20,9 +19,13 @@ import org.specs2.files
  */
 trait Bean {
   implicit val formats = DefaultFormats + NoTypeHints
-  protected var _files:Map[String, String] = Map()
-  def files_=(fs:Map[String,String]) {_files=fs}
-  def files=_files
+  protected var _files: Map[String, String] = Map()
+
+  def files_=(fs: Map[String, String]) {
+    _files = fs
+  }
+
+  def files = _files
 
   /**
    * 将Bean与一个url组合
@@ -62,8 +65,8 @@ trait Bean {
 
 abstract class API[+B: Manifest] {
   var secured = false
-  val api_prefix= "https://api.douban.com/v2/"
-  val shuo_prefix="https://api.douban.com/shuo/v2/"
+  val api_prefix = "https://api.douban.com/v2/"
+  val shuo_prefix = "https://api.douban.com/shuo/v2/"
 
   protected def url_prefix: String
 
@@ -73,7 +76,7 @@ abstract class API[+B: Manifest] {
   /**
    * 通过id获取
    */
-  def byId(id: String) = get[B](idUrl.format(id),secured = true)
+  def byId(id: String) = get[B](idUrl.format(id), secured = true)
 
 }
 

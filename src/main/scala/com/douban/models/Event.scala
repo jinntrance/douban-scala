@@ -11,7 +11,7 @@ import Req._
  * @since 1/12/13 3:40 PM
  * @version 1.0
  */
-object Event extends API[Event] with CommentTrait[Event] with DiscussionTrait[Event]{
+object Event extends API[Event] with CommentTrait[Event] with DiscussionTrait[Event] {
   def url_prefix = api_prefix + "event/"
 
   val participantsUrl = url_prefix + "%s/participants"
@@ -87,7 +87,7 @@ object Event extends API[Event] with CommentTrait[Event] with DiscussionTrait[Ev
 }
 
 object Loc extends API[Loc] {
-  def url_prefix = api_prefix + "loc/"
+  def url_prefix = api_prefix + "loc"
 
   val listUrl = url_prefix + "/list"
 
