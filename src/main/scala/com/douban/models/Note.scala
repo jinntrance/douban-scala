@@ -25,7 +25,7 @@ object Note extends API[Note] with CommentTrait[Note]{
    */
   def byId(noteId:String,format:String="text")=get[Note](idUrl.format(noteId)+s"?format=$format")
 
-  def like(noteId:String)=post(likeUrl.format(noteId),null)
+  def like(noteId:String)=post(likeUrl.format(noteId),null,withResult = false)
   def unlike(noteId:String)=delete(likeUrl.format(noteId))
 
   /**
@@ -33,7 +33,7 @@ object Note extends API[Note] with CommentTrait[Note]{
    * @param n 更新内容
    * @return
    */
-  def update(noteId:String,n:NotePosted)=put[Note](idUrl.format(noteId),n)
+  def update(noteId:String,n:NotePosted,withResult:Boolean=true)=put[Note](idUrl.format(noteId),n,withResult)
 
   /**
    * 上传图片到日记
@@ -41,7 +41,7 @@ object Note extends API[Note] with CommentTrait[Note]{
    * @param n 上传信息，可以不填写title
    * @return
    */
-  def uploadPicture(noteId:String,n:NotePosted)=post(idUrl.format(idUrl),n)
+  def uploadPicture(noteId:String,n:NotePosted,withResult:Boolean=true)=post[Note](idUrl.format(idUrl),n,withResult)
 
   /**
    * 删除一条日记

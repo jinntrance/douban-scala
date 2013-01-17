@@ -26,7 +26,7 @@ object Status extends API[Status]{
    * @param p  请求参数 ,上传图片大小限制为<3M
    * @return
    */
-  def postStatus(p:StatusPosted)=post(postUrl,p)
+  def postStatus(p:StatusPosted,withResult:Boolean=true)=post[Status](postUrl,p,withResult)
 
   /**
    * 获取当前登录用户及其所关注用户的最新广播消息。
@@ -60,7 +60,7 @@ object Status extends API[Status]{
   /**
    * 添加一条评论
    */
-  def comment(statusId:String,comment:String)=post(commentsUrl.format(statusId),CommentContent(comment))
+  def comment(statusId:String,comment:String,withResult:Boolean=true)=post[Comment](commentsUrl.format(statusId),CommentContent(comment),withResult)
 
   /**
    * 获取单条回复的内容

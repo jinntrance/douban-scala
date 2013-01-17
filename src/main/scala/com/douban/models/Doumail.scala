@@ -16,7 +16,7 @@ object Doumail extends API[Doumail]{
   private val outboxUrl=url_prefix+"/outbox"
   private val unreadUrl=inboxUrl+"/unread"
   private val readUrl=url_prefix+"/read"
-  private val deleteUrl=url_prefix+"/read"
+  private val deleteUrl=url_prefix+"/delete"
   private val sendUrl=api_prefix+"/doumails"
   /**
    * 请求一封豆邮件状态还是未读
@@ -35,19 +35,19 @@ object Doumail extends API[Doumail]{
    * @param doumailIds  需要标记为已读的豆邮id
    * @return
    */
-  def readMails(doumailIds:List[String])=put(readUrl,new DoumailIds(doumailIds.mkString(",")))
+  def readMails(doumailIds:List[String])=put(readUrl,new DoumailIds(doumailIds.mkString(",")),withResult=false)
 
   /**
    *批量删除豆邮
    * @return
    */
-  def deleteMails(doumailIds:List[String])=Req.delete(s"$deleteUrl?ids=${doumailIds.mkString(",")}")
+  def deleteMails(doumailIds:List[String])=post(deleteUrl,new DoumailIds(doumailIds.mkString(",")),withResult=false)
 
   /**
    * 发送一封豆邮
    * @param m 请求参数
    */
-  def send(m:DoumailSent)=post(sendUrl,m)
+  def send(m:DoumailSent)=post(sendUrl,m,withResult=false)
 
   def delete(doumailId:String)=Req.delete(idUrl.format(doumailId))
 }
