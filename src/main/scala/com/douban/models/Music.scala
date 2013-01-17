@@ -28,7 +28,7 @@ case class MusicAttribute(publisher: List[String], singer: List[String], discs: 
 
 case class MusicSearchResult(start: Int, count: Int, total: Int, musics: List[Music]) extends ListResult(start, count, total)
 
-case class MusicReview(id: String, title: String, alt: String, author: User, music: Music, rating: ReviewRating,
+case class MusicReview(id: Long, title: String, alt: String, author: User, music: Music, rating: ReviewRating,
                        votes: Int, useless: Int, comments: Int, summary: String, published: Date, updated: Date) extends Review(id, title, alt, author, rating, votes, useless, comments, summary, published, updated)
 
 /**
@@ -38,4 +38,4 @@ case class MusicReview(id: String, title: String, alt: String, author: User, mus
  */
 case class MusicReviewPosted(music: String, title: String, content: String, rating: Int = 0) extends ReviewPosted(title, content, rating)
 
-case class Music(id: String, title: String, alt: String, author: List[Author], alt_title: String, tags: List[Tag], summary: String, image: String, mobile_link: String, attrs: MusicAttribute, rating: ItemRating)
+case class Music(id: Long, title: String, alt: String, author: List[Author], alt_title: String, tags: List[Tag], summary: String, image: String, mobile_link: String, attrs: MusicAttribute, rating: ItemRating)

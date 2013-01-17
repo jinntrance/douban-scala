@@ -11,7 +11,8 @@ import com.douban.common.BaseTest
  * @version 1.0
  */
 class EventTest extends BaseTest {
-  val eventId = "18014972"
+  val eventId = 18014972
+  val lId=108288
   test("events getting") {
     prettyJSON(Event.eventsUserParticipated(userId))
     prettyJSON(Event.eventsUserCreated(userId))
@@ -30,7 +31,7 @@ class EventTest extends BaseTest {
     println(Event.unWish(eventId))
   }
   test("location byId") {
-    prettyJSON(Loc.byId("108288"))
+    prettyJSON(Loc.byId(lId))
   }
   test("locations") {
     prettyJSON(Loc.list)

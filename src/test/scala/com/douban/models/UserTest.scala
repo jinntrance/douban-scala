@@ -17,6 +17,6 @@ class UserTest extends BaseTest {
     prettyJSON(User.ofMe)
   }
   test("test by Id") {
-    prettyJSON(User.byId("jinntrance"))
+    prettyJSON(User.byId(userId.toLong))
   }
 }

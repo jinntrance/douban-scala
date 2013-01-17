@@ -12,17 +12,17 @@ import com.douban.common.BaseTest
  */
 //TODO 需要授權測試
 class DoumailTest extends BaseTest{
-  val receiverId="61205173"
-  val dId="290817815"
+  val receiverId=61205173
+  val dId=290817815
    test("doumail test"){
-//     prettyJSON(Doumail.byId(dId))
+     prettyJSON(Doumail.byId(dId))
      prettyJSON(Doumail.byIdKeepUnread(dId))
      prettyJSON(Doumail.inbox)
      prettyJSON(Doumail.outbox)
      prettyJSON(Doumail.unreadMails)
      prettyJSON(Doumail.readMails(List(dId)))
-//     prettyJSON(Doumail.deleteMails(List(dId)))
-//     prettyJSON(Doumail.delete(dId))
+     prettyJSON(Doumail.deleteMails(List(dId)))
+     prettyJSON(Doumail.delete(dId))
      prettyJSON(Doumail.send(DoumailSent("呵呵了","申友寒假“GMAT 700精讲班”热招，8天超长名师面授，52天跟踪辅导，2月突破700+ ",receiverId)))
    }
 }

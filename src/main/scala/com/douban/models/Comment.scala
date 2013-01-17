@@ -17,19 +17,19 @@ trait CommentTrait[T] extends API[T]{
    * 新发评论
    * @return
    */
-  def postComment(targetId:String,content:String,withResult:Boolean=true)=post[Comment](commentsUrl.format(targetId),CommentContent(content),withResult)
+  def postComment(targetId:Long,content:String,withResult:Boolean=true)=post[Comment](commentsUrl.format(targetId),CommentContent(content),withResult)
 
   /**
    * 获取单条回复
    */
-  def getComment(targetId:String,commentId:String)=get[Comment](commentUrl.format(targetId,commentId))
+  def getComment(targetId:Long,commentId:String)=get[Comment](commentUrl.format(targetId,commentId))
 
   /**
    * 删除回复
    */
-  def deleteComment(targetId:String,commentId:String)=delete(commentUrl.format(targetId,commentId))
+  def deleteComment(targetId:Long,commentId:String)=delete(commentUrl.format(targetId,commentId))
 }
-case class Comment(id:String,created:Date,content:String,author:User) extends Bean
+case class Comment(id:Long,created:Date,content:String,author:User) extends Bean
 
 case class CommentResult(start:Int,count:Int,total:Int,comments:List[Comment]) extends ListResult(start,count,total)
 

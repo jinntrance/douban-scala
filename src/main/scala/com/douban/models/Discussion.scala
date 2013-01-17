@@ -10,12 +10,12 @@ import java.util.Date
  * @since 1/11/13 3:32 AM
  * @version 1.0
  */
-object Discussion extends API[Discussion] {
+object Discussion extends API[Discussion] with CommentTrait[Discussion] {
   override def url_prefix = api_prefix + "discussion/"
 
-  def updateDiscussion(discussionId: String, d: DiscussionPosted,withResult:Boolean=true) = put[Discussion](idUrl.format(discussionId), d,withResult)
+  def updateDiscussion(discussionId: Long, d: DiscussionPosted,withResult:Boolean=true) = put[Discussion](idUrl.format(discussionId), d,withResult)
 
-  def deleteDiscussion(discussionId: String) = delete(idUrl.format(discussionId))
+  def deleteDiscussion(discussionId: Long) = delete(idUrl.format(discussionId))
 
 }
 
@@ -23,12 +23,12 @@ trait DiscussionTrait[T] extends API[T]{
 
   val discussionsUrl = idUrl + "/discussions"
 
-  def postDiscussion(targetId: String, d: DiscussionPosted,withResult:Boolean=true) = post[Discussion](discussionsUrl.format(targetId), d,withResult)
+  def postDiscussion(targetId: Long, d: DiscussionPosted,withResult:Boolean=true) = post[Discussion](discussionsUrl.format(targetId), d,withResult)
 
-  def discussions(targetId: String, page: Int = 0, count: Int = 20, query: String = "") = get[DiscussionsResult](new Search(query, "", page * count, count).flatten(discussionsUrl.format(targetId)))
+  def discussions(targetId: Long, page: Int = 0, count: Int = 20, query: String = "") = get[DiscussionsResult](new Search(query, "", page * count, count).flatten(discussionsUrl.format(targetId)))
 }
 
-case class Discussion(id: String, title: String, alt: String, created: Date, updated: Date, content: String, comments_count: Int, author: User)
+case class Discussion(id: Long, title: String, alt: String, created: Date, updated: Date, content: String, comments_count: Int, author: User)
 
 case class DiscussionPosted(title: String, content: String) extends Bean
 

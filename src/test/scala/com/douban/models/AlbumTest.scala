@@ -10,8 +10,8 @@ import com.douban.common.BaseTest
  * @version 1.0
  */
 class AlbumTest extends BaseTest{
-  val aId="63212049"
-  val pId="1782344133"
+  val aId=63212049
+  val pId=1782344133
   test("test album"){
     prettyJSON(Album.byId(aId))
     prettyJSON(Album.photos(aId))

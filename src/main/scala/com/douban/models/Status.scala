@@ -44,40 +44,40 @@ object Status extends API[Status]{
   /**
    * 删除一条广播
    */
-  def delete(statusId:String)=Req.delete(idUrl.format(statusId))
+  def delete(statusId:Long)=Req.delete(idUrl.format(statusId))
 
   /**
    *打包的信息
    * @return
    */
-  def byIdPacked(statusId:String)=get[PackedStatus](s"$idUrl?pack=true")
+  def byIdPacked(statusId:Long)=get[PackedStatus](s"$idUrl?pack=true")
 
   /**
    * 获取一条广播的回复列表
    */
-  def comments(statusId:String,start:Int=0,count:Int=20)=get[List[Comment]](commentsUrl.format(statusId)+s"?start=$start&count=$count")
+  def comments(statusId:Long,start:Int=0,count:Int=20)=get[List[Comment]](commentsUrl.format(statusId)+s"?start=$start&count=$count")
 
   /**
    * 添加一条评论
    */
-  def comment(statusId:String,comment:String,withResult:Boolean=true)=post[Comment](commentsUrl.format(statusId),CommentContent(comment),withResult)
+  def comment(statusId:Long,comment:String,withResult:Boolean=true)=post[Comment](commentsUrl.format(statusId),CommentContent(comment),withResult)
 
   /**
    * 获取单条回复的内容
    */
-  def commentById(commentId:String)=get[Comment](commentUrl.format(commentId))
+  def commentById(commentId:Long)=get[Comment](commentUrl.format(commentId))
 
   /**
    * 删除该回复
    */
-  def deleteCommentById(commentId:String)=Req.delete(commentUrl.format(commentId))
+  def deleteCommentById(commentId:Long)=Req.delete(commentUrl.format(commentId))
 
 
 }
 case class Status(category:String,reshared_count:Int,text:String,created_at:Date,title:String,can_reply:Int,liked:Boolean,attachments:List[Attachment]
                   ,source:Source,like_count:Int,comments_count:Int,user:StatusUser,is_follow:Boolean,has_photo:Boolean,`type`:String,id:Long,reshared_status:Status)
 case class Source   //TODO
-case class StatusUser(uid:String,id:String,`type`:String,description:String,small_avatar:String,large_avatar:String,screen_name:String)
+case class StatusUser(uid:String,id:Long,`type`:String,description:String,small_avatar:String,large_avatar:String,screen_name:String)
 case class StatusSize(small:List[Int],raw:List[Int],median:List[Int])
 case class Media(src:String,sizes:StatusSize,secret_pid:String,original_src:String,href:String,`type`:String)
 case class Properties(href:String,uid:String,name:String)

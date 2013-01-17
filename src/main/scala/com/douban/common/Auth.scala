@@ -24,7 +24,7 @@ object Auth {
   val refresh_token_string = "refresh_token"
   var access_token = "1a6d3c482b3834ea4f47b4d881a89ebe"
   var refresh_token = "8dfc7989e5079f2fa9f56c9daf16dd8d"
-  var douban_user_id = "38702920"
+  var douban_user_id = 38702920
 
   def extractCode(url: String): String = {
     val code = "code="
@@ -48,7 +48,7 @@ class Token(redirect_uri: String, client_id: String, client_secret: String, gran
 case class AccessToken(code: String, redirect_uri: String, client_id: String = Auth.api_key, client_secret: String = Auth.secret, grant_type: String = Auth.grant_type)
   extends Token(redirect_uri, client_id, client_secret, grant_type)
 
-case class AccessTokenResult(access_token: String, expires_in: Long, refresh_token: String, douban_user_id: String) extends Bean
+case class AccessTokenResult(access_token: String, expires_in: Long, refresh_token: String, douban_user_id: Long) extends Bean
 
 case class RefreshToken(refresh_token: String, redirect_uri: String, client_id: String = Auth.api_key, client_secret: String = Auth.secret, grant_type: String = Auth.refresh_token_string)
   extends Token(redirect_uri, client_id, client_secret, grant_type)

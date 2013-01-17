@@ -76,7 +76,7 @@ abstract class API[+B: Manifest] {
   /**
    * 通过id获取
    */
-  def byId(id: String) = get[B](idUrl.format(id), secured = true)
+  def byId(id: Long) = get[B](idUrl.format(id), secured = true)
 
 }
 
@@ -92,7 +92,7 @@ abstract class BookMovieMusicAPI[+B: Manifest, +RT: Manifest, +RV: Manifest] ext
   /**
    * 获取某个Item中标记最多的标签
    */
-  def popTags(id: String) = get[TagsResult](popTagsUrl.format(id))
+  def popTags(id: Long) = get[TagsResult](popTagsUrl.format(id))
 
   /**
    * 发表新评论
@@ -103,19 +103,19 @@ abstract class BookMovieMusicAPI[+B: Manifest, +RT: Manifest, +RV: Manifest] ext
   /**
    * 修改评论
    */
-  def updateReview[R <: ReviewPosted](reviewId: String, r: R,withResult:Boolean=true) = put[RV](reviewUpdateUrl.format(reviewId), r,withResult)
+  def updateReview[R <: ReviewPosted](reviewId: Long, r: R,withResult:Boolean=true) = put[RV](reviewUpdateUrl.format(reviewId), r,withResult)
 
 
   /**
    * 删除评论
    */
-  def deleteReview(reviewId: String): Boolean = delete(reviewUpdateUrl.format(reviewId))
+  def deleteReview(reviewId: Long): Boolean = delete(reviewUpdateUrl.format(reviewId))
 
 
   /**
    * 获取用户对Items的所有标签
    */
-  def tags(userId: String) = get[TagsResult](tagsUrl.format(userId))
+  def tags(userId: Long) = get[TagsResult](tagsUrl.format(userId))
 
   /**
    * 搜索，query/tag必传其一
@@ -161,7 +161,7 @@ case class ItemRating(max: Int, min: Int, average: String, numRaters: Int)
 
 class ListResult(start: Int, count: Int, total: Int)
 
-class Review(id: String, title: String, alt: String, author: User, rating: ReviewRating,
+class Review(id: Long, title: String, alt: String, author: User, rating: ReviewRating,
              votes: Int, useless: Int, comments: Int, summary: String, published: Date, updated: Date)
 
 /**

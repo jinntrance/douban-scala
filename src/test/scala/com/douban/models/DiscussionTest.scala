@@ -10,8 +10,8 @@ import com.douban.common.BaseTest
  * @version 1.0
  */
 class DiscussionTest extends BaseTest {
-  val discussionId = "51126818"
-  val eventId = "17946058"
+  val discussionId = 51126818
+  val eventId = 17946058
 
   test("test discussions list") {
     prettyJSON(Event.discussions(eventId))

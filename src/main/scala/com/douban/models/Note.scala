@@ -23,17 +23,17 @@ object Note extends API[Note] with CommentTrait[Note]{
    * abstract	文本格式的摘要内容
    * @param format format	日记内容格式	取值为html_full, html_short, abstract, text，默认为text
    */
-  def byId(noteId:String,format:String="text")=get[Note](idUrl.format(noteId)+s"?format=$format")
+  def byId(noteId:Long,format:String="text")=get[Note](idUrl.format(noteId)+s"?format=$format")
 
   /**
    * 喜欢一篇日记
    */
-  def like(noteId:String)=post(likeUrl.format(noteId),null,withResult = false)
+  def like(noteId:Long)=post(likeUrl.format(noteId),null,withResult = false)
 
   /**
    * 取消喜欢一篇日记
    */
-  def unlike(noteId:String)=delete(likeUrl.format(noteId))
+  def unlike(noteId:Long)=delete(likeUrl.format(noteId))
 
   def postNote(n:NotePosted)=post[Note](composeUrl,n)
 
@@ -71,12 +71,12 @@ object Note extends API[Note] with CommentTrait[Note]{
    *
    * @param format format	日记内容格式	取值为html_full, html_short, abstract, text，默认为text
    */
-  def notesUserCreated(userId:String,format:String="text")=get[NotesResult](userCreatedUrl.format(userId)+s"?format=$format",secured=true)
+  def notesUserCreated(userId:Long,format:String="text")=get[NotesResult](userCreatedUrl.format(userId)+s"?format=$format",secured=true)
   /**
    *
    * @param format format	日记内容格式	取值为html_full, html_short, abstract, text，默认为text
    */
-  def notesUserLiked(userId:String,format:String="text")=get[NotesResult](userLikedUrl.format(userId)+s"?format=$format",secured=true)
+  def notesUserLiked(userId:Long,format:String="text")=get[NotesResult](userLikedUrl.format(userId)+s"?format=$format",secured=true)
 
 }
 

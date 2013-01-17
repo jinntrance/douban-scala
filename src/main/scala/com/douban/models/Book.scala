@@ -35,27 +35,27 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult, BookReview] {
   /**
    * 获取某个用户的所有图书收藏信息
    */
-  def collectionsOfUser(userId: String, c: CollectionSearch = new CollectionSearch) = get[CollectionSearchResult](c.flatten(userCollectionsUrl.format(userId)))
+  def collectionsOfUser(userId: Long, c: CollectionSearch = new CollectionSearch) = get[CollectionSearchResult](c.flatten(userCollectionsUrl.format(userId)))
 
   /**
    * 获取用户对某本图书的收藏信息
    */
-  def collectionOf(bookId: String) = get[Collection](collectionUrl.format(bookId), secured = true)
+  def collectionOf(bookId: Long) = get[Collection](collectionUrl.format(bookId), secured = true)
 
   /**
    * 用户收藏某本图书
    */
-  def postCollection(bookId: String, c: CollectionPosted,withResult:Boolean=true) = post[Collection](collectionUrl.format(bookId), c,withResult)
+  def postCollection(bookId: Long, c: CollectionPosted,withResult:Boolean=true) = post[Collection](collectionUrl.format(bookId), c,withResult)
 
   /**
    * 用户修改对某本图书的收藏
    */
-  def updateCollection(bookId: String, c: CollectionPosted,withResult:Boolean=true) = put[Collection](collectionUrl.format(bookId), c,withResult)
+  def updateCollection(bookId: Long, c: CollectionPosted,withResult:Boolean=true) = put[Collection](collectionUrl.format(bookId), c,withResult)
 
   /**
    * 用户删除对某本图书的收藏
    */
-  def deleteCollection(bookId: String) = delete(collectionUrl.format(bookId))
+  def deleteCollection(bookId: Long) = delete(collectionUrl.format(bookId))
 
   /**
    * 获取某个用户的所有笔记
@@ -66,30 +66,30 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult, BookReview] {
   /**
    * 获取某本图书的所有笔记
    */
-  def annotationsOf(bookId: String, a: AnnotationSearch = new AnnotationSearch) = get[AnnotationSearchResult](a.flatten(bookAnnotationsUrl.format(bookId)))
+  def annotationsOf(bookId: Long, a: AnnotationSearch = new AnnotationSearch) = get[AnnotationSearchResult](a.flatten(bookAnnotationsUrl.format(bookId)))
 
   /**
    * 获取某篇笔记的信息
    * @param format 返回content字段格式	选填（编辑伪标签格式：text, HTML格式：html），默认为text
    */
-  def annotation(annotationId: String, format: String = "text") = get[Annotation](new AnnotationSearch(format).flatten(annotationUrl.format(annotationId)))
+  def annotation(annotationId: Long, format: String = "text") = get[Annotation](new AnnotationSearch(format).flatten(annotationUrl.format(annotationId)))
 
   /**
    * 用户给某本图书写笔记
    * TODO上传图片的问题还需要解决
    */
-  def postAnnotation(bookId: String, a: AnnotationPosted,withResult:Boolean=true) = post[Annotation](annotationPostUrl.format(bookId), a,withResult)
+  def postAnnotation(bookId: Long, a: AnnotationPosted,withResult:Boolean=true) = post[Annotation](annotationPostUrl.format(bookId), a,withResult)
 
   /**
    * 用户修改某篇笔记
    */
-  def updateAnnotation(annotationId: String, a: AnnotationPosted,withResult:Boolean=true) = put[Annotation](annotationUrl.format(annotationId), a,withResult)
+  def updateAnnotation(annotationId: Long, a: AnnotationPosted,withResult:Boolean=true) = put[Annotation](annotationUrl.format(annotationId), a,withResult)
 
 
   /**
    * 用户刪除某篇笔记
    */
-  def deleteAnnotation(annotationId: String) = delete(annotationUrl.format(annotationId))
+  def deleteAnnotation(annotationId: Long) = delete(annotationUrl.format(annotationId))
 
   /**
    * 添加笔记图片，
@@ -171,7 +171,7 @@ case class Image(small: String, large: String, medium: String)
 /**
  * 图书信息
  */
-case class Book(id: String, isbn10: String, isbn13: String, title: String, origin_title: String,
+case class Book(id: Long, isbn10: String, isbn13: String, title: String, origin_title: String,
                 alt_title: String, subtitle: String, url: String, alt: String, image: String, images: Image,
                 author: List[String], translator: List[String], publisher: String, pubdate: String,
                 rating: ItemRating, tags: List[Tag], binding: String, price: String, pages: String,
@@ -180,7 +180,7 @@ case class Book(id: String, isbn10: String, isbn13: String, title: String, origi
 /**
  * 评论信息
  */
-case class BookReview(id: String, title: String, alt: String, author: User, book: Book, rating: ReviewRating, votes: Int, useless: Int,
+case class BookReview(id: Long, title: String, alt: String, author: User, book: Book, rating: ReviewRating, votes: Int, useless: Int,
                       comments: Int, summary: String, published: Date, updated: Date)
   extends Review(id, title, alt, author, rating, votes, useless, comments, summary, published, updated)
 
@@ -188,13 +188,13 @@ case class BookReview(id: String, title: String, alt: String, author: User, book
  * 笔记信息
  * @param photos 图片按照Photo中的1,2,3...获取并对应图片url
  */
-case class Annotation(id: String, book_id: String, book: Book, author_id: String, author_user: User, chapter: String, page_no: Int, privacy: Int,
+case class Annotation(id: Long, book_id: String, book: Book, author_id: String, author_user: User, chapter: String, page_no: Int, privacy: Int,
                       content: String, `abstract`: String, abstract_photo: String, photos: Map[String, String], last_photo: Int, comments_count: Int, hasmath: Boolean, time: String)
 
 /**
  * 收藏信息
  */
-case class Collection(status: String, book_id: String, book: Book, comment: String, id: Long, rating: ReviewRating = null, tags: List[String], updated: String, user_id: String, user: User)
+case class Collection(status: String, book_id: Long, book: Book, comment: String, id: Long, rating: ReviewRating = null, tags: List[String], updated: String, user_id: String, user: User)
 
 case class AnnotationSearchResult(start: Int, count: Int, total: Int, annotations: List[Annotation]) extends ListResult(start, count, total)
 

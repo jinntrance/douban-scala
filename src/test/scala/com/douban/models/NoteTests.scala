@@ -10,7 +10,7 @@ import com.douban.common.BaseTest
  * @version 1.0
  */
 class NoteTests extends BaseTest{
-  val noteId="84240297"
+  val noteId=84240297
     test("note"){
       prettyJSON(Note.byId(noteId))
       prettyJSON(Note.like(noteId))
