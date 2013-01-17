@@ -29,7 +29,7 @@ class MovieTest extends BaseTest {
     prettyJSON(Movie.byImdb(imdb))
   }
   test("tesing movie review") {
-    val r = Movie.postReview(new MovieReviewPosted(movieId, "Test", content, 5))
+    val r = Movie.postReview(new MovieReviewPosted(movieId, "Test", content, 5)).get
     prettyJSON(r)
     prettyJSON(Movie.updateReview(r.id, new MovieReviewPosted("", "Test", content, 4)))
     prettyJSON(Movie.deleteReview(r.id))

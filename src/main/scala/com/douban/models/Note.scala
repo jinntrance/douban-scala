@@ -14,7 +14,6 @@ object Note extends API[Note] with CommentTrait[Note]{
   protected def url_prefix = api_prefix+"note/"
   private val userCreatedUrl=url_prefix+"user_created/%s"
   private val userLikedUrl=url_prefix+"user_liked/%s"
-  private val recommendedUrl=url_prefix +"people_notes/%s/guesses"
   private val likeUrl=idUrl+"/like"
   private val composeUrl=api_prefix+"notes"
   /**
@@ -43,7 +42,7 @@ object Note extends API[Note] with CommentTrait[Note]{
    * @param n 更新内容
    * @return
    */
-  def update(noteId:String,n:NotePosted,withResult:Boolean=true)=put[Note](idUrl.format(noteId),n,withResult)
+  def update(noteId:Long,n:NotePosted,withResult:Boolean=true)=put[Note](idUrl.format(noteId),n,withResult)
 
   /**
    * 上传图片到日记
@@ -51,12 +50,12 @@ object Note extends API[Note] with CommentTrait[Note]{
    * @param n 上传信息，可以不填写title
    * @return
    */
-  def uploadPicture(noteId:String,n:NotePosted,withResult:Boolean=true)=post[Note](idUrl.format(idUrl),n,withResult)
+  def uploadPicture(noteId:Long,n:NotePosted,withResult:Boolean=true)=post[Note](idUrl.format(idUrl),n,withResult)
 
   /**
    * 删除一条日记
    */
-  def deleteNote(noteId:String)=delete(idUrl.format(noteId))
+  def deleteNote(noteId:Long)=delete(idUrl.format(noteId))
 
   /**
    *
@@ -72,17 +71,12 @@ object Note extends API[Note] with CommentTrait[Note]{
    *
    * @param format format	日记内容格式	取值为html_full, html_short, abstract, text，默认为text
    */
-  def notesUserCreated(userId:String,format:String="text")=get[List[Note]](userCreatedUrl.format(userId)+s"?format=$format")
+  def notesUserCreated(userId:String,format:String="text")=get[NotesResult](userCreatedUrl.format(userId)+s"?format=$format",secured=true)
   /**
    *
    * @param format format	日记内容格式	取值为html_full, html_short, abstract, text，默认为text
    */
-  def notesUserLiked(userId:String,format:String="text")=get[List[Note]](userLikedUrl.format(userId)+s"?format=$format")
-  /**
-   *
-   * @param format format	日记内容格式	取值为html_full, html_short, abstract, text，默认为text
-   */
-  def notesRecommended(userId:String,format:String="text")=get[List[Note]](recommendedUrl.format(userId)+s"?format=$format")
+  def notesUserLiked(userId:String,format:String="text")=get[NotesResult](userLikedUrl.format(userId)+s"?format=$format",secured=true)
 
 }
 
@@ -91,10 +85,12 @@ object Note extends API[Note] with CommentTrait[Note]{
  * @param privacy 可见权限 public:表示所有人可见 friend:只朋友可见 private:只有自己可见
  * @param update_time  更新时间
  * @param publish_time 发布时间
- * @param photos  日记关联的图片
+ * @param photos  日记关联的图片,id->url
  * @param recs_count  被推荐的次数
  * @param alt 日记网址
  */
-case class Note(id:String,title:String,privacy:String,summary:String,content:String,update_time:Date,publish_time:Date,photos:Map[String,String],comments_count:Int,liked_count:Int,recs_count:Int,alt:String,can_reply:Boolean)
+case class Note(id:Long,title:String,privacy:String,summary:String,content:String,update_time:Date,publish_time:Date,photos:Map[String,String]=Map(),comments_count:Int,liked_count:Int,recs_count:Int,alt:String,can_reply:Boolean)
 
 case class NotePosted(title:String,var content:String,pics:Map[String,String]=Map(),privacy:String="public",can_reply:Boolean=true) extends Bean
+
+case class NotesResult(start:Int,count:Int,total:Int,notes:List[Note]) extends ListResult(start,count,total)

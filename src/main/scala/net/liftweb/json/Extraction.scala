@@ -327,6 +327,7 @@ object Extraction {
         else fail("Expected collection but got " + m + " for class " + c)
       case Dict(m) => root match {
         case JObject(xs) => Map(xs.map(x => (x.name, build(x.value, m))): _*)
+        case JNothing|JNull=>null
         case x => fail("Expected object but got " + x)
       }
     }
@@ -345,7 +346,7 @@ object Extraction {
       case x => fail("Expected array but got " + x)
     }
 
-    def mkValue(root: JValue, mapping: Mapping, path: String, optional: Boolean) = 
+    def mkValue(root: JValue, mapping: Mapping, path: String, optional: Boolean=true) =
       if (optional && root == JNothing) None
       else {
         try {
@@ -391,12 +392,17 @@ object Extraction {
     case JDouble(x) if (targetType == classOf[Int]) => x.intValue
     case JDouble(x) if (targetType == classOf[Long]) => x.longValue
     case JDouble(x) if (targetType == classOf[Number]) => x
+    case JString(s) if (targetType == classOf[Long]) => s.toLong
+    case JString(s) if (targetType == classOf[Long]) => s.toLong
+    case JString(s) if (targetType == classOf[Boolean]) => s.toBoolean
+    case JString(s) if (targetType == classOf[Double]) => s.toDouble
     case JString(s) if (targetType == classOf[String]) => s
     case JString(s) if (targetType == classOf[Symbol]) => Symbol(s)
     case JString(s) if (targetType == classOf[Date]) => formats.dateFormat.parse(s).getOrElse(fail("Invalid date '" + s + "'"))
     case JString(s) if (targetType == classOf[Timestamp]) => new Timestamp(formats.dateFormat.parse(s).getOrElse(fail("Invalid date '" + s + "'")).getTime)
     case JBool(x) if (targetType == classOf[Boolean]) => x
     case JBool(x) if (targetType == classOf[JavaBoolean]) => new JavaBoolean(x)
+    case JBool(x) if (targetType == classOf[String]) => x.toString
     case j: JValue if (targetType == classOf[JValue]) => j
     case j: JObject if (targetType == classOf[JObject]) => j
     case j: JArray if (targetType == classOf[JArray]) => j

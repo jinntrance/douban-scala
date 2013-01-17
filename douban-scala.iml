@@ -23,7 +23,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="lift-json" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-compiler:2.10.0" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.10.0" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-reflect:2.10.0" level="project" />

@@ -38,17 +38,17 @@ object Req {
   /**
    *
    * @param request 参数Bean
-   * @param withResult 是否读取返回数据，默认读取 ，不读取数据时返回null为成功
-   * @tparam RESULT 返回的类型。不读取数据时返回null为成功，抛出异常为读取数据不成功
+   * @param withResult 是否读取返回数据，默认读取 ，不读取数据时返回None为成功
+   * @tparam RESULT 返回的类型。不读取数据时返回None为成功，抛出异常为读取数据不成功
    * @return
    */
-  def post[RESULT: Manifest](url: String, request: Bean,withResult:Boolean=true):RESULT= {
+  def post[RESULT: Manifest](url: String, request: Bean,withResult:Boolean=true):Option[RESULT]= {
     val c: HttpURLConnection = postData(url, request)
-    if(withResult) parseJSON[RESULT](c)
+    if(withResult) Some(parseJSON[RESULT](c))
     else {
       if (!succeed(c.getResponseCode)) parseJSON(c)
       c.disconnect()
-      JsonParser.parse(emptyJSON).extract[RESULT]
+      None
     }
   }
 
@@ -70,13 +70,13 @@ object Req {
    * @param withResult 是否读取返回数据，默认读取,不读取数据时返回null为成功
    * @return RESULT put成功后的数据，不读取数据时返回null为成功，，抛出异常为读取数据不成功
    */
-  def put[RESULT: Manifest](url: String, request: Bean,withResult:Boolean=true): RESULT = {
+  def put[RESULT: Manifest](url: String, request: Bean,withResult:Boolean=true): Option[RESULT] = {
     val c: HttpURLConnection = putData(url, request)
-    if(withResult)parseJSON[RESULT](c)
+    if(withResult) Some(parseJSON[RESULT](c))
     else  {
       if (!succeed(c.getResponseCode)) parseJSON(c)
       c.disconnect()
-      JsonParser.parse(emptyJSON).extract[RESULT]
+      None
     }
   }
 

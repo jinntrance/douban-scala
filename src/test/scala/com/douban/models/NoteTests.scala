@@ -13,8 +13,17 @@ class NoteTests extends BaseTest{
   val noteId="84240297"
     test("note"){
       prettyJSON(Note.byId(noteId))
-      prettyJSON(Note.postNote(NotePosted("Test","testtesttestesttesetes")))
       prettyJSON(Note.like(noteId))
       prettyJSON(Note.unlike(noteId))
+    }
+    test("new note"){
+      val n=Note.postNote(NotePosted("Test","testtesttestesttesetes")).get
+      prettyJSON(n)
+      prettyJSON(Note.update(n.id,NotePosted("Test","testtesttestesttesetes")))
+      prettyJSON(Note.deleteNote(n.id))
+    }
+    test("notes list"){
+      prettyJSON(Note.notesUserCreated(userId))
+      prettyJSON(Note.notesUserLiked(userId))
     }
 }

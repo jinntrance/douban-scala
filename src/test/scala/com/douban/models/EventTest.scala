@@ -24,10 +24,10 @@ class EventTest extends BaseTest {
 
   }
   test("events writing") {
-    prettyJSON(Event.participate(eventId))
-    prettyJSON(Event.unParticipate(eventId))
-    prettyJSON(Event.wish(eventId))
-    prettyJSON(Event.unWish(eventId))
+    println(Event.participate(eventId))
+    println(Event.unParticipate(eventId))
+    println(Event.wish(eventId))
+    println(Event.unWish(eventId))
   }
   test("location byId") {
     prettyJSON(Loc.byId("108288"))

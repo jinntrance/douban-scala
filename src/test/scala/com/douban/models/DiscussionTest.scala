@@ -17,7 +17,7 @@ class DiscussionTest extends BaseTest {
     prettyJSON(Event.discussions(eventId))
   }
   test("test discussion") {
-    val d = Event.postDiscussion(eventId, new DiscussionPosted("Test", "test"))
+    val d = Event.postDiscussion(eventId, new DiscussionPosted("Test", "test")).get
     prettyJSON(d)
     prettyJSON(Discussion.updateDiscussion(d.id, new DiscussionPosted("Test2", "test2")))
     prettyJSON(Discussion.deleteDiscussion(d.id))

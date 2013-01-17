@@ -25,7 +25,7 @@ class BookTest extends BaseTest {
     )
     val a2p = new AnnotationPosted(content, 2, "第三章")
     a2p.files = photos
-    val a = Book.postAnnotation(bookId, a2p)
+    val a = Book.postAnnotation(bookId, a2p).get
     prettyJSON(a)
     prettyJSON(Book.annotation(a.id))
     a2p.content=""
@@ -48,7 +48,7 @@ class BookTest extends BaseTest {
     prettyJSON(Book.tags(userId))
   }
   test("the book review") {
-    val review = Book.postReview(new BookReviewPosted(bookId, "呵呵", content, 4))
+    val review = Book.postReview(new BookReviewPosted(bookId, "呵呵", content, 4)).get
     prettyJSON(review)
     prettyJSON(Book.updateReview(review.id, new BookReviewPosted("", "呵呵", content, 4)))
     prettyJSON(Book.deleteReview(review.id))

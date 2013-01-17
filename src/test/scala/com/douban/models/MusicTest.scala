@@ -25,7 +25,7 @@ class MusicTest extends BaseTest {
     prettyJSON(Music.tags(userId))
   }
   test("tesing music postReview") {
-    val review = Music.postReview(new MusicReviewPosted(musicId, "Test", content, 5))
+    val review = Music.postReview(new MusicReviewPosted(musicId, "Test", content, 5)).get
     prettyJSON(review)
     prettyJSON(Music.updateReview(review.id, new MusicReviewPosted("", "Test", content)))
     prettyJSON(Music.deleteReview(review.id))
