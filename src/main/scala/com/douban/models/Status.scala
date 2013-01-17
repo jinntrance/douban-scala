@@ -78,8 +78,8 @@ case class Status(category:String,reshared_count:Int,text:String,created_at:Date
                   ,source:Source,like_count:Int,comments_count:Int,user:StatusUser,is_follow:Boolean,has_photo:Boolean,`type`:String,id:Long,reshared_status:Status)
 case class Source   //TODO
 case class StatusUser(uid:String,id:String,`type`:String,description:String,small_avatar:String,large_avatar:String,screen_name:String)
-case class Size(small:List[Int],raw:List[Int],median:List[Int])
-case class Media(src:String,sizes:Size,secret_pid:String,original_src:String,href:String,`type`:String)
+case class StatusSize(small:List[Int],raw:List[Int],median:List[Int])
+case class Media(src:String,sizes:StatusSize,secret_pid:String,original_src:String,href:String,`type`:String)
 case class Properties(href:String,uid:String,name:String)
 case class Topic(text:String,indices:List[Int])
 //TODO user_mentions

@@ -16,6 +16,7 @@ object Note extends API[Note] with CommentTrait[Note]{
   private val userLikedUrl=url_prefix+"user_liked/%s"
   private val recommendedUrl=url_prefix +"people_notes/%s/guesses"
   private val likeUrl=idUrl+"/like"
+  private val composeUrl=api_prefix+"notes"
   /**
    * text	默认格式，文本默认，图片和url使用类BBCode标签
    * html_full	html格式的全部内容
@@ -25,8 +26,17 @@ object Note extends API[Note] with CommentTrait[Note]{
    */
   def byId(noteId:String,format:String="text")=get[Note](idUrl.format(noteId)+s"?format=$format")
 
+  /**
+   * 喜欢一篇日记
+   */
   def like(noteId:String)=post(likeUrl.format(noteId),null,withResult = false)
+
+  /**
+   * 取消喜欢一篇日记
+   */
   def unlike(noteId:String)=delete(likeUrl.format(noteId))
+
+  def postNote(n:NotePosted)=post[Note](composeUrl,n)
 
   /**
    * 更新一条日记
@@ -87,4 +97,4 @@ object Note extends API[Note] with CommentTrait[Note]{
  */
 case class Note(id:String,title:String,privacy:String,summary:String,content:String,update_time:Date,publish_time:Date,photos:Map[String,String],comments_count:Int,liked_count:Int,recs_count:Int,alt:String,can_reply:Boolean)
 
-case class NotePosted(title:String,var content:String,pids:String,layout_pid:String,desc_pid:String,image_pid:String,privacy:String="public",can_reply:Boolean=true) extends Bean
+case class NotePosted(title:String,var content:String,pics:Map[String,String]=Map(),privacy:String="public",can_reply:Boolean=true) extends Bean

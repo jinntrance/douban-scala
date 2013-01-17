@@ -8,7 +8,9 @@ import com.douban.common.BaseTest
  * @author joseph
  * @since 1/16/13 11:38 PM
  * @version 1.0
+ *
  */
+//TODO 需要授權測試
 class DoumailTest extends BaseTest{
   val receiverId="61205173"
   val dId="290817815"

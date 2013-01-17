@@ -12,17 +12,17 @@ import com.douban.common.Req._
  */
  
  object Album extends API[Album]{
-  protected def url_prefix: String = api_prefix+"album/"
+  protected def url_prefix: String = api_prefix+"album"
   private val photosUrl=idUrl+"/photos"
-  def photos(s:AlbumSearch=new AlbumSearch)=get[AlbumsResult](s.flatten(photosUrl))
+  def photos(albumId:String,s:AlbumSearch=new AlbumSearch)=get[AlbumsResult](s.flatten(photosUrl.format(albumId)),secured = true)
 }
 
-object Photo extends API[Photo] with Comment[Photo]{
+object Photo extends API[Photo] with CommentTrait[Photo]{
   protected def url_prefix: String = api_prefix+"photo"
 }
-case class Size(icon:List[Int],thumb:List[Int],cover:List[Int],image:List[Int])
-case class Photo(id:String,alt:String,album_id:String,album_title:String,icon:String,thumb:String,cover:String,image:String,desc:String,created:Date,privacy:String,position:Int,prev_photo:String,next_photo:String,liked_count:Int,recs_count:Int,author:User,liked:Boolean,sizes:Size)
-case class Album(id:String,alt:String,title:String,icon:String,cover:String,thumb:String,image:String,privacy:String,created:Date,updated:Date,liked_count:Int,recs_count:Int,size:Int,desc:String,author:User,liked:Boolean,sizes:Size)
+case class AlbumSize(icon:List[Int],thumb:List[Int],cover:List[Int],image:List[Int])
+case class Photo(id:String,alt:String,album_id:String,album_title:String,icon:String,thumb:String,cover:String,image:String,desc:String,created:Date,privacy:String,position:Int,prev_photo:String,next_photo:String,liked_count:Int,recs_count:Int,author:User,liked:Boolean,sizes:AlbumSize)
+case class Album(id:String,alt:String,title:String,icon:String,cover:String,thumb:String,image:String,privacy:String,created:Date,updated:Date,liked_count:Int,recs_count:Int,size:Int,desc:String,author:User,liked:Boolean,sizes:AlbumSize)
 
 /**
  * @param order 排序	asc, desc, 默认为相册本身的排序
