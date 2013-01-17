@@ -35,7 +35,7 @@ object Doumail extends API[Doumail]{
    * @param doumailIds  需要标记为已读的豆邮id
    * @return
    */
-  def readMails(doumailIds:List[String])=putNoResult(readUrl,new DoumailIds(doumailIds.mkString(",")))
+  def readMails(doumailIds:List[String])=put(readUrl,new DoumailIds(doumailIds.mkString(",")))
 
   /**
    *批量删除豆邮
@@ -47,7 +47,7 @@ object Doumail extends API[Doumail]{
    * 发送一封豆邮
    * @param m 请求参数
    */
-  def send(m:DoumailSent)=postNoResult(sendUrl,m)
+  def send(m:DoumailSent)=post(sendUrl,m)
 
   def delete(doumailId:String)=Req.delete(idUrl.format(doumailId))
 }

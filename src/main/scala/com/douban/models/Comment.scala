@@ -17,7 +17,7 @@ trait CommentTrait[T] extends API[T]{
    * 新发评论
    * @return
    */
-  def postComment(targetId:String,content:String)=postNoResult(commentsUrl.format(targetId),CommentContent(content))
+  def postComment(targetId:String,content:String)=post(commentsUrl.format(targetId),CommentContent(content))
 
   /**
    * 获取单条回复

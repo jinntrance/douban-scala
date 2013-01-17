@@ -254,9 +254,10 @@ object Extraction {
         try {
           if (jconstructor.getDeclaringClass == classOf[java.lang.Object]) 
             fail("No information known about type")
-
+          if(0<args.filter(null!=_).size) {
           val instance = jconstructor.newInstance(args.map(_.asInstanceOf[AnyRef]).toArray: _*)
           setFields(instance.asInstanceOf[AnyRef], json, jconstructor)
+          }else null
         } catch {
           case e @ (_:IllegalArgumentException | _:InstantiationException) =>
             fail("Parsed JSON values do not match with class constructor\nargs=" + 

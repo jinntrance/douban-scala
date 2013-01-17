@@ -13,9 +13,7 @@ import java.util.Date
 object Discussion extends API[Discussion] {
   override def url_prefix = api_prefix + "discussion/"
 
-  def updateDiscussion(discussionId: String, d: DiscussionPosted) = putNoResult(idUrl.format(discussionId), d)
-
-  def updateDiscussionWithResult(discussionId: String, d: DiscussionPosted) = put[Discussion](idUrl.format(discussionId), d)
+  def updateDiscussion(discussionId: String, d: DiscussionPosted) = put[Discussion](idUrl.format(discussionId), d)
 
   def deleteDiscussion(discussionId: String) = delete(idUrl.format(discussionId))
 
@@ -25,9 +23,7 @@ trait DiscussionTrait[T] extends API[T]{
 
   val discussionsUrl = idUrl + "/discussions"
 
-  def postDiscussion(targetId: String, d: DiscussionPosted) = postNoResult(discussionsUrl.format(targetId), d)
-
-  def postDiscussionWithResult(targetId: String, d: DiscussionPosted) = post[Discussion](discussionsUrl.format(targetId), d)
+  def postDiscussion(targetId: String, d: DiscussionPosted) = post[Discussion](discussionsUrl.format(targetId), d)
 
   def discussions(targetId: String, page: Int = 0, count: Int = 20, query: String = "") = get[DiscussionsResult](new Search(query, "", page * count, count).flatten(discussionsUrl.format(targetId)))
 }

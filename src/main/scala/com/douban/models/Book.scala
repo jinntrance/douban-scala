@@ -45,16 +45,12 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult, BookReview] {
   /**
    * 用户收藏某本图书
    */
-  def postCollection(bookId: String, c: CollectionPosted) = postNoResult(collectionUrl.format(bookId), c)
-
-  def postCollectionWithResult(bookId: String, c: CollectionPosted) = post[Collection](collectionUrl.format(bookId), c)
+  def postCollection(bookId: String, c: CollectionPosted) = post[Collection](collectionUrl.format(bookId), c)
 
   /**
    * 用户修改对某本图书的收藏
    */
-  def updateCollection(bookId: String, c: CollectionPosted) = putNoResult(collectionUrl.format(bookId), c)
-
-  def updateCollectionWithResult(bookId: String, c: CollectionPosted) = put[Collection](collectionUrl.format(bookId), c)
+  def updateCollection(bookId: String, c: CollectionPosted) = put[Collection](collectionUrl.format(bookId), c)
 
   /**
    * 用户删除对某本图书的收藏
@@ -82,16 +78,13 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult, BookReview] {
    * 用户给某本图书写笔记
    * TODO上传图片的问题还需要解决
    */
-  def postAnnotation(bookId: String, a: AnnotationPosted) = postNoResult(annotationPostUrl.format(bookId), a)
-
-  def postAnnotationWithResult(bookId: String, a: AnnotationPosted) = post[Annotation](annotationPostUrl.format(bookId), a)
+  def postAnnotation(bookId: String, a: AnnotationPosted) = post[Annotation](annotationPostUrl.format(bookId), a)
 
   /**
    * 用户修改某篇笔记
    */
-  def updateAnnotation(annotationId: String, a: AnnotationPosted) = putNoResult(annotationUrl.format(annotationId), a)
+  def updateAnnotation(annotationId: String, a: AnnotationPosted) = put[Annotation](annotationUrl.format(annotationId), a)
 
-  def updateAnnotationWithResult(annotationId: String, a: AnnotationPosted) = put[Annotation](annotationUrl.format(annotationId), a)
 
   /**
    * 用户刪除某篇笔记

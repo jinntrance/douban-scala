@@ -25,7 +25,7 @@ object Event extends API[Event] with CommentTrait[Event] with DiscussionTrait[Ev
    * 参加活动
    * @param p 时间格式：“％Y-％m-％d”，无此参数则时间待定
    */
-  def participate(eventId: String, p: ParticipateDate = null) = postNoResult(participantsUrl.format(eventId), p)
+  def participate(eventId: String, p: ParticipateDate = null) = post(participantsUrl.format(eventId), p)
 
   /**
    * 取消参加活动
@@ -35,7 +35,7 @@ object Event extends API[Event] with CommentTrait[Event] with DiscussionTrait[Ev
   /**
    * 感兴趣
    */
-  def wish(eventId: String) = postNoResult(wishersUrl.format(eventId), null)
+  def wish(eventId: String) = post(wishersUrl.format(eventId), null)
 
   /**
    * 不感兴趣

@@ -97,16 +97,14 @@ abstract class BookMovieMusicAPI[+B: Manifest, +RT: Manifest, +RV: Manifest] ext
   /**
    * 发表新评论
    */
-  def postReview[R <: ReviewPosted](r: R): Boolean = postNoResult(reviewsPostUrl, r)
 
-  def postReviewWithResult[R <: ReviewPosted](r: R) = post[RV](reviewsPostUrl, r)
+  def postReview[R <: ReviewPosted](r: R) = post[RV](reviewsPostUrl, r)
 
   /**
    * 修改评论
    */
-  def updateReview[R <: ReviewPosted](reviewId: String, r: R): Boolean = putNoResult(reviewUpdateUrl.format(reviewId), r)
+  def updateReview[R <: ReviewPosted](reviewId: String, r: R) = put[RV](reviewUpdateUrl.format(reviewId), r)
 
-  def updateReviewWithResult[R <: ReviewPosted](reviewId: String, r: R) = put[RV](reviewUpdateUrl.format(reviewId), r)
 
   /**
    * 删除评论

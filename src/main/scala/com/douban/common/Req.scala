@@ -21,16 +21,16 @@ import duration._
 class Req
 
 object Req {
+  //20 seconds
   val timeout = 20 * 1000
-  val duration = Duration(2, SECONDS)
-  //10 seconds
-  val persistenceTimeout = 10 * 60
   //10 minutes
+  val persistenceTimeout = 10 * 60
   val PUT = "PUT"
   val POST = "POST"
   val GET = "GET"
   val DELETE = "DELETE"
   val ENCODING = "UTF-8"
+  val emptyJSON="""{}"""
   implicit val formats = new DefaultFormats {
     override def dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
   }
@@ -38,25 +38,18 @@ object Req {
   /**
    *
    * @param request 参数Bean
-   * @tparam RESULT 返回的类型
+   * @param withResult 是否读取返回数据，默认读取 ，不读取数据时返回null为成功
+   * @tparam RESULT 返回的类型。不读取数据时返回null为成功，抛出异常为读取数据不成功
    * @return
    */
-  def post[RESULT: Manifest](url: String, request: Bean): RESULT = {
+  def post[RESULT: Manifest](url: String, request: Bean,withResult:Boolean=true):RESULT= {
     val c: HttpURLConnection = postData(url, request)
-    parseJSON[RESULT](c)
-  }
-
-  /**
-   * 只判断状态码，不读取数据
-   * @param request 参数对象
-   * @return
-   */
-  def postNoResult(url: String, request: Bean): Boolean = {
-    val c = postData(url, request)
-    val code = c.getResponseCode
-    if (!succeed(code)) parseJSON(c)
-    c.disconnect()
-    succeed(code)
+    if(withResult) parseJSON[RESULT](c)
+    else {
+      if (!succeed(c.getResponseCode)) parseJSON(c)
+      c.disconnect()
+      JsonParser.parse(emptyJSON).extract[RESULT]
+    }
   }
 
   /**
@@ -74,24 +67,17 @@ object Req {
   /**
    *
    * @param request 参数Bean
-   * @return RESULT put成功后的数据
+   * @param withResult 是否读取返回数据，默认读取,不读取数据时返回null为成功
+   * @return RESULT put成功后的数据，不读取数据时返回null为成功，，抛出异常为读取数据不成功
    */
-  def put[RESULT: Manifest](url: String, request: Bean): RESULT = {
+  def put[RESULT: Manifest](url: String, request: Bean,withResult:Boolean=true): RESULT = {
     val c: HttpURLConnection = putData(url, request)
-    parseJSON[RESULT](c)
-  }
-
-  /**
-   * 只判断状态码，不读取数据
-   * @param request 参数Bean
-   * @return
-   */
-  def putNoResult(url: String, request: Bean): Boolean = {
-    val c = putData(url, request)
-    val code = c.getResponseCode
-    if (!succeed(code)) parseJSON(c)
-    c.disconnect()
-    succeed(code)
+    if(withResult)parseJSON[RESULT](c)
+    else  {
+      if (!succeed(c.getResponseCode)) parseJSON(c)
+      c.disconnect()
+      JsonParser.parse(emptyJSON).extract[RESULT]
+    }
   }
 
   def delete(url: String): Boolean = {
@@ -227,18 +213,18 @@ object Req {
   }
 
   private def uploadFile(boundary: String, out: BufferedOutputStream, key: String, value: String, withoutFile: Boolean = true) {
-    val k = "\"" + key + "\""
+    val k = "\"" + key.trim + "\""
     val lineEnd = "\r\n" //每一数据用lineEnd分开
     val boundaryString = lineEnd + "--" + boundary + lineEnd
     if (withoutFile) {
       //there must be no extra space chars in s string
-      val s = s"${boundaryString}Content-Disposition:form-data;name=$k$lineEnd$lineEnd$value"
+      val s = s"${boundaryString}Content-Disposition:form-data;name=$k$lineEnd$lineEnd${value.trim}"
       print(s)
       out.write(s.getBytes(ENCODING))
     }
     else {
-      val v = "\"" + value + "\""
-      val contentType="Content-Type: image/jpg"
+      val v = "\"" + value.trim + "\""
+      val contentType="Content-Type: image/"+value.substring(value.lastIndexOf('.')+1).trim.toLowerCase
       val s = s"${boundaryString}Content-Disposition:form-data;name=$k;filename=$v$lineEnd$contentType$lineEnd$lineEnd"
       print(s)
       out.write(s.getBytes(ENCODING))

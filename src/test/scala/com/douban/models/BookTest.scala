@@ -10,7 +10,6 @@ import com.douban.common.BaseTest
  * @version 1.0
  */
 class BookTest extends BaseTest {
-  val userId: String = "jinntrance"
   val bookId = "20497889"
   val isbn = "9787508832074"
   val content = "《网络至死:如何在喧嚣的互联网时代重获我们的创造力和思维力》内容简介：我们也许已经晓悟，但也许并未察觉，我们正陷入空前的“网络统治一切”的危机之中，就像赫胥黎在《美丽新世界》中忧虑的那样，人们会渐渐爱上压迫，崇拜那些使他们丧失思考能力的技术，而现在这技术等同于网络。我们越来越依赖虚拟世界——网络所创造的一切，人们已经无法想象没有电脑、没有网络的生活，我们好像患上了某种强迫症，一遍遍地刷新网页，而短暂的断网也使我们心绪不宁。注意力极易分散，记忆力严重退化，想象力和创造力被极度扼杀……我们在网络越来越强大的信息世界面前，越来越措手不及，越来越被机器所主宰。"
@@ -22,16 +21,15 @@ class BookTest extends BaseTest {
   }
   test("the book postAnnotation") {
     val photos = Map(
-      "1" -> "/home/joseph/Downloads/Coffee-Book-1565471.jpg"
-      , "2" -> "/home/joseph/Downloads/8062382-a-cup-of-coffee-on-the-book.jpg"
+      "1" -> picPath
     )
     val a2p = new AnnotationPosted(content, 2, "第三章")
     a2p.files = photos
-    val a = Book.postAnnotationWithResult(bookId, a2p)
+    val a = Book.postAnnotation(bookId, a2p)
     prettyJSON(a)
     prettyJSON(Book.annotation(a.id))
     a2p.content=""
-    prettyJSON(Book.updateAnnotationWithResult(a.id, a2p))
+    prettyJSON(Book.updateAnnotation(a.id, a2p))
     prettyJSON(Book.deleteAnnotation(a.id))
   }
   test("the book search") {
@@ -50,9 +48,9 @@ class BookTest extends BaseTest {
     prettyJSON(Book.tags(userId))
   }
   test("the book review") {
-    val review = Book.postReviewWithResult(new BookReviewPosted(bookId, "呵呵", content, 4))
+    val review = Book.postReview(new BookReviewPosted(bookId, "呵呵", content, 4))
     prettyJSON(review)
-    prettyJSON(Book.updateReviewWithResult(review.id, new BookReviewPosted("", "呵呵", content, 4)))
+    prettyJSON(Book.updateReview(review.id, new BookReviewPosted("", "呵呵", content, 4)))
     prettyJSON(Book.deleteReview(review.id))
     prettyJSON(Book.deleteCollection(bookId))
   }
@@ -64,7 +62,7 @@ class BookTest extends BaseTest {
     val c = Book.postCollection(bookId, p)
     prettyJSON(c)
     prettyJSON(Book.collectionOf(bookId))
-    prettyJSON(Book.updateCollectionWithResult(bookId, p))
+    prettyJSON(Book.updateCollection(bookId, p))
     prettyJSON(Book.deleteCollection(bookId))
   }
 }

@@ -14,6 +14,8 @@ import net.liftweb.json.Printer._
  */
 trait BaseTest extends FunSuite {
   implicit val formats = net.liftweb.json.DefaultFormats
+  val userId = "jinntrance"
+  val  picPath="headshot.jpg"
 
   def prettyJSON(p: Any) {
     println(pretty(render(decompose(p))))

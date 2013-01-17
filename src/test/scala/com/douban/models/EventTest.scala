@@ -11,7 +11,6 @@ import com.douban.common.BaseTest
  * @version 1.0
  */
 class EventTest extends BaseTest {
-  val userId = "jinntrance"
   val eventId = "18014972"
   test("events getting") {
     prettyJSON(Event.eventsUserParticipated(userId))
