@@ -19,8 +19,8 @@ import java.util.Date
       prettyJSON(Online.byId(oId))
       prettyJSON(Online.discussions(oId))
       prettyJSON(Online.participants(oId))
-      prettyJSON(Online.targetsUserParticipated(userId))
       prettyJSON(Online.targetsUserCreated(userId))
+      prettyJSON(Online.targetsUserParticipated(userId))
     }
     test("user interaction"){
       prettyJSON(Online.participate(oId))

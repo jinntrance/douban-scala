@@ -67,6 +67,7 @@ abstract class API[+B: Manifest] {
   var secured = false
   val api_prefix = "https://api.douban.com/v2/"
   val shuo_prefix = "https://api.douban.com/shuo/v2/"
+  val bub_prefix="http://api.douban.com/labs/bubbler/"
 
   protected def url_prefix: String
 
