@@ -1,8 +1,6 @@
 package com.douban.models
 import java.util.Date
 import com.douban.common.Req._
-import com.douban.models.Online.Online
-import com.douban.models.Online
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -11,17 +9,17 @@ import com.douban.models.Online
  * @since 1/18/13 3:29 AM
  * @version 1.0
  */
-object Online extends API[Online] with ParticipationTrait[Online,OnlineList] with DiscussionTrait[Online] with PhotosTrait[Online]{
-  protected def url_prefix = api_prefix+"online"
+object Online extends ParticipationTrait[Online,OnlineList] with DiscussionTrait[Online] with PhotosTrait[Online]{
+  protected def url_prefix = api_prefix+"online/"
   private val onlinesUrl=api_prefix+"onlines"
-  private val likeUrl=idUrl+"like"
+  private val likeUrl=idUrl+"/like"
 
   /**
    *
    * @param cate  day，week，latest分别对应每天，每周，最新,默认每周
    * @return
    */
-  def onlinesList(cate:String="week")=get[OnlineList](s"$onlinesUrl?cate=$cate")
+  def onlinesList(cate:String="week")=get[OnlineList](s"$onlinesUrl?cate=$cate",secured=true)
 
   /**
    * 创建线上活动
@@ -63,8 +61,10 @@ object Online extends API[Online] with ParticipationTrait[Online,OnlineList] wit
  * @param recs_count  推荐数
  * @param liked  当前用户是否喜欢，参加
  */
-case class Online(id:Long,alt:String,title:String,desc:String,tags:List[String],created:Date,begin_time:Date,end_time:Date,related_url:String,shuo_topic:String,cascade_invite:Boolean,
-                  group_id:Long,album_id:Long,participant_count:Int,photo_count:Int,liked_count:Int,recs_count:Int,icon:String,thumb:String,cover:String,image:String,owner:User,liked:Boolean,joined:Boolean)
+case class Online(id:Long,title:String,desc:String,tags:List[String],created:Date,begin_time:Date,end_time:Date,related_url:String,shuo_topic:String,cascade_invite:Boolean,
+                  group_id:Long,album_id:Long,participant_count:Int,photo_count:Int,liked_count:Int,recs_count:Int,thumb:String,cover:String,image:String,owner:User,liked:Boolean,participated:Boolean){
+  val alt=s"http://www.douban.com/online/$id"
+}
 case class OnlineList(start:Int,count:Int,total:Int,user:User,onlines:List[Online]) extends ListResult(start,count,total)
 
 /**
@@ -75,4 +75,4 @@ case class OnlineList(start:Int,count:Int,total:Int,user:User,onlines:List[Onlin
  * @param related_url   关联的url或者小组链接
  * @param cascade_invite  是否允许参与的成员邀请朋友参加
  */
-case class OnlinePosted(title:String,desc:String,begin_time:Date,end_time:Date,tags:String,related_url:String,cascade_invite:Boolean=false) extends Bean
+case class OnlinePosted(title:String,desc:String,begin_time:Date,end_time:Date,tags:String="",related_url:String="",cascade_invite:Boolean=false) extends Bean

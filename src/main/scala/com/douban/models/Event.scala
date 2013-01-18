@@ -11,7 +11,7 @@ import Req._
  * @since 1/12/13 3:40 PM
  * @version 1.0
  */
-object Event extends API[Event] with ParticipationTrait[Event,EventList] with CommentTrait[Event] with DiscussionTrait[Event] {
+object Event extends  ParticipationTrait[Event,EventList] with CommentTrait[Event] with DiscussionTrait[Event] {
   def url_prefix = api_prefix + "event/"
 
   val wishersUrl = url_prefix + "%s/wishers"
@@ -67,10 +67,10 @@ object Loc extends API[Loc] {
   def list = get[LocList](listUrl)
 }
 
-trait ParticipationTrait[T,L] extends API[T]{
-  val participantsUrl = url_prefix + "%s/participants"
-  val user_createdUrl = url_prefix + "user_created/%s"
-  val user_participatedUrl = url_prefix + "user_participated/%s"
+abstract class ParticipationTrait[T:Manifest,L:Manifest] extends API[T]{
+  val participantsUrl = url_prefix + "/%s/participants"
+  val user_createdUrl = url_prefix + "/user_created/%s"
+  val user_participatedUrl = url_prefix + "/user_participated/%s"
   /**
    * 参加活动
    * @param p 时间格式：“％Y-％m-％d”，无此参数则时间待定
@@ -90,12 +90,12 @@ trait ParticipationTrait[T,L] extends API[T]{
   /**
    * 用户创建的活动
    */
-  def targetsUserCreated(userId: Long) = get[L](user_createdUrl.format(userId))
+  def targetsUserCreated(userId: Long) = get[L](user_createdUrl.format(userId),secured=true)
 
   /**
    * 用户参加的
    */
-  def targetsUserParticipated(userId: Long) = get[L](user_participatedUrl.format(userId))
+  def targetsUserParticipated(userId: Long) = get[L](user_participatedUrl.format(userId),secured=true)
 }
 
 case class Loc(parent: String, habitable: String, id: Long, name: String, uid: String)
