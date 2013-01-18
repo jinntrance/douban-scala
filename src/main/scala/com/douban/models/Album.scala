@@ -11,14 +11,19 @@ import com.douban.common.Req._
  * @see http://developers.douban.com/wiki/?title=api_v2
  */
  
- object Album extends API[Album]{
+ object Album extends API[Album] with PhotosTrait[Album]{
   protected def url_prefix: String = api_prefix+"album"
-  private val photosUrl=idUrl+"/photos"
-  def photos(albumId:Long,s:AlbumSearch=new AlbumSearch)=get[AlbumsResult](s.flatten(photosUrl.format(albumId)),secured = true)
+
 }
 
 object Photo extends API[Photo] with CommentTrait[Photo]{
   protected def url_prefix: String = api_prefix+"photo"
+
+}
+
+trait PhotosTrait[T] extends API[T]{
+  private val photosUrl=idUrl+"/photos"
+  def photos(albumId:Long,s:AlbumSearch=new AlbumSearch)=get[AlbumsResult](s.flatten(photosUrl.format(albumId)),secured = true)
 }
 case class AlbumSize(icon:List[Int],thumb:List[Int],cover:List[Int],image:List[Int])
 case class Photo(id:Long,alt:String,album_id:String,album_title:String,icon:String,thumb:String,cover:String,image:String,desc:String,created:Date,privacy:String,position:Int,prev_photo:String,next_photo:String,liked_count:Int,recs_count:Int,author:User,liked:Boolean,sizes:AlbumSize)

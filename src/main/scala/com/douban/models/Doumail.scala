@@ -41,13 +41,13 @@ object Doumail extends API[Doumail]{
    *批量删除豆邮
    * @return
    */
-  def deleteMails(doumailIds:List[Long])=post(deleteUrl,new DoumailIds(doumailIds.mkString(",")),withResult=false)
+  def deleteMails(doumailIds:List[Long]):Boolean=None==post(deleteUrl,new DoumailIds(doumailIds.mkString(",")),withResult=false)
 
   /**
    * 发送一封豆邮
    * @param m 请求参数
    */
-  def send(m:DoumailSent)=post(sendUrl,m,withResult=false)
+  def send(m:DoumailSent):Boolean=None==post(sendUrl,m,withResult=false)
 
   def delete(doumailId:Long)=Req.delete(idUrl.format(doumailId))
 }

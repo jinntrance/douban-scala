@@ -14,8 +14,8 @@ class EventTest extends BaseTest {
   val eventId = 18014972
   val lId=108288
   test("events getting") {
-    prettyJSON(Event.eventsUserParticipated(userId))
-    prettyJSON(Event.eventsUserCreated(userId))
+    prettyJSON(Event.targetsUserParticipated(userId))
+    prettyJSON(Event.targetsUserCreated(userId))
     prettyJSON(Event.eventsUserWished(userId))
     prettyJSON(Event.events("chengdu"))
 

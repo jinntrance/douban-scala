@@ -11,56 +11,29 @@ import Req._
  * @since 1/12/13 3:40 PM
  * @version 1.0
  */
-object Event extends API[Event] with CommentTrait[Event] with DiscussionTrait[Event] {
+object Event extends API[Event] with ParticipationTrait[Event,EventList] with CommentTrait[Event] with DiscussionTrait[Event] {
   def url_prefix = api_prefix + "event/"
 
-  val participantsUrl = url_prefix + "%s/participants"
   val wishersUrl = url_prefix + "%s/wishers"
-  val user_createdUrl = url_prefix + "user_created/%s"
-  val user_participatedUrl = url_prefix + "user_participated/%s"
   val user_wishedUrl = url_prefix + "user_wished/%s"
   val listUrl = url_prefix + "list"
 
   /**
-   * 参加活动
-   * @param p 时间格式：“％Y-％m-％d”，无此参数则时间待定
-   */
-  def participate(eventId: Long, p: ParticipateDate = null) = post(participantsUrl.format(eventId), p,withResult = false)
-
-  /**
-   * 取消参加活动
-   */
-  def unParticipate(eventId: Long) = delete(participantsUrl.format(eventId))
-
-  /**
    * 感兴趣
    */
-  def wish(eventId: Long) = post(wishersUrl.format(eventId), null,withResult = false)
+  def wish(eventId: Long):Boolean = None==post(wishersUrl.format(eventId), null,withResult = false)
 
   /**
    * 不感兴趣
    */
   def unWish(eventId: Long) = delete(wishersUrl.format(eventId))
 
-  /**
-   * 活动参与人
-   */
-  def participants(eventId: Long) = get[UserSearchResult](participantsUrl.format(eventId))
 
   /**
    * 活动感兴趣的
    */
   def wishers(eventId: Long) = get[UserSearchResult](wishersUrl.format(eventId))
 
-  /**
-   * 用户创建的活动
-   */
-  def eventsUserCreated(userId: Long) = get[EventList](user_createdUrl.format(userId))
-
-  /**
-   * 用户参加的
-   */
-  def eventsUserParticipated(userId: Long) = get[EventList](user_participatedUrl.format(userId))
 
   /**
    * 用户感兴趣的活动
@@ -92,6 +65,37 @@ object Loc extends API[Loc] {
   val listUrl = url_prefix + "/list"
 
   def list = get[LocList](listUrl)
+}
+
+trait ParticipationTrait[T,L] extends API[T]{
+  val participantsUrl = url_prefix + "%s/participants"
+  val user_createdUrl = url_prefix + "user_created/%s"
+  val user_participatedUrl = url_prefix + "user_participated/%s"
+  /**
+   * 参加活动
+   * @param p 时间格式：“％Y-％m-％d”，无此参数则时间待定
+   */
+  def participate(targetId: Long, p: ParticipateDate = null):Boolean = None==post(participantsUrl.format(targetId), p,withResult = false)
+
+  /**
+   * 取消参加活动
+   */
+  def unParticipate(targetId: Long) = delete(participantsUrl.format(targetId))
+  /**
+   * 活动参与人
+   */
+  def participants(targetId: Long) = get[UserSearchResult](participantsUrl.format(targetId))
+
+
+  /**
+   * 用户创建的活动
+   */
+  def targetsUserCreated(userId: Long) = get[L](user_createdUrl.format(userId))
+
+  /**
+   * 用户参加的
+   */
+  def targetsUserParticipated(userId: Long) = get[L](user_participatedUrl.format(userId))
 }
 
 case class Loc(parent: String, habitable: String, id: Long, name: String, uid: String)

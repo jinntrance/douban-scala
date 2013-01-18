@@ -28,7 +28,7 @@ object Note extends API[Note] with CommentTrait[Note]{
   /**
    * 喜欢一篇日记
    */
-  def like(noteId:Long)=post(likeUrl.format(noteId),null,withResult = false)
+  def like(noteId:Long):Boolean=None==post(likeUrl.format(noteId),null,withResult = false)
 
   /**
    * 取消喜欢一篇日记
