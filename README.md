@@ -1,10 +1,12 @@
-###豆瓣 API的scala SDK
+###豆瓣 API的Scala/Java SDK
 
 後面完善文檔java也可使用，但请记得解决pom中的函数包依赖，特别是添加scala-library。
 
 使用scala 2.10,json處理使用<a href="https://github.com/lift/framework/tree/master/core/json">lift-json</a>
 
-本SDK还不够完善，主要是豆瓣的官方文档还没有出来，后面有童鞋需求的话，可以再完善相应模块。使用时也可参照test下的内容。
+本SDK还不够完善，主要是豆瓣的官方文档还没有出来，后面有童鞋有兴趣的话，可以共同完善。
+
+使用时也可参照test下的内容。
 
 目前已完成的接口有：
 ```
@@ -22,7 +24,7 @@
 待完成的：
 
 ```
-* 广播 Miniblog
+* 广播 Status
 * 豆邮 Doumail
 * 线上活动 Online
 * 很多查詢需要添加 start,count
@@ -59,8 +61,7 @@ Auth.redirect_uri =""//your redirect url 可不设置
 Auth.redirect_uri=""//douban_basic_common,shuo_basic_r,shuo_basic_w等 可不设置
 
 ```
-# 以下方式 2 选 1:
-# 引导用户授权
+## 引导用户授权
 ```
     val url = new AuthorizationCode().authUrl
     Desktop.getDesktop.browse(new URI(url))
@@ -68,7 +69,7 @@ Auth.redirect_uri=""//douban_basic_common,shuo_basic_r,shuo_basic_w等 可不设
     Auth.code = Auth.extractCode(codeUrl) //取出 authorization code
     val token:AccessTokenResult=Req.post[AccessTokenResult](url, token) //取回 access token
 ```
-# 如果有之前有refresh token，则可用
+##如果有之前有refresh token，则可用
 
 ```
     Auth.refresh_token="your access token"
@@ -80,7 +81,7 @@ Auth.redirect_uri=""//douban_basic_common,shuo_basic_r,shuo_basic_w等 可不设
 
 #### 接口说明
 
-默认参数（参考豆瓣官方文档）:
+默认参数（参考豆瓣官方文档）,查询时分页需要:
 ```
 start: 0
 count: 20
@@ -96,10 +97,10 @@ __图书、电影、音乐 Book/Movie/Music__
 ```
 获取图书标签 .tags(id) ,id为当前对象id
 获取某个Item中标记最多的标签 .PopTags(id)
-发表新评论 postReview(r),其中r为BookReviewPosted/MovieReviewPosted/MusicReviewPosted
-修改评论  updateReview(reviewId,r),其中rF为ReviewPosted
-删除评论 deleteReview(reviewId)
-搜索 search(query: String, tag: String, page: Int = 1, count: Int = 20)，其中query为关键字，tag为标签，page为查询第几页，count为每页显示数量
+发表新评论 .postReview(r),其中r为BookReviewPosted/MovieReviewPosted/MusicReviewPosted
+修改评论  .updateReview(reviewId,r),其中rF为ReviewPosted
+删除评论 .deleteReview(reviewId)
+搜索 .search(query: String, tag: String, page: Int = 1, count: Int = 20)，其中query为关键字，tag为标签，page为查询第几页，count为每页显示数量
 ```
 
 __用户 User__
@@ -121,7 +122,7 @@ __读书 Book__
 
 通过isbn获取信息 Book.byISBN(isbn_number)
 获取某个用户的所有图书收藏信息 Book.collectionsOfUser(userId)
-获取用户对某本图书的收藏信息 collectionOf(bookId)
+获取用户对某本图书的收藏信息 Book.collectionOf(bookId)
 用户收藏某本图书 postCollection(bookId,c: CollectionPosted)
 用户修改对某本图书的收藏 updateCollection(bookId,c: CollectionPosted)
 用户删除对某本图书的收藏  deleteCollection(bookId)
@@ -157,7 +158,7 @@ __日记 Note__
 获取一篇日记 Note.byId(id, format='text')
 新写一篇日记 Note.postNote(n:NotePosted)
 更新一篇日记 Note.update(noteId:Long,n:NotePosted)
-上传图片到日记 uploadPicture(noteId:Long,n:NotePosted)//Note.genPicFormat,genUrlFormat生成图片和url格式放在日记内容中
+上传图片到日记 Note.uploadPicture(noteId:Long,n:NotePosted)//Note.genPicFormat,genUrlFormat生成图片和url格式放在日记内容中
 删除一篇日记 Note.deleteNote(id)
 
 喜欢一篇日记     Note.like(id)
@@ -256,7 +257,15 @@ __评论 Comment__
 获取某条回复 getComment(targetId:Long,commentId:String)
 删除某条回复 deleteComment(targetId:Long,commentId:String)
 ```
+__豆瓣实验室 Bubbler__
 
+```
+用戶信息 Bubbler.user(userId)
+用戶Bubs Bubbler.bubs(userId)
+用戶boards Bubbler.boards(boardId)
+用戶walls Bubbler.walls(userId)
+
+```
 
 ### 联系
 * 使用 douban-scala 过程中遇到 bug, 可以到 [Issues](https://github.com/jinntrance/douban-scala/issues) 反馈
