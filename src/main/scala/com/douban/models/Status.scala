@@ -101,6 +101,12 @@ object StatusUser extends API[StatusUserInfo]{
   private val searchUrl=url_prefix+"/search"
   private val blockUrl=idUrl+"/block"
 
+  private val friendshipsUrl=shuo_prefix+"/friendships"
+  private val createFriendshipsUrl=friendshipsUrl+"/create"
+  private val destroyFriendshipsUrl=friendshipsUrl+"/destroy"
+  private val usersFriendshipsUrl=friendshipsUrl+"/show"
+
+
   /**
    *@return 用户关注列表
    */
@@ -134,16 +140,20 @@ object StatusUser extends API[StatusUserInfo]{
    * 将指定用户加入黑名单
    */
   def block(userId:Long,blockedUserId:Long):Boolean={
-    post[StatusResult](blockUrl.format(userId),new Bean {
-      override def toParas=s"user_id=$blockedUserId"
-    }) match {
+    val r=post[StatusResult](blockUrl.format(userId),StatusUserPara(blockedUserId))
+    if (None==r) false
+    else r.get match {
       case StatusResult(1)=>true
       case StatusResult(0)=>false
       case _=>false
     }
   }
+  def follow(userId:Long)=post[StatusUserInfo](createFriendshipsUrl,StatusUserPara(userId))
+  def unfollow(userId:Long)=post[StatusUserInfo](destroyFriendshipsUrl,StatusUserPara(userId))
 
 }
+
+
 case class Status(category:String,reshared_count:Int,text:String,created_at:Date,title:String,can_reply:Int,liked:Boolean,attachments:List[Attachment]
                   ,source:String,like_count:Int,comments_count:Int,user:StatusUser,is_follow:Boolean,has_photo:Boolean,`type`:String,id:Long,reshared_status:Status=null)
 case class StatusUser(uid:String,id:Long,`type`:String,description:String,small_avatar:String,large_avatar:String,screen_name:String)
@@ -179,3 +189,11 @@ case class StatusSearch(since_id:String=null,until_id:String=null,start:Int=0,co
 case class PackedStatus(status:Status,reshare_users:List[StatusUser],comments:List[StatusComment],like_users:List[StatusUser])
 
 case class StatusResult(r:Int)
+
+case class StatusUserPara(user_id:Long,source:String=Auth.api_key) extends Bean
+
+case class RelationShip(target_id:Long,source_id:Long,source:String=Auth.api_key) extends Bean
+
+case class FriendshipUser(id:Long,screen_name:String,following:Boolean,followed_by:Boolean)
+
+case class Friendship(source:FriendshipUser,target:FriendshipUser)
