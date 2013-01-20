@@ -28,15 +28,16 @@ object Status extends API[Status]{
   def postStatus(p:StatusPosted,withResult:Boolean=true)=post[Status](postUrl,p,withResult)
 
   /**
-   * 获取当前登录用户及其所关注用户的最新广播消息。
    * @param s 请求参数
+   * @return 当前登录用户及其所关注用户的最新广播消息。
    */
   def feeds(s:StatusSearch=new StatusSearch)=get[List[Status]](s.flatten(feedsUrl),secured = true)
 
   /**
-   * 获取用户发布的广播列表
+   *
    * @param userId user_id/screen_name
    * @param s 请求参数
+   * @return 用户发布的广播列表
    */
   def feedsOfUser(userId:String,s:StatusSearch=new StatusSearch)=get[List[Status]](s.flatten(userFeedsUrl.format(userId)),secured = true)
 
@@ -46,13 +47,13 @@ object Status extends API[Status]{
   def deleteStatus(statusId:Long)=Req.delete(idUrl.format(statusId))
 
   /**
-   *打包的信息
-   * @return
+   *
+   * @return  打包的信息
    */
   def byIdPacked(statusId:Long)=get[PackedStatus](s"$idUrl?pack=true")
 
   /**
-   * 获取一条广播的回复列表
+   * @return  一条广播的回复列表
    */
   def comments(statusId:Long,start:Int=0,count:Int=20)=get[List[Comment]](commentsUrl.format(statusId)+s"?start=$start&count=$count")
 
@@ -62,7 +63,7 @@ object Status extends API[Status]{
   def comment(statusId:Long,comment:String,withResult:Boolean=true)=post[Comment](commentsUrl.format(statusId),CommentContent(comment),withResult)
 
   /**
-   * 获取单条回复的内容
+   * @return  单条回复的内容
    */
   def commentById(commentId:Long)=get[Comment](commentUrl.format(commentId))
 
@@ -71,7 +72,7 @@ object Status extends API[Status]{
    */
   def deleteCommentById(commentId:Long)=Req.delete(commentUrl.format(commentId))
   /**
-    *获取一条广播的转发相关信息用户
+    *@return 一条广播的转发相关信息用户
     */
   def usersOfShare(shareId:Long)=get[List[StatusUserInfo]](reshareUrl.format(shareId))
   /**
@@ -95,6 +96,52 @@ object StatusUser extends API[StatusUserInfo]{
   protected def url_prefix = shuo_prefix+"users/"
   private val followingUrl=idUrl+"/following"
   private val followersUrl=idUrl+"/followers"
+  private val followInCommonUrl=idUrl+"/follow_in_common"
+  private val followingFollowersOfUrl=idUrl+"/following_followers_of"
+  private val searchUrl=url_prefix+"/search"
+  private val blockUrl=idUrl+"/block"
+
+  /**
+   *@return 用户关注列表
+   */
+  def following(userId:Long,tagId:Long)=get[List[StatusUserInfo]](followingUrl.format(userId)+s"?tag=$tagId")
+
+  /**
+   * @return 用户关注者列表
+   */
+  def followers(userId:Long)=get[List[StatusUserInfo]](followersUrl.format(userId))
+
+  /**
+   *@return 共同关注的用户列表
+   */
+
+  def followingInCommon(userId:Long) =get[List[StatusUserInfo]](followInCommonUrl.format(userId))
+
+  /**
+    *
+    * @return 返回当前用户关注的人中也关注了该用户的列表
+    */
+  def followingFollowersOf(userId:Long)=get[List[StatusUserInfo]](followingFollowersOfUrl.format(userId))
+
+  /**
+   *
+   * @param q  搜索字符串
+   * @return 返回符合要求的user列表
+   */
+  def search(q:String)=get[List[StatusUserInfo]](s"$searchUrl?q=$q")
+
+  /**
+   * 将指定用户加入黑名单
+   */
+  def block(userId:Long,blockedUserId:Long):Boolean={
+    post[StatusResult](blockUrl.format(userId),new Bean {
+      override def toParas=s"user_id=$blockedUserId"
+    }) match {
+      case StatusResult(1)=>true
+      case StatusResult(0)=>false
+      case _=>false
+    }
+  }
 
 }
 case class Status(category:String,reshared_count:Int,text:String,created_at:Date,title:String,can_reply:Int,liked:Boolean,attachments:List[Attachment]
@@ -130,3 +177,5 @@ case class StatusSearch(since_id:String=null,until_id:String=null,start:Int=0,co
  * @param like_users  赞的用户列表
  */
 case class PackedStatus(status:Status,reshare_users:List[StatusUser],comments:List[StatusComment],like_users:List[StatusUser])
+
+case class StatusResult(r:Int)
