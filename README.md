@@ -1,4 +1,4 @@
-###豆瓣 API的Scala/Java SDK
+###豆瓣 API v2的Scala/Java SDK
 
 後面完善文檔java也可使用，但请记得解决pom中的函数包依赖，特别是添加scala-library。
 
