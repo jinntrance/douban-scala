@@ -71,12 +71,12 @@ object Note extends API[Note] with CommentTrait[Note]{
    *
    * @param format format	日记内容格式	取值为html_full, html_short, abstract, text，默认为text
    */
-  def notesUserCreated(userId:Long,format:String="text")=get[NotesResult](userCreatedUrl.format(userId)+s"?format=$format",secured=true)
+  def notesUserCreated(userId:Long,start:Int=0,count:Int=20,format:String="text")=get[NotesResult](userCreatedUrl.format(userId)+s"?format=$format",secured=true)
   /**
    *
    * @param format format	日记内容格式	取值为html_full, html_short, abstract, text，默认为text
    */
-  def notesUserLiked(userId:Long,format:String="text")=get[NotesResult](userLikedUrl.format(userId)+s"?format=$format",secured=true)
+  def notesUserLiked(userId:Long,,start:Int=0,count:Int=20,format:String="text")=get[NotesResult](userLikedUrl.format(userId)+s"?format=$format",secured=true)
 
 }
 

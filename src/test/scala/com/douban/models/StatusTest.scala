@@ -10,5 +10,10 @@ import com.douban.common.BaseTest
  * @version 1.0
  */
 class StatusTest extends BaseTest{
-
+    override val userId=1242286
+  val sId=1085690187
+  test("status getting"){
+    prettyJSON(Status.byId(sId))
+    prettyJSON(Status.byIdPacked(sId))
+  }
 }

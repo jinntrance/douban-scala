@@ -50,7 +50,7 @@ object Status extends API[Status]{
    *
    * @return  打包的信息
    */
-  def byIdPacked(statusId:Long)=get[PackedStatus](s"$idUrl?pack=true")
+  def byIdPacked(statusId:Long)=get[PackedStatus](s"${idUrl.format(statusId)}?pack=true")
 
   /**
    * @return  一条广播的回复列表
@@ -155,13 +155,14 @@ object StatusUser extends API[StatusUserInfo]{
 
 
 case class Status(category:String,reshared_count:Int,text:String,created_at:Date,title:String,can_reply:Int,liked:Boolean,attachments:List[Attachment]
-                  ,source:String,like_count:Int,comments_count:Int,user:StatusUser,is_follow:Boolean,has_photo:Boolean,`type`:String,id:Long,reshared_status:Status=null)
+                  ,source:Source,like_count:Int,comments_count:Int,user:StatusUser,is_follow:Boolean,has_photo:Boolean,`type`:String,id:Long,reshared_status:Status=null)
 case class StatusUser(uid:String,id:Long,`type`:String,description:String,small_avatar:String,large_avatar:String,screen_name:String)
 case class StatusUserInfo(uid:String,id:Long,`type`:String,description:String,small_avatar:String,large_avatar:String,screen_name:String,following_count:Int,blocked:Boolean,city:String,verified:Boolean,is_first_visit:Boolean,new_site_to_vu_count:Int,followers_count:Int,location:String,logged_in:Boolean,statuses_count:Int,blocking:Boolean,url:String,created_at:Date,icon_avatar:String,following:Boolean)
 case class StatusCommentUser(uid:String,id:Long,`type`:String,description:String,small_avatar:String,large_avatar:String,screen_name:String,city:String,verified:Boolean,is_first_visit:Boolean,new_site_to_vu_count:Int,location:String,statuses_count:Int,url:String,created_at:Date,icon_avatar:String)
 case class StatusSize(small:List[Int],raw:List[Int],median:List[Int])
 case class Media(src:String,sizes:StatusSize,secret_pid:String,original_src:String,href:String,`type`:String)
 case class Properties(href:String,uid:String,name:String)
+case class Source
 case class Topic(text:String,indices:List[Int])
 //TODO user_mentions
 case class Entities(user_mentions:List[String],topics:List[Topic],urls:List[String])

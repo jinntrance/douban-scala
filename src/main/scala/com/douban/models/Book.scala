@@ -76,7 +76,6 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult, BookReview] {
 
   /**
    * 用户给某本图书写笔记
-   * TODO上传图片的问题还需要解决
    */
   def postAnnotation(bookId: Long, a: AnnotationPosted,withResult:Boolean=true) = post[Annotation](annotationPostUrl.format(bookId), a,withResult)
 
@@ -96,7 +95,7 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult, BookReview] {
    * @param index 图片序号，本笔记中第几个图片
    * @return 图片展示的tag,直接添加到笔记内容中
    */
-  def addAnnotationPicture(index:Int)=s"<图片$index>"
+  private def addAnnotationPicture(index:Int)=s"<图片$index>"
 }
 
 /**
