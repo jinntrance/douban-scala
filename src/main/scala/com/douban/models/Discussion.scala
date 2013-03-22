@@ -10,7 +10,7 @@ import java.util.Date
  * @since 1/11/13 3:32 AM
  * @version 1.0
  */
-object Discussion extends API[Discussion] with CommentTrait[Discussion] {
+object Discussion extends DiscussionTrait[Discussion] with CommentTrait[Discussion] {
   override def url_prefix = api_prefix + "discussion/"
 
   def updateDiscussion(discussionId: Long, d: DiscussionPosted,withResult:Boolean=true) = put[Discussion](idUrl.format(discussionId), d,withResult)

@@ -23,7 +23,7 @@ object Photo extends API[Photo] with CommentTrait[Photo]{
 
 trait PhotosTrait[T] extends API[T]{
   private val photosUrl=idUrl+"/photos"
-  def photos(albumId:Long,s:AlbumSearch=new AlbumSearch)=get[AlbumsResult](s.flatten(photosUrl.format(albumId)),secured = true)
+  def photos(targetId:Long,s:AlbumSearch=new AlbumSearch)=get[AlbumsResult](s.flatten(photosUrl.format(targetId)),secured = true)
 }
 case class AlbumSize(icon:List[Int],thumb:List[Int],cover:List[Int],image:List[Int])
 case class Photo(id:Long,alt:String,album_id:String,album_title:String,icon:String,thumb:String,cover:String,image:String,desc:String,created:Date,privacy:String,position:Int,prev_photo:String,next_photo:String,liked_count:Int,recs_count:Int,author:User,liked:Boolean,sizes:AlbumSize)
