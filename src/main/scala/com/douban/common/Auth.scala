@@ -1,7 +1,6 @@
 package com.douban.common
 
 import com.douban.models.Bean
-import com.douban.common.AuthErrorException
 
 
 /**
