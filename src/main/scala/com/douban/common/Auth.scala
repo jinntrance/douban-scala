@@ -1,6 +1,7 @@
 package com.douban.common
 
 import com.douban.models.Bean
+import com.douban.common.AuthErrorException
 
 
 /**
@@ -29,6 +30,7 @@ object Auth {
   def extractCode(url: String): String = {
     val code = "code="
     val index = url.indexOf(code)
+    if(-1==index) return ""
     url.substring(index + code.length)
   }
 

@@ -131,9 +131,9 @@ abstract class BookMovieMusicAPI[+B: Manifest, +RT: Manifest, +RV: Manifest] ext
 }
 
 /**
- * 标签信息 图书、电影用name，音乐、图书用title
+ * 标签信息
  */
-case class Tag(count: Int, name: String, title: String)
+case class Tag(count: Int, title: String)
 
 /**
  *
