@@ -22,8 +22,8 @@ object Auth {
   val response_type = "code"
   val grant_type = "authorization_code"
   val refresh_token_string = "refresh_token"
-  var access_token = "1a6d3c482b3834ea4f47b4d881a89ebe"
-  var refresh_token = "8dfc7989e5079f2fa9f56c9daf16dd8d"
+  var access_token = ""
+  var refresh_token = ""
   var douban_user_id = 38702920
 
   def extractCode(url: String): String = {

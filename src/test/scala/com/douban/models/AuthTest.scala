@@ -18,8 +18,8 @@ class AuthTest extends BaseTest {
   test("the auth url") {
     val url = AuthorizationCode().authUrl
     Desktop.getDesktop.browse(new URI(url))
-    val codeUrl = readLine("please copy the url here after authorization>\n")
-    Auth.code = Auth.extractCode(codeUrl)
+//    val codeUrl = readLine("please copy the url here after authorization>\n")
+//    Auth.code = Auth.extractCode(codeUrl)
   }
   test("the acess token url") {
     val token: Token = new AccessToken(Auth.code, Auth.redirect_url)

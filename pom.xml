@@ -9,11 +9,6 @@
     <version>2.0</version>
     <url>https://github.com/jinntrance/douban-scala</url>
     <packaging>jar</packaging>
-    <properties>
-        <scala.version>2.10</scala.version>
-        <scala.release>2.10.1</scala.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -21,6 +16,11 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+    <properties>
+        <scala.version>2.10</scala.version>
+        <scala.release>2.10.1</scala.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <repositories>
         <repository>
             <id>scala-tools.org</id>
@@ -38,14 +38,14 @@
     <dependencies>
         <dependency>
             <groupId>org.scala-lang</groupId>
-            <artifactId>scala-compiler</artifactId>
+            <artifactId>scala-library</artifactId>
             <version>${scala.release}</version>
-            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.scala-lang</groupId>
-            <artifactId>scala-library</artifactId>
+            <artifactId>scala-compiler</artifactId>
             <version>${scala.release}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.scala-lang</groupId>
@@ -57,11 +57,11 @@
             <artifactId>paranamer</artifactId>
             <version>RELEASE</version>
         </dependency>
-        <dependency>
-                 <groupId>org.specs2</groupId>
-                 <artifactId>specs2_${scala.version}</artifactId>
-                  <version>RELEASE</version>
-         </dependency>
+<!--        <dependency>
+                    <groupId>org.specs2</groupId>
+                    <artifactId>specs2_${scala.version}</artifactId>
+                    <version>RELEASE</version>
+         </dependency>  -->
         <dependency>
             <groupId>org.scalacheck</groupId>
             <artifactId>scalacheck_${scala.version}</artifactId>
@@ -70,7 +70,7 @@
         <dependency>
             <groupId>org.scalatest</groupId>
             <artifactId>scalatest_${scala.version}</artifactId>
-            <!--<scope>test</scope>-->
+            <scope>test</scope>
             <version>RELEASE</version>
         </dependency>
     </dependencies>
@@ -112,5 +112,4 @@
             <!--<url>https://raw.github.com/jinntrance/douban-scala/master/repo/snapshots</url>-->
         </snapshotRepository>
     </distributionManagement>
-
 </project>
