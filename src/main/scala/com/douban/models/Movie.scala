@@ -32,7 +32,7 @@ case class MovieReview(id: Long, title: String, alt: String, author: User, movie
                        votes: Int, useless: Int, comments: Int, summary: String, published: Date, updated: Date)
   extends Review(id, title, alt, author, rating, votes, useless, comments, summary, published, updated)
 
-case class Movie(id: Long, title: String, author: List[Author], image: String, rating: ItemRating, summary: String, tags: List[Tag], alt: String, alt_title: String, mobile_link: String, attrs: MovieAttribute)
+case class Movie(id: String, title: String, author: List[Author], image: String, rating: ItemRating, summary: String, tags: List[Tag], alt: String, alt_title: String, mobile_link: String, attrs: MovieAttribute)
 
 /**
  *
