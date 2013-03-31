@@ -14,7 +14,7 @@ import com.douban.models.Bean
 object Auth {
   var api_key = "0f86acdf44c03ade2e94069dce40b09a"
   var secret = "95125490b60b01ee"
-  var code = "1271271c01ab3ac9"
+  var code = ""
   var scope = ""
   val auth_url = "https://www.douban.com/service/auth2/auth"
   val token_url = "https://www.douban.com/service/auth2/token"
@@ -22,8 +22,8 @@ object Auth {
   val response_type = "code"
   val grant_type = "authorization_code"
   val refresh_token_string = "refresh_token"
-  var access_token = "89b9d7aae838f6ea9d2d8700b8aae4be"
-  var refresh_token = "21bc0ef68886a4e865342ce39993eeb8"
+  var access_token = ""
+  var refresh_token = ""
   var douban_user_id = 38702920
 
   def extractCode(url: String): String = {
