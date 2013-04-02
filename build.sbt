@@ -8,9 +8,11 @@ version := "2.0"
 
 scalaVersion := "2.10.1"
 
+scalacOptions ++= Seq("-unchecked", "-deprecation", "-Xcheckinit")
+
 libraryDependencies ++= Seq(
 	"com.thoughtworks.paranamer" % "paranamer" % "latest.release",
-	"org.scala-lang" % "scalap" % "2.10.+",
+	"org.scala-lang" % "scalap" % "2.10.1",
 	"org.scalatest" %% "scalatest" % "latest.release" % "test"
 	)
 
