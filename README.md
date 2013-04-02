@@ -31,7 +31,7 @@
 ```
 
 ### 开发配置
-使用maven开发，添加如下配置
+使用maven作Scala开发，在pom.xml中添加如下配置
 ```
 <repositories>
     <repository>
@@ -46,6 +46,13 @@
         <version>2.0</version>
     </dependency>
 </dependencies>
+
+```
+使用SBT作scala开发，在build.sbt中添加如下配置(注意scala需要是2.10)
+```
+resolvers += "scala-sdk" "https://raw.github.com/jinntrance/douban-scala/master/repo/releases/"
+
+libraryDependencies += "com.douban" %% "scala-api" % "2.0"
 
 ```
 
