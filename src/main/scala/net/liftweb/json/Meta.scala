@@ -20,6 +20,7 @@ package json
 import java.lang.reflect.{Constructor => JConstructor, Field, Type, ParameterizedType, GenericArrayType}
 import java.util.Date
 import java.sql.Timestamp
+import scala.language._
 
 case class TypeInfo(clazz: Class[_], parameterizedType: Option[ParameterizedType])
 

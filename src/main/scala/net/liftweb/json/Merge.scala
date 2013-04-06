@@ -17,6 +17,8 @@
 package net.liftweb
 package json
 
+import scala.language._
+
 /** Use fundep encoding to improve return type of merge function 
  *  (see: http://www.chuusai.com/2011/07/16/fundeps-in-scala/)
  *

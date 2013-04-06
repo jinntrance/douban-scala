@@ -1,3 +1,4 @@
+import sbt._
 import AssemblyKeys._ // put this at the top of the file
 
 organization := "com.douban"
@@ -8,7 +9,7 @@ version := "2.0"
 
 scalaVersion := "2.10.1"
 
-scalacOptions ++= Seq("-unchecked", "-deprecation", "-Xcheckinit")
+scalacOptions ++= Seq("-unchecked", "-deprecation","-feature", "-Xcheckinit","-target:jvm-1.7")
 
 libraryDependencies ++= Seq(
 	"com.thoughtworks.paranamer" % "paranamer" % "latest.release",

@@ -17,6 +17,8 @@
 package net.liftweb
 package json
 
+import scala.language.postfixOps
+
 /** JSON parser.
  */
 object JsonParser {
