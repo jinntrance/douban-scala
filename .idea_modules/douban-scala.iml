@@ -5,7 +5,9 @@
       <configuration>
         <option name="compilerLibraryLevel" value="Project" />
         <option name="compilerLibraryName" value="SBT: scala:2.10.1" />
+        <option name="deprecationWarnings" value="true" />
         <option name="fsc" value="true" />
+        <option name="uncheckedWarnings" value="true" />
       </configuration>
     </facet>
   </component>

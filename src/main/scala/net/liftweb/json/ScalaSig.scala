@@ -18,6 +18,7 @@ package net.liftweb
 package json
 
 import scala.tools.scalap.scalax.rules.scalasig._
+import scala.language._
 
 private[json] object ScalaSigReader {
   def readConstructor(argName: String, clazz: Class[_], typeArgIndex: Int, argNames: List[String]): Class[_] = {

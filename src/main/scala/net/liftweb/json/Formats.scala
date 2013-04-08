@@ -18,6 +18,7 @@ package net.liftweb
 package json
 
 import java.util.{Date, TimeZone}
+import scala.language._
 
 /** Formats to use when converting JSON.
  * Formats are usually configured by using an implicit parameter:
@@ -80,7 +81,7 @@ trait Formats { self: Formats =>
     override val parameterNameReader = self.parameterNameReader
     override val typeHints = self.typeHints
     override val customSerializers = self.customSerializers
-    override val fieldSerializers = (mf.erasure, newSerializer) :: self.fieldSerializers
+    override val fieldSerializers = (mf.runtimeClass, newSerializer) :: self.fieldSerializers
   }
 
   private[json] def fieldSerializer(clazz: Class[_]): Option[FieldSerializer[_]] = {
@@ -272,7 +273,7 @@ private[json] class ThreadLocal[A](init: => A) extends java.lang.ThreadLocal[A] 
 class CustomSerializer[A: Manifest](
   ser: Formats => (PartialFunction[JValue, A], PartialFunction[Any, JValue])) extends Serializer[A] {
 
-  val Class = implicitly[Manifest[A]].erasure
+  val Class = implicitly[Manifest[A]].runtimeClass
 
   def deserialize(implicit format: Formats) = {
     case (TypeInfo(Class, _), json) =>

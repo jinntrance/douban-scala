@@ -274,6 +274,6 @@ __豆瓣实验室 Bubbler__
 ```
 
 ### 联系
-* 使用 douban-scala 过程中遇到 bug, 可以到 [Issues](https://github.com/jinntrance/douban-scala/issues) 反馈
+* 使用 douban-scala 过程中遇到 bug, 可以到 [Issues](https://github.com/jinntrance/douban-scala/issues) 或 [豆瓣小组] (http://www.douban.com/group/topic/36158803/) 反馈
 * 本文档很多参照豆瓣Python SDK的文档，多谢。
 

@@ -15,11 +15,13 @@
  */
 
 package net.liftweb 
-package json 
+package json
+import language._
 
 object JsonAST {
   import scala.text.{Document, DocText}
   import scala.text.Document._
+
 
   /** Concatenates a sequence of <code>JValue</code>s.
    * <p>
