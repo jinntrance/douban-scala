@@ -1,4 +1,4 @@
-import AssemblyKeys._ // put this at the top of the file
+import AssemblyKeys._ 
 
 organization := "com.douban"
 
@@ -9,6 +9,8 @@ version := "2.0"
 scalaVersion := "2.10.1"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation", "-Xcheckinit")
+
+autoScalaLibrary := false
 
 libraryDependencies ++= Seq(
 	"com.thoughtworks.paranamer" % "paranamer" % "latest.release",
