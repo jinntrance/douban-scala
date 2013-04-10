@@ -11,6 +11,8 @@ scalaVersion := "2.10.1"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation","-feature", "-Xcheckinit")
 
+autoScalaLibrary := false
+
 libraryDependencies ++= Seq(
 	"com.thoughtworks.paranamer" % "paranamer" % "latest.release",
 	"org.scala-lang" % "scalap" % "2.10.1",
