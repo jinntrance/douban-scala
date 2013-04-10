@@ -9,7 +9,7 @@ version := "2.0"
 
 scalaVersion := "2.10.1"
 
-scalacOptions ++= Seq("-unchecked", "-deprecation","-feature", "-Xcheckinit","-target:jvm-1.7")
+scalacOptions ++= Seq("-unchecked", "-deprecation","-feature", "-Xcheckinit")
 
 libraryDependencies ++= Seq(
 	"com.thoughtworks.paranamer" % "paranamer" % "latest.release",
@@ -20,7 +20,7 @@ libraryDependencies ++= Seq(
 seq(ProguardPlugin.proguardSettings :_*)
 
 proguardOptions ++= Seq(
-	"-dontobfuscate","-dontpreverify","-dontoptimize",
+	"-dontobfuscate","#-dontpreverify","-dontoptimize",
 	"-dontwarn scala.**","-dontwarn org.apache.**","-dontwarn com.thoughtworks.**","-dontwarn ch.epfl.lamp.compiler.**",
 	"-dontnote scala.**","-dontnote com.thoughtworks.**",
 	"-keep class com.douban.**"
