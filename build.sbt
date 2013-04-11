@@ -16,6 +16,7 @@ autoScalaLibrary := false
 libraryDependencies ++= Seq(
 	"com.thoughtworks.paranamer" % "paranamer" % "latest.release",
 	"org.scala-lang" % "scalap" % "2.10.1",
+	"com.fasterxml.jackson.module" %% "jackson-module-scala" % "latest.release",
 	"org.scalatest" %% "scalatest" % "latest.release" % "test"
 	)
 
