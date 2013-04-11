@@ -47,7 +47,7 @@ trait Bean {
    * 层级参数全部flattened 成一层的key-value形式，
    * List的values用 n=value,n=1,2,3,4
    */
-  private def flat(json: JValue): String = {
+  def flat(json: JValue): String = {
     var para = ""
     for {JField(k, v) <- json
     } v match {
@@ -58,7 +58,7 @@ trait Bean {
     para
   }
 
-  private def encode(key: String, value: String) = {
+  def encode(key: String, value: String) = {
     '&' + key + '=' + URLEncoder.encode(value, "utf-8")
   }
 }
