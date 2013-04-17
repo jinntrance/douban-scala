@@ -13,8 +13,6 @@ import com.douban.models.Bean
 
 object Auth {
   var api_key = "0f86acdf44c03ade2e94069dce40b09a"
-  var secret = "95125490b60b01ee"
-  var code = "834f5320a224593b"
   var scope = ""
   val auth_url = "https://www.douban.com/service/auth2/auth"
   val token_url = "https://www.douban.com/service/auth2/token"
@@ -22,20 +20,32 @@ object Auth {
   val response_type = "code"
   val grant_type = "authorization_code"
   val refresh_token_string = "refresh_token"
-  var access_token = "5b81008ee96f60d1128301acbc4e2273"
-  var refresh_token = "9ecfe598cdf5a202dc6fb0ca69e0e606"
-  var douban_user_id = 38702920
 
   def extractCode(url: String): String = {
     val code = "code="
     val index = url.indexOf(code)
-    url.substring(index + code.length)
+    if(-1==index) throw new AuthErrorException(url.substring(url.indexOf("=")+1))
+    else url.substring(index + code.length)
   }
 
-  def addApiKey() = "apikey=" + api_key
+  def getAuthUrl(apiKey: String, redirectUrl: String = Auth.redirect_url, scope: String = Auth.scope, responseType: String = Auth.response_type)={
+    api_key=apiKey
+    new AuthorizationCode(apiKey).authUrl
+  }
+
+  /**
+   *
+   * @param code  authorization code
+   * @return
+   */
+  def getTokenByCode(code:String,apiKey:String,secret:String,redirectUrl:String=redirect_url)=
+    Req.post[AccessTokenResult](token_url,new AccessToken(code,apiKey,secret,redirectUrl))
+
+  def getTokenByFresh(refreshToken:String,apiKey:String,secret:String,redirectUrl:String=redirect_url)=
+    Req.post[AccessTokenResult](token_url,new RefreshToken(refreshToken,apiKey,secret,redirectUrl))
 }
 
-case class AuthorizationCode(client_id: String = Auth.api_key, redirect_uri: String = Auth.redirect_url, scope: String = Auth.scope, response_type: String = Auth.response_type) extends Bean {
+case class AuthorizationCode(client_id: String, redirect_uri: String = Auth.redirect_url, scope: String = Auth.scope, response_type: String = Auth.response_type) extends Bean {
   def authUrl: String = flatten(Auth.auth_url)
 }
 
@@ -45,10 +55,10 @@ class Token(redirect_uri: String, client_id: String, client_secret: String, gran
   def tokenUrl: String = flatten(Auth.token_url)
 }
 
-case class AccessToken(code: String, redirect_uri: String, client_id: String = Auth.api_key, client_secret: String = Auth.secret, grant_type: String = Auth.grant_type)
+case class AccessToken(code: String, client_id: String , client_secret: String, redirect_uri: String=Auth.redirect_url, grant_type: String = Auth.grant_type)
   extends Token(redirect_uri, client_id, client_secret, grant_type)
 
 case class AccessTokenResult(access_token: String, expires_in: Long, refresh_token: String, douban_user_id: Long) extends Bean
 
-case class RefreshToken(refresh_token: String, redirect_uri: String, client_id: String = Auth.api_key, client_secret: String = Auth.secret, grant_type: String = Auth.refresh_token_string)
+case class RefreshToken(refresh_token: String, client_id: String , client_secret: String , redirect_uri: String=Auth.redirect_url, grant_type: String = Auth.refresh_token_string)
   extends Token(redirect_uri, client_id, client_secret, grant_type)

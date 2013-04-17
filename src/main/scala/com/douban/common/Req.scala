@@ -18,9 +18,9 @@ import duration._
  * @since 12/21/12 8:38 PM
  * @version 1.0
  */
-class Req
-
 object Req {
+  var accessToken=""
+  var apiKey=Auth.api_key
   //20 seconds
   val timeout = 20 * 1000
   //10 minutes
@@ -33,6 +33,13 @@ object Req {
   val emptyJSON="""{}"""
   implicit val formats = new DefaultFormats {
     override def dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+  }
+
+  def init(accessToken:String,apiKey:String=Auth.api_key,scope:String=""){
+    this.accessToken=accessToken
+    this.apiKey=apiKey
+    Auth.scope=scope
+    this
   }
 
   /**
@@ -97,7 +104,7 @@ object Req {
     c.setRequestProperty("Keep-Alive", s"timeout=$persistenceTimeout")
     //添加认证的access token
     if (authorized)
-      c.setRequestProperty("Authorization", s"Bearer ${Auth.access_token}")
+      c.setRequestProperty("Authorization", s"Bearer ${accessToken}")
     c.setRequestProperty("Charset", ENCODING)
     println(c.getRequestMethod + "ing " + URLDecoder.decode(c.getURL.toString, ENCODING))
     if ((c.getRequestMethod == POST || c.getRequestMethod == PUT) && null != request) {
@@ -198,8 +205,9 @@ object Req {
   }
 
   private def addApiKey(url: String) = {
-    if (-1 == url.indexOf('?')) url + "?" + Auth.addApiKey
-    else url + "&" + Auth.addApiKey
+    val key="apikey=" + apiKey
+    if (-1 == url.indexOf('?')) url + "?" + key
+    else url + "&" + key
   }
 
   private def getConnection(url: String) = new URL(url).openConnection().asInstanceOf[HttpURLConnection]

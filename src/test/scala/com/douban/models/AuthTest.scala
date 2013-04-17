@@ -16,20 +16,15 @@ import com.douban.common.Token
  */
 class AuthTest extends BaseTest {
   test("the auth url") {
-    val url = AuthorizationCode().authUrl
-    Desktop.getDesktop.browse(new URI(url))
+    Desktop.getDesktop.browse(new URI(Auth.getAuthUrl(Auth.api_key)))
 //    val codeUrl = readLine("please copy the url here after authorization>\n")
 //    Auth.code = Auth.extractCode(codeUrl)
   }
   test("the acess token url") {
-    val token: Token = new AccessToken(Auth.code, Auth.redirect_url)
-    val url = token.tokenUrl
-    prettyJSON(Req.post[AccessTokenResult](url, token))
+    prettyJSON(Auth.getTokenByCode("a4100050a8df2b06",api_key,secret))
   }
   test("the refresh token url") {
-    val token: Token = new RefreshToken(Auth.refresh_token, Auth.redirect_url)
-    val url = token.tokenUrl
-    prettyJSON(Req.post[AccessTokenResult](url, token))
+    prettyJSON(Auth.getTokenByFresh(refresh_token,api_key,secret))
   }
 
 }

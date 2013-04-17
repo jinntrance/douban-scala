@@ -14,8 +14,8 @@ import Req._
  * @version 1.0
  */
 
-object Movie extends BookMovieMusicAPI[Movie, MovieSearchResult, MovieReview]{
-  protected def url_prefix = api_prefix + "movie/subject/"
+object Movie extends BookMovieMusicAPI[Movie, MovieSearchResult, MovieReview] {
+  protected def url_prefix = api_prefix + "movie/"
 
   private val byImdbUrl = url_prefix + "imdb/%s"
 
@@ -32,12 +32,7 @@ case class MovieReview(id: Long, title: String, alt: String, author: User, movie
                        votes: Int, useless: Int, comments: Int, summary: String, published: Date, updated: Date)
   extends Review(id, title, alt, author, rating, votes, useless, comments, summary, published, updated)
 
-case class Movie(id: Long, title: String, author: List[Author], images: Image, rating: MovieRating, summary: String,aka:List[String],year:String,ratings_count:Int,wish_count:Int,collect_count:Int,comments_count:Int,reviews_count:Int,countries:List[String],genres:List[String],current_season:String,directors:List[CelebritySimple],casts:List[CelebritySimple],writers:List[CelebritySimple],subtype:String,seasons_count:Int){
-  val url="http://movie.douban.com/subject/"
-  def alt=url+id
-  def mobile_url=alt+"/mobile"
-}
-case class MovieSimple(id:Long,title:String,year:String,alt:String,images:Image,original_title:String,pubdates:List[String],rating:ItemRating)
+case class Movie(id: String, title: String, author: List[Author], image: String, rating: ItemRating, summary: String, tags: List[Tag], alt: String, alt_title: String, mobile_link: String, attrs: MovieAttribute)
 
 /**
  *
@@ -49,13 +44,3 @@ case class MovieSimple(id:Long,title:String,year:String,alt:String,images:Image,
 case class MovieReviewPosted(movie: String, title: String, content: String, rating: Int = 0) extends ReviewPosted(title, content, rating)
 
 case class MovieSearchResult(start: Int, count: Int, total: Int, movies: List[Movie])
-
-case class Celebrity(id:Long,name:String,name_en:String,alt:String,mobile_url:String,aka:List[String],aka_en:List[String],gender:String,born_place:String,avatars:Image,works:List[Work])
-
-case class MoviePhoto(id:Long,alt:String,icon:String,image:String,thumb:String,cover:String)
-case class CelebritySimple(id:Long,name:String,alt:String,avatars:Image)
-
-case class MovieRating(min:Int,max:Int,average:Float,stars:Int)
-
-case class Work(subject:Subject,roles:List[String])
-case class Subject(id:Long,title:String,origin_title:String,alt:String,images:Image,rating:MovieRating,year:String,subtype:String)

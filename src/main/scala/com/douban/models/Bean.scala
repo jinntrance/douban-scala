@@ -1,6 +1,5 @@
 package com.douban.models
 
-import com.douban.common.Auth
 import com.douban.common.Req._
 import java.net.URLEncoder
 import java.util.Date
@@ -41,7 +40,7 @@ trait Bean {
    *
    * @return 把Bean转化为key=value&key1=value1的序列 ,添加apikey
    */
-  def toParas: String = Auth.addApiKey + flat(decompose(this))
+  def toParas: String = s"apikey=$apiKey" + flat(decompose(this))
 
   /**
    * 层级参数全部flattened 成一层的key-value形式，

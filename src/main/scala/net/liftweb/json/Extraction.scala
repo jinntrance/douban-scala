@@ -392,10 +392,11 @@ object Extraction {
     case JDouble(x) if (targetType == classOf[Int]) => x.intValue
     case JDouble(x) if (targetType == classOf[Long]) => x.longValue
     case JDouble(x) if (targetType == classOf[Number]) => x
-    case JString(s) if (targetType == classOf[Long]) => s.toLong
+    case JString(s) if (targetType == classOf[Int]) => s.toInt
     case JString(s) if (targetType == classOf[Long]) => s.toLong
     case JString(s) if (targetType == classOf[Boolean]) => s.toBoolean
     case JString(s) if (targetType == classOf[Double]) => s.toDouble
+    case JString(s) if (targetType == classOf[Float]) => s.toFloat
     case JString(s) if (targetType == classOf[String]) => s
     case JString(s) if (targetType == classOf[Symbol]) => Symbol(s)
     case JString(s) if (targetType == classOf[Date]) => formats.dateFormat.parse(s).getOrElse(fail("Invalid date '" + s + "'"))
