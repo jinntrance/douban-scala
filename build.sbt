@@ -17,6 +17,8 @@ libraryDependencies ++= Seq(
 	"com.thoughtworks.paranamer" % "paranamer" % "latest.release",
 	"org.scala-lang" % "scalap" % "2.10.1",
 	"com.fasterxml.jackson.module" %% "jackson-module-scala" % "latest.release",
+	"com.google.code.gson" % "gson" % "latest.release",
+	"io.spray" %%  "spray-json" % "latest.release" cross CrossVersion.full,
 	"org.scalatest" %% "scalatest" % "latest.release" % "test"
 	)
 

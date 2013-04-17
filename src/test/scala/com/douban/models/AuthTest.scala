@@ -24,7 +24,9 @@ class AuthTest extends BaseTest {
     prettyJSON(Auth.getTokenByCode("a4100050a8df2b06",api_key,secret))
   }
   test("the refresh token url") {
-    prettyJSON(Auth.getTokenByFresh(refresh_token,api_key,secret))
+    val t=Auth.getTokenByFresh(refresh_token,api_key,secret)
+    prettyJSON(t)
+
   }
 
 }

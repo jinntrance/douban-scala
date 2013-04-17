@@ -2,6 +2,7 @@ package com.douban.models
 
 import java.util.Date
 import com.douban.common.Req._
+import java.util
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -93,4 +94,4 @@ case class Note(id:Long,title:String,privacy:String,summary:String,content:Strin
 
 case class NotePosted(title:String,var content:String,pics:Map[String,String]=Map(),privacy:String="public",can_reply:Boolean=true) extends Bean
 
-case class NotesResult(start:Int,count:Int,total:Int,notes:List[Note]) extends ListResult(start,count,total)
+case class NotesResult(start:Int,count:Int,total:Int,notes:util.LinkedList[Note]) extends ListResult(start,count,total)

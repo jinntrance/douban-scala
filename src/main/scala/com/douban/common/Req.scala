@@ -8,7 +8,10 @@ import java.text.SimpleDateFormat
 import java.util.Random
 import net.liftweb.json._
 import scala.concurrent._
-import duration._
+import com.google.gson.{GsonBuilder, Gson}
+import com.google.gson.reflect.TypeToken
+import scala.reflect.ClassTag
+import scala.reflect.classTag
 
 
 /**
@@ -31,6 +34,8 @@ object Req {
   val DELETE = "DELETE"
   val ENCODING = "UTF-8"
   val emptyJSON="""{}"""
+  val g=new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
+  val gp=new GsonBuilder().setPrettyPrinting().create()
   implicit val formats = new DefaultFormats {
     override def dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
   }
@@ -104,7 +109,7 @@ object Req {
     c.setRequestProperty("Keep-Alive", s"timeout=$persistenceTimeout")
     //添加认证的access token
     if (authorized)
-      c.setRequestProperty("Authorization", s"Bearer ${accessToken}")
+      c.setRequestProperty("Authorization", s"Bearer $accessToken")
     c.setRequestProperty("Charset", ENCODING)
     println(c.getRequestMethod + "ing " + URLDecoder.decode(c.getURL.toString, ENCODING))
     if ((c.getRequestMethod == POST || c.getRequestMethod == PUT) && null != request) {
@@ -142,14 +147,15 @@ object Req {
    * @return
    *
    */
-  def parseJSON[R: Manifest](c: HttpURLConnection): R = {
-    val v: JsonAST.JValue = JsonParser.parse(getResponse(
+  def parseJSON[R: ClassTag](c: HttpURLConnection): R = {
+    val v=getResponse(
       if (succeed(c.getResponseCode)) c.getInputStream else c.getErrorStream
-    ))
+    )
     println(s"response code-->${c.getResponseCode}")
     c.disconnect()
-    println(pretty(render(v)))
-    if (succeed(c.getResponseCode)) v.extract[R] else throw new DoubanException(v.extract[Error])
+    println(gp.toJson(v))
+    val t = new TypeToken[ClassTag[R]]() {}.getType
+    if (succeed(c.getResponseCode)) g.fromJson(v,classTag[R].runtimeClass).asInstanceOf[R] else throw new DoubanException(g.fromJson(v,classOf[Error]))
   }
 
   /**
