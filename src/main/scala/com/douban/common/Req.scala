@@ -7,11 +7,10 @@ import java.net.{URLDecoder, HttpURLConnection, URL}
 import java.text.SimpleDateFormat
 import java.util.Random
 import net.liftweb.json._
-import scala.concurrent._
-import com.google.gson.{GsonBuilder, Gson}
-import com.google.gson.reflect.TypeToken
-import scala.reflect.ClassTag
-import scala.reflect.classTag
+import com.google.gson.GsonBuilder
+import spray.json._
+import DefaultJsonProtocol._
+import spray.json
 
 
 /**
@@ -147,15 +146,14 @@ object Req {
    * @return
    *
    */
-  def parseJSON[R: ClassTag](c: HttpURLConnection): R = {
-    val v=getResponse(
+  def parseJSON[R:JsonReader](c: HttpURLConnection): R = { 
+    val v:JsValue=getResponse(
       if (succeed(c.getResponseCode)) c.getInputStream else c.getErrorStream
-    )
+    ).asJson
     println(s"response code-->${c.getResponseCode}")
     c.disconnect()
-    println(gp.toJson(v))
-    val t = new TypeToken[ClassTag[R]]() {}.getType
-    if (succeed(c.getResponseCode)) g.fromJson(v,classTag[R].runtimeClass).asInstanceOf[R] else throw new DoubanException(g.fromJson(v,classOf[Error]))
+    println(v.prettyPrint)
+    if (succeed(c.getResponseCode)) v.convertTo[R] else throw new DoubanException(v.convertTo[Error])
   }
 
   /**

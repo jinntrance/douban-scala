@@ -67,12 +67,12 @@
             <groupId>org.scala-lang</groupId>
             <artifactId>scalap</artifactId>
             <version>${scala.release}</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.thoughtworks.paranamer</groupId>
             <artifactId>paranamer</artifactId>
             <version>RELEASE</version>
-        </dependency>-->
+        </dependency>
 <!--        <dependency>
                     <groupId>org.specs2</groupId>
                     <artifactId>specs2_${scala.version}</artifactId>
