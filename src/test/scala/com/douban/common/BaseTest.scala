@@ -2,6 +2,7 @@ package com.douban.common
 
 import org.scalatest.FunSuite
 import collection.JavaConverters._
+import com.google.gson.GsonBuilder
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -13,14 +14,15 @@ import collection.JavaConverters._
 trait BaseTest extends FunSuite {
   var api_key = "0f86acdf44c03ade2e94069dce40b09a"
   var secret = "95125490b60b01ee"
-  var access_token = "5f7e502f58a34e221e7af08e09e9ea66"
-  var refresh_token = "7ef20435c750227a7cd60ca155f0676e"
+  var access_token = "e8063598da028fa3b812a0ca8e07aee9"
+  var refresh_token = "939b85bb5e82502ebad291321b86f08a"
   val userId = 38702920
-  val picPath="headshot.jpg"
+  val picPath="/home/joseph/Downloads/ChineseToHiragana.jpg"
+  val gp=new GsonBuilder().setPrettyPrinting().create()
   Req.init(access_token)
 
   def prettyJSON(p: Any) {
     if (p==None) println(p)
-    else println(Req.gp.toJson(p))
+    else println(gp.toJson(p))
   }
 }

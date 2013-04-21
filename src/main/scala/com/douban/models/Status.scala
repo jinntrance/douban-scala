@@ -171,11 +171,7 @@ case class Entities(user_mentions:List[String],topics:List[Topic],urls:List[Stri
 case class Attachment(description:String,title:String,expaned_href:String,caption:String,href:String,`type`:String,properties:Properties,media:List[Media])
 case class StatusComment(id:Long,entities:Entities,text:String,created_at:Date,source:String,user:StatusCommentUser)
 case class StatusPosted(text:String,img:String="",rec_title:String="",rec_url:String="",rec_desc:String="",rec_image:String="",source:String=Auth.api_key) extends Bean{
-  override def files={
-   val m=new HashMap[String,String]()
-    m.put("image",img)
-    m
-  }
+  override def files=Map[String,String]("image"->img)
 }
 
 /**

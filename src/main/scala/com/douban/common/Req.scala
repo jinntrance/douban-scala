@@ -3,7 +3,7 @@ package com.douban.common
 import com.douban.models.Bean
 import java.io._
 import java.net.HttpURLConnection._
-import java.net.{URLEncoder, URLDecoder, HttpURLConnection, URL}
+import java.net.{URLDecoder, HttpURLConnection, URL}
 import java.util.Random
 import com.google.gson.{JsonElement, GsonBuilder}
 import com.google.gson.reflect.TypeToken
@@ -33,10 +33,9 @@ object Req {
   val ENCODING = "UTF-8"
   val emptyJSON="""{}"""
   val g=new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
-  val gp=new GsonBuilder().setPrettyPrinting().create()
 
 
-  def init(accessToken:String,apiKey:String=Auth.api_key,scope:String=""){
+  def init(accessToken:String,apiKey:String=Auth.api_key,scope:String="")={
     this.accessToken=accessToken
     this.apiKey=apiKey
     Auth.scope=scope
@@ -123,7 +122,7 @@ object Req {
         println(s"request body with boundary-->$b")
         val out = new BufferedOutputStream(c.getOutputStream)
         upload(b, out, g.toJsonTree(request))
-        request.files.asScala.foreach {
+        request.files.foreach {
           case (k, v) => uploadFile(b, out, k, v, withoutFile = false)
         }
         val boundaryString = s"\r\n--$b--\r\n"
@@ -149,7 +148,7 @@ object Req {
     )
     println(s"response code-->${c.getResponseCode}")
     c.disconnect()
-    println(Req.gp.toJson(v))
+//    println(Req.g.toJson(v))
     val t = new TypeToken[ClassTag[R]]() {}.getType
     if (succeed(c.getResponseCode)) g.fromJson(v,classTag[R].runtimeClass).asInstanceOf[R] else throw new DoubanException(g.fromJson(v,classOf[Error]))
   }
@@ -166,7 +165,7 @@ object Req {
       content.append(line)
       line = reader.readLine()
     }
-//    println(content.result())
+    println(content.result())
     content.result()
   }
 
@@ -215,7 +214,7 @@ object Req {
   private def getConnection(url: String) = new URL(url).openConnection().asInstanceOf[HttpURLConnection]
 
   private def upload(boundary: String, out: BufferedOutputStream, json: JsonElement) {
-    json.getAsJsonObject.entrySet().asScala.foreach(e=>uploadFile(boundary, out, e.getKey,e.getValue.toString))
+    json.getAsJsonObject.entrySet().asScala.foreach(e=>uploadFile(boundary, out, e.getKey,e.getValue.getAsString))
 
   }
 

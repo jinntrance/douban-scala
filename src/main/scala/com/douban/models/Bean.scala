@@ -5,12 +5,11 @@ import java.net.URLEncoder
 import java.util.Date
 import scala.Predef._
 import scala._
-import com.douban.common.Req
-import com.google.gson.JsonElement
-import scala.collection.JavaConversions._
+import com.douban.common.{Auth, Req}
+import com.google.gson.{JsonPrimitive, JsonNull, JsonElement}
+import scala.collection.JavaConverters._
 import java.util.List
-import java.util.Map
-import java.util.HashMap
+import scala.util.parsing.json.{JSONArray, JSONObject}
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -20,8 +19,7 @@ import java.util.HashMap
  * @version 1.0
  */
 trait Bean {
-  protected var _files: Map[String, String] = new HashMap[String,String]()
-
+  protected var _files: Map[String, String]=Map()
   def files_=(fs: Map[String, String]) {
     _files = fs
   }
@@ -49,8 +47,8 @@ trait Bean {
    * List的values用 n=value,n=1,2,3,4
    */
   private def flat(json:JsonElement ): String = {
-    val l=for {e <- json.getAsJsonObject.entrySet()
-    } yield e.getKey+"="+URLEncoder.encode(e.getValue.toString, "utf-8")
+    val l=for {e <- json.getAsJsonObject.entrySet().asScala if e.getValue.isJsonPrimitive
+    } yield  e.getKey+"="+URLEncoder.encode(e.getValue.getAsString, Req.ENCODING)
     l.mkString("&")
   }
 }

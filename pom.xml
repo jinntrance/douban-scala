@@ -56,29 +56,6 @@
             <artifactId>gson</artifactId>
             <version>RELEASE</version>
         </dependency>
-<!--
-      <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-compiler</artifactId>
-            <version>${scala.release}</version>
-            <scope>provided</scope>
-        </dependency>
-
-    <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scalap</artifactId>
-            <version>${scala.release}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.thoughtworks.paranamer</groupId>
-            <artifactId>paranamer</artifactId>
-            <version>RELEASE</version>
-        </dependency>
-       <dependency>
-                    <groupId>org.specs2</groupId>
-                    <artifactId>specs2_${scala.version}</artifactId>
-                    <version>RELEASE</version>
-         </dependency>  -->
         <dependency>
             <groupId>org.scalacheck</groupId>
             <artifactId>scalacheck_${scala.version}</artifactId>
@@ -107,9 +84,6 @@
                 </executions>
                 <configuration>
                     <sourceDir>src/main/scala</sourceDir>
-                    <!--                    <excludes>
-                                            <exclude>**/net/liftjson/json/**/*.scala</exclude>
-                                        </excludes>-->
                     <jvmArgs>
                         <jvmArg>-Xms64m</jvmArg>
                         <jvmArg>-Xmx256m</jvmArg>
