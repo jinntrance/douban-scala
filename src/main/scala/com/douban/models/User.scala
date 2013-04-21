@@ -3,6 +3,7 @@ package com.douban.models
 import java.util.Date
 import com.douban.common.Req
 import Req._
+import java.util.List
 
 
 

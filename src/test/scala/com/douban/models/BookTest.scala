@@ -20,11 +20,11 @@ class BookTest extends BaseTest {
     prettyJSON(Book.annotationsOfUser("jinntrance"))
   }
   test("the book postAnnotation") {
-    val photos = Map(
+/*    val photos = Map(
       "1" -> picPath
-    )
+    )*/
     val a2p = new AnnotationPosted(content, 2, "第三章")
-    a2p.files = photos
+//    a2p.files = photos//TODO
     val a = Book.postAnnotation(bookId, a2p).get
     prettyJSON(a)
     prettyJSON(Book.annotation(a.id))

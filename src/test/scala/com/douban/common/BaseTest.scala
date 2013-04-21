@@ -1,9 +1,7 @@
 package com.douban.common
 
 import org.scalatest.FunSuite
-import net.liftweb.json.Extraction._
-import net.liftweb.json.JsonAST._
-import net.liftweb.json.Printer._
+import collection.JavaConverters._
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -13,7 +11,6 @@ import net.liftweb.json.Printer._
  * @version 1.0
  */
 trait BaseTest extends FunSuite {
-  implicit val formats = net.liftweb.json.DefaultFormats
   var api_key = "0f86acdf44c03ade2e94069dce40b09a"
   var secret = "95125490b60b01ee"
   var access_token = "5f7e502f58a34e221e7af08e09e9ea66"
@@ -24,6 +21,6 @@ trait BaseTest extends FunSuite {
 
   def prettyJSON(p: Any) {
     if (p==None) println(p)
-    else println(pretty(render(decompose(p))))
+    else println(Req.gp.toJson(p))
   }
 }

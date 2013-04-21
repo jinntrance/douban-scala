@@ -23,7 +23,6 @@ class NoteTests extends BaseTest{
       prettyJSON(Note.deleteNote(n.id))
     }
     test("notes list"){
-      val m=Map()
       prettyJSON(Note.notesUserCreated(userId))
       prettyJSON(Note.notesUserLiked(userId))
     }

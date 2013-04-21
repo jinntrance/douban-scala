@@ -1,6 +1,8 @@
 package com.douban.models
 
 import java.util.Date
+import java.util.List
+import collection.JavaConverters._
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -17,13 +19,8 @@ object Music extends BookMovieMusicAPI[Music, MusicSearchResult, MusicReview] {
 }
 
 case class MusicAttribute(publisher: List[String], singer: List[String], discs: List[String], pubdate: List[String], title: List[String], media: List[String], tracks: List[String]) {
-  def tracksList = {
-    var track = List[String]()
-    tracks.foreach {
-      t => track ++= t.split('\n').toList
-    }
-    track
-  }
+  def tracksList =tracks.asScala.map(_.split('\n').toList).flatten
+
 }
 
 case class MusicSearchResult(start: Int, count: Int, total: Int, musics: List[Music]) extends ListResult(start, count, total)

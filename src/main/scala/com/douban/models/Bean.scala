@@ -3,11 +3,14 @@ package com.douban.models
 import com.douban.common.Req._
 import java.net.URLEncoder
 import java.util.Date
-import net.liftweb.json.Extraction._
-import net.liftweb.json.JsonAST._
-import net.liftweb.json.{NoTypeHints, DefaultFormats}
 import scala.Predef._
 import scala._
+import com.douban.common.Req
+import com.google.gson.JsonElement
+import scala.collection.JavaConversions._
+import java.util.List
+import java.util.Map
+import java.util.HashMap
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -17,8 +20,7 @@ import scala._
  * @version 1.0
  */
 trait Bean {
-  implicit val formats = DefaultFormats + NoTypeHints
-  protected var _files: Map[String, String] = Map()
+  protected var _files: Map[String, String] = new HashMap[String,String]()
 
   def files_=(fs: Map[String, String]) {
     _files = fs
@@ -40,25 +42,16 @@ trait Bean {
    *
    * @return 把Bean转化为key=value&key1=value1的序列 ,添加apikey
    */
-  def toParas: String = s"apikey=$apiKey" + flat(decompose(this))
+  def toParas: String = s"apikey=$apiKey&" + flat(Req.g.toJsonTree(this))
 
   /**
    * 层级参数全部flattened 成一层的key-value形式，
    * List的values用 n=value,n=1,2,3,4
    */
-  def flat(json: JValue): String = {
-    var para = ""
-    for {JField(k, v) <- json
-    } v match {
-      case JString(_) | JInt(_) | JDouble(_) | JBool(_) => para += encode(k, v.extract[String])
-      case _ =>
-    }
-
-    para
-  }
-
-  def encode(key: String, value: String) = {
-    '&' + key + '=' + URLEncoder.encode(value, "utf-8")
+  private def flat(json:JsonElement ): String = {
+    val l=for {e <- json.getAsJsonObject.entrySet()
+    } yield e.getKey+"="+URLEncoder.encode(e.getValue.toString, "utf-8")
+    l.mkString("&")
   }
 }
 

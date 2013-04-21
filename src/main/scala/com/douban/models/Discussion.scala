@@ -2,6 +2,7 @@ package com.douban.models
 
 import com.douban.common.Req._
 import java.util.Date
+import java.util.List
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>

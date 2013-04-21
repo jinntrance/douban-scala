@@ -46,24 +46,25 @@
             <artifactId>scala-library</artifactId>
             <version>${scala.release}</version>
         </dependency>
-<!--        <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-compiler</artifactId>
-            <version>${scala.release}</version>
-            <scope>provided</scope>
-        </dependency>-->
-        <dependency>
-        <groupId>com.google.code.gson</groupId>
-        <artifactId>gson</artifactId>
-        <version>RELEASE</version>
-        </dependency>
         <dependency>
             <groupId>io.spray</groupId>
             <artifactId>spray-json_${scala.version}</artifactId>
             <version>1.2.3</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+<!--
+      <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-compiler</artifactId>
+            <version>${scala.release}</version>
+            <scope>provided</scope>
+        </dependency>
 
-<!--    <dependency>
+    <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scalap</artifactId>
             <version>${scala.release}</version>
@@ -72,8 +73,8 @@
             <groupId>com.thoughtworks.paranamer</groupId>
             <artifactId>paranamer</artifactId>
             <version>RELEASE</version>
-        </dependency>-->
-<!--        <dependency>
+        </dependency>
+       <dependency>
                     <groupId>org.specs2</groupId>
                     <artifactId>specs2_${scala.version}</artifactId>
                     <version>RELEASE</version>

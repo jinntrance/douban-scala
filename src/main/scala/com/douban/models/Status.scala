@@ -2,6 +2,8 @@ package com.douban.models
 import java.util.Date
 import com.douban.common.{Req, Auth}
 import Req._
+import java.util.List
+import java.util.HashMap
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -170,7 +172,9 @@ case class Attachment(description:String,title:String,expaned_href:String,captio
 case class StatusComment(id:Long,entities:Entities,text:String,created_at:Date,source:String,user:StatusCommentUser)
 case class StatusPosted(text:String,img:String="",rec_title:String="",rec_url:String="",rec_desc:String="",rec_image:String="",source:String=Auth.api_key) extends Bean{
   override def files={
-   Map("image"->img)
+   val m=new HashMap[String,String]()
+    m.put("image",img)
+    m
   }
 }
 

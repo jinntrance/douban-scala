@@ -2,6 +2,8 @@ package com.douban.models
 import java.util.Date
 import com.douban.common.Req._
 import com.douban.common.Req
+import java.util.List
+import collection.JavaConverters._
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -35,13 +37,13 @@ object Doumail extends API[Doumail]{
    * @param doumailIds  需要标记为已读的豆邮id
    * @return
    */
-  def readMails(doumailIds:List[Long])=put(readUrl,new DoumailIds(doumailIds.mkString(",")),withResult=false)
+  def readMails(doumailIds:List[Long])=put(readUrl,new DoumailIds(doumailIds.asScala.mkString(",")),withResult=false)
 
   /**
    *批量删除豆邮
    * @return
    */
-  def deleteMails(doumailIds:List[Long]):Boolean=None==post(deleteUrl,new DoumailIds(doumailIds.mkString(",")),withResult=false)
+  def deleteMails(doumailIds:List[Long]):Boolean=None==post(deleteUrl,new DoumailIds(doumailIds.asScala.mkString(",")),withResult=false)
 
   /**
    * 发送一封豆邮

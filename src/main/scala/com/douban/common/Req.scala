@@ -3,15 +3,13 @@ package com.douban.common
 import com.douban.models.Bean
 import java.io._
 import java.net.HttpURLConnection._
-import java.net.{URLDecoder, HttpURLConnection, URL}
-import java.text.SimpleDateFormat
+import java.net.{URLEncoder, URLDecoder, HttpURLConnection, URL}
 import java.util.Random
-import net.liftweb.json._
-import scala.concurrent._
-import com.google.gson.{GsonBuilder, Gson}
+import com.google.gson.{JsonElement, GsonBuilder}
 import com.google.gson.reflect.TypeToken
 import scala.reflect.ClassTag
 import scala.reflect.classTag
+import collection.JavaConverters._
 
 
 /**
@@ -36,9 +34,7 @@ object Req {
   val emptyJSON="""{}"""
   val g=new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
   val gp=new GsonBuilder().setPrettyPrinting().create()
-  implicit val formats = new DefaultFormats {
-    override def dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-  }
+
 
   def init(accessToken:String,apiKey:String=Auth.api_key,scope:String=""){
     this.accessToken=accessToken
@@ -126,8 +122,8 @@ object Req {
         c.setRequestProperty("Content-Type", s"multipart/form-data;boundary=$b")
         println(s"request body with boundary-->$b")
         val out = new BufferedOutputStream(c.getOutputStream)
-        upload(b, out, Extraction.decompose(request))
-        request.files.foreach {
+        upload(b, out, g.toJsonTree(request))
+        request.files.asScala.foreach {
           case (k, v) => uploadFile(b, out, k, v, withoutFile = false)
         }
         val boundaryString = s"\r\n--$b--\r\n"
@@ -153,7 +149,7 @@ object Req {
     )
     println(s"response code-->${c.getResponseCode}")
     c.disconnect()
-    println(gp.toJson(v))
+    println(Req.gp.toJson(v))
     val t = new TypeToken[ClassTag[R]]() {}.getType
     if (succeed(c.getResponseCode)) g.fromJson(v,classTag[R].runtimeClass).asInstanceOf[R] else throw new DoubanException(g.fromJson(v,classOf[Error]))
   }
@@ -218,12 +214,9 @@ object Req {
 
   private def getConnection(url: String) = new URL(url).openConnection().asInstanceOf[HttpURLConnection]
 
-  private def upload(boundary: String, out: BufferedOutputStream, json: JValue) {
-    for {JField(k, vs) <- json
-    } vs match {
-      case JString(_) | JInt(_) | JDouble(_) | JBool(_) => uploadFile(boundary, out, k, vs.extract[String])
-      case _ =>
-    }
+  private def upload(boundary: String, out: BufferedOutputStream, json: JsonElement) {
+    json.getAsJsonObject.entrySet().asScala.foreach(e=>uploadFile(boundary, out, e.getKey,e.getValue.toString))
+
   }
 
   private def uploadFile(boundary: String, out: BufferedOutputStream, key: String, value: String, withoutFile: Boolean = true) {
