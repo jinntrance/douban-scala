@@ -42,8 +42,8 @@
 <dependencies>
     <dependency>
         <groupId>com.douban</groupId>
-        <artifactId>scala-api</artifactId>
-        <version>2.0</version>
+        <artifactId>scala-api_2.10</artifactId>
+        <version>2.1</version>
     </dependency>
 </dependencies>
 
@@ -52,7 +52,7 @@
 ```
 resolvers += "scala-sdk" "https://raw.github.com/jinntrance/douban-scala/master/repo/releases/"
 
-libraryDependencies += "com.douban" %% "scala-api" % "2.0"
+libraryDependencies += "com.douban" %% "scala-api" % "2.1"
 
 ```
 

@@ -10,7 +10,9 @@ import scala.Exception
  * @since 1/8/13 12:48 AM
  * @version 1.0
  */
-class DoubanException(e: Error) extends Exception(e.msg)
+class DoubanException(e: Error) extends Exception(e.msg+" when requesting "+e.request+" ,error code:"+e.code){
+  def tokenExpired=e.code==106
+}
 
 class AuthErrorException (e:String) extends Exception(e)
 
