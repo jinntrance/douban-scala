@@ -28,9 +28,9 @@ object Auth {
     else url.substring(index + code.length)
   }
 
-  def getAuthUrl(apiKey: String, redirectUrl: String = Auth.redirect_url, scope: String = Auth.scope, responseType: String = Auth.response_type)={
+  def getAuthUrl(apiKey: String, redirectUrl: String = Auth.redirect_url, scope: String = Auth.scope)={
     api_key=apiKey
-    new AuthorizationCode(apiKey).authUrl
+    new AuthorizationCode(apiKey,redirect_url,scope).authUrl
   }
 
   /**
