@@ -13,6 +13,7 @@ scalacOptions ++= Seq("-unchecked", "-deprecation","-feature", "-Xcheckinit")
 autoScalaLibrary := false
 
 libraryDependencies ++= Seq(
+    "org.scala-lang" % "scala-library" % "2.10.1",
 	"com.google.code.gson" % "gson" % "latest.release",
 	"org.scalatest" %% "scalatest" % "latest.release" % "test"
 	)
