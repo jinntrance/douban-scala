@@ -2,9 +2,9 @@
 
 後面完善文檔java也可使用，但请记得解决pom中的函数包依赖，特别是添加scala-library。
 
-使用scala 2.10,json處理使用<a href="https://github.com/lift/framework/tree/master/core/json">lift-json</a>
+使用scala 2.10,json處理使用GSON
 
-本SDK还不够完善，主要是豆瓣的官方文档还没有出来，后面有童鞋有兴趣的话，可以共同完善。
+本SDK还不够完善，主要是豆瓣的官方文档还不够完善，后面有童鞋有兴趣的话，可以共同完善。
 
 使用时也可参照test下的内容。
 
