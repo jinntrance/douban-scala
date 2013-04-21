@@ -60,28 +60,20 @@ libraryDependencies += "com.douban" %% "scala-api" % "2.1"
 ### 使用说明
 
 #### OAuth 2.0 认证
-```
-Auth.api_key = "your api key"
-Auth.secret = "your api secret"
-Auth.redirect_uri =""//your redirect url 可不设置
-Auth.redirect_uri=""//douban_basic_common,shuo_basic_r,shuo_basic_w等 可不设置
+参见<https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com/douban/models/AuthTest.scala>
+## 引导用户授权
 
 ```
-## 引导用户授权
-```
-    val url = new AuthorizationCode().authUrl
-    Desktop.getDesktop.browse(new URI(url))
+    Desktop.getDesktop.browse(new URI(Auth.getAuthUrl(Auth.api_key)))
     val codeUrl = readLine("please copy the url here after authorization>\n")
-    Auth.code = Auth.extractCode(codeUrl) //取出 authorization code
-    val token:AccessTokenResult=Req.post[AccessTokenResult](url, token) //取回 access token
+    val code = Auth.extractCode(codeUrl) //取出 authorization code
+    val token:AccessTokenResult=Auth.getTokenByCode(code,api_key,secret) //取回 access token
 ```
 ##如果有之前有refresh token，则可用
 
 ```
-    Auth.refresh_token="your access token"
-    val token: Token = new RefreshToken(Auth.refresh_token, Auth.redirect_url)
-    val url = token.tokenUrl
-    Req.post[AccessTokenResult](url, token)
+    val refresh_token="your access token"
+    val token: AccessTokenResult = Auth.getTokenByFresh(refresh_token,api_key,secret)
 
 ```
 
