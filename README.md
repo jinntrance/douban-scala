@@ -7,7 +7,9 @@ java也可使用本SDK，但不如Scala使用便利。Android开发需要添加p
 本SDK还不够完善，主要是豆瓣的官方文档还不够完善，后面有童鞋有兴趣的话，可以共同完善。
 
 使用时也可参照test下的内容。
+
 Scala <https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com/douban/models/AuthTest.scala>
+
 Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/douban/models/AuthJavaTest.java>
 
 目前已完成的接口有：
@@ -62,7 +64,8 @@ libraryDependencies += "com.douban" %% "scala-api" % "2.1"
 ### 使用说明
 
 #### OAuth 2.0 认证
-参见<https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com/douban/models/AuthTest.scala>
+Scala 参见<https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com/douban/models/AuthTest.scala>
+
 Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/douban/models/AuthJavaTest.java>
 ## 引导用户授权
 
@@ -108,16 +111,13 @@ __图书、电影、音乐 Book/Movie/Music__
 ```
 
 __用户 User__
+<http://developers.douban.com/wiki/?title=user_v2>
 ```
 # 以下 id 指用户数字 id
 当前用户 User.ofMe
 指定用户 User.byId(id)
 搜索用户 User.search(q,page=1,count=20)       // q: 搜索的关键词,page查询第几页，count每页多少
 ```
-<http://developers.douban.com/wiki/?title=user_v2>
-
-
-
 __读书 Book__
 <http://developers.douban.com/wiki/?title=book_v2>
 ```
@@ -262,6 +262,7 @@ __评论 Comment__
 删除某条回复 deleteComment(targetId:Long,commentId:String)
 ```
 __豆瓣实验室 Bubbler__
+<http://developers.douban.com/wiki/?title=labs>
 
 ```
 用戶信息 Bubbler.user(userId)
