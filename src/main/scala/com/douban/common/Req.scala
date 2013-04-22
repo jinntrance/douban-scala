@@ -214,7 +214,10 @@ object Req {
   private def getConnection(url: String) = new URL(url).openConnection().asInstanceOf[HttpURLConnection]
 
   private def upload(boundary: String, out: BufferedOutputStream, json: JsonElement) {
-    json.getAsJsonObject.entrySet().asScala.foreach(e=>uploadFile(boundary, out, e.getKey,e.getValue.getAsString))
+    json.getAsJsonObject.entrySet().asScala.foreach(e=>{
+      if(e.getValue.isJsonPrimitive) uploadFile(boundary, out, e.getKey,e.getValue.getAsString)
+      else if (e.getValue.isJsonObject) upload(boundary,out,e.getValue)
+    })
 
   }
 

@@ -47,8 +47,12 @@ trait Bean {
    * List的values用 n=value,n=1,2,3,4
    */
   private def flat(json:JsonElement ): String = {
-    val l=for {e <- json.getAsJsonObject.entrySet().asScala if e.getValue.isJsonPrimitive
-    } yield  e.getKey+"="+URLEncoder.encode(e.getValue.getAsString, Req.ENCODING)
+    val l=for {e <- json.getAsJsonObject.entrySet().asScala
+    } yield {
+      if (e.getValue.isJsonPrimitive) e.getKey+"="+URLEncoder.encode(e.getValue.getAsString, Req.ENCODING)
+      else if (e.getValue.isJsonObject) this.flat(e.getValue)
+    }
+
     l.mkString("&")
   }
 }

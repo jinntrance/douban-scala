@@ -3,6 +3,7 @@ package com.douban.common
 import org.scalatest.FunSuite
 import collection.JavaConverters._
 import com.google.gson.GsonBuilder
+import java.util.ResourceBundle
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -17,7 +18,7 @@ trait BaseTest extends FunSuite {
   var access_token = "e8063598da028fa3b812a0ca8e07aee9"
   var refresh_token = "939b85bb5e82502ebad291321b86f08a"
   val userId = 38702920
-  val picPath="/home/joseph/Downloads/ChineseToHiragana.jpg"
+  def picPath:String=getClass.getClassLoader.getResource("headshot.jpg").getPath
   val gp=new GsonBuilder().setPrettyPrinting().create()
   Req.init(access_token)
 
