@@ -1,12 +1,14 @@
-###豆瓣 API v2的Scala/Java SDK
+###豆瓣 API v2的Scala/Java/Android SDK
 
-後面完善文檔java也可使用，但请记得解决pom中的函数包依赖，特别是添加scala-library。
+java也可使用本SDK，但不如Scala使用便利。Android开发需要添加proguard 参数，参照链接参数“proguardOptimizations in Android” <https://github.com/jinntrance/douban-android/blob/master/build.sbt>
 
 使用scala 2.10,json處理使用GSON
 
 本SDK还不够完善，主要是豆瓣的官方文档还不够完善，后面有童鞋有兴趣的话，可以共同完善。
 
 使用时也可参照test下的内容。
+Scala <https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com/douban/models/AuthTest.scala>
+Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/douban/models/AuthJavaTest.java>
 
 目前已完成的接口有：
 ```
@@ -61,6 +63,7 @@ libraryDependencies += "com.douban" %% "scala-api" % "2.1"
 
 #### OAuth 2.0 认证
 参见<https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com/douban/models/AuthTest.scala>
+Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/douban/models/AuthJavaTest.java>
 ## 引导用户授权
 
 ```
@@ -90,6 +93,9 @@ count: 20
 __所有 __
 ```
 通过id查找当前对象.byId(id),例如 获取一本图书信息 Book.byId(id)
+使用任何接口前，需要设置授权后的Access Token：Req.init(access_token) 
+Scala <https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com/douban/common/BaseTest.scala>
+Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/douban/common/BaseJavaTest.java>
 ```
 __图书、电影、音乐 Book/Movie/Music__
 ```
