@@ -40,7 +40,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 <repositories>
     <repository>
         <id>scala-sdk</id>
-        <url>https://raw.github.com/jinntrance/douban-scala/master/repo/releases</url>
+        <url>https://github.com/jinntrance/douban-scala/raw/master/repo/releases/</url>
     </repository>
 </repositories>
 <dependencies>
