@@ -24,7 +24,7 @@ libraryDependencies ++= Seq(
     "org.scala-lang" % "scala-library" % "2.10.1",
 	"com.google.code.gson" % "gson" % "2.2.3",
 	"org.scalatest" %% "scalatest" % "1.9" % "test",
-	"org.testng" % "testng" % "6.8.1"
+	"org.testng" % "testng" % "6.8.1" % "test"
 	)
 
 publishTo <<= version { (v: String) =>

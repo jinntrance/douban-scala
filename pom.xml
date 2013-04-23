@@ -6,7 +6,7 @@
     <name>douban-scala-sdk</name>
     <groupId>com.douban</groupId>
     <artifactId>scala-api_${scala.version}</artifactId>
-    <version>2.1</version>
+    <version>2.1.1</version>
     <url>https://github.com/jinntrance/douban-scala</url>
     <packaging>jar</packaging>
     <description>Scala SDK for www.douban.com</description>
