@@ -39,8 +39,8 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 ```
 <repositories>
     <repository>
-        <id>scala-sdk</id>
-        <url>https://github.com/jinntrance/douban-scala/raw/master/repo/releases/</url>
+        <id>OSS repo</id>
+        <url>https://oss.sonatype.org/content/repositories/releases/</url>
     </repository>
 </repositories>
 <dependencies>
@@ -54,7 +54,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 ```
 使用SBT作scala开发，在build.sbt中添加如下配置(注意scala需要是2.10)
 ```
-resolvers += "scala-sdk" "https://raw.github.com/jinntrance/douban-scala/master/repo/releases/"
+resolvers += "oss repo" "https://oss.sonatype.org/content/repositories/releases/"
 
 libraryDependencies += "com.douban" %% "scala-api" % "2.1"
 
