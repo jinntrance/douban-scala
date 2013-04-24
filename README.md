@@ -1,10 +1,8 @@
 ###豆瓣 API v2的Scala/Java/Android SDK
 
-java也可使用本SDK，但不如Scala使用便利
+java也可使用本SDK，但不如Scala使用便利。
 
-使用scala 2.10,json處理使用GSON
-
-本SDK还不够完善，主要是豆瓣的官方文档还不够完善，后面有童鞋有兴趣的话，可以共同完善。
+本SDK使用scala 2.10，json處理使用GSON。本SDK还不够完善，主要是豆瓣的官方文档还不够完善，后面有童鞋有兴趣的话，可以共同完善。
 
 使用时也可参照test下的内容。
 
@@ -12,12 +10,22 @@ Scala <https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com
 
 Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/douban/models/AuthJavaTest.java>
 
+####开发注意事项
+
+1.请求成功返回结果形式如Option<AccessTokenResult>，使用其get()获取想要结构AccessTokenResult；失败则返回None。
+
+2.很多接口添加了withResult参数，默认为true。例如发表评论后，知道成功失败与否即可，不必返回发表成功后的评论信息，则可设置其为false节省流量。
+
+3.最好使用maven添加函數依赖，这样可以同时下载source和javadoc便于开发
+
 ####java/android使用注意
+
 1.getter直接使用"属性+()"的方法，如Auth.api_key()，setter使用Auth.api_key$_eq("you key")
 
-2.Android开发需要添加proguard 参数，参照链接参数“proguardOptimizations in Android” <https://github.com/jinntrance/douban-android/blob/master/build.sbt>
+2.Android开发需要添加proguard 参数，参照链接中的参数“proguardOptimizations in Android” <https://github.com/jinntrance/douban-android/blob/master/build.sbt>
 
 3.其他使用可refer to <http://twitter.github.io/scala_school/java.html>
+
 
 目前已完成的接口有：
 ```
@@ -42,7 +50,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 ```
 
 ### 开发配置
-使用maven作Scala开发，在pom.xml中添加如下配置
+使用maven开发，在pom.xml中添加如下配置
 ```
 <repositories>
     <repository>
@@ -60,6 +68,8 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 
 ```
 使用SBT作scala开发，在build.sbt中添加如下配置(注意scala需要是2.10)
+
+使用sbt作android开发可以参照配置<https://github.com/jinntrance/douban-android>
 ```
 resolvers += "oss repo" "https://oss.sonatype.org/content/repositories/releases/"
 
