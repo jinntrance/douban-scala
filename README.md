@@ -1,6 +1,6 @@
 ###豆瓣 API v2的Scala/Java/Android SDK
 
-java也可使用本SDK，但不如Scala使用便利。Android开发需要添加proguard 参数，参照链接参数“proguardOptimizations in Android” <https://github.com/jinntrance/douban-android/blob/master/build.sbt>
+java也可使用本SDK，但不如Scala使用便利
 
 使用scala 2.10,json處理使用GSON
 
@@ -11,6 +11,11 @@ java也可使用本SDK，但不如Scala使用便利。Android开发需要添加p
 Scala <https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com/douban/models/AuthTest.scala>
 
 Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/douban/models/AuthJavaTest.java>
+
+####java/android使用注意
+1.getter直接使用"属性+()"的方法，如Auth.api_key()，setter使用Auth.api_key$_eq("you key")
+2.Android开发需要添加proguard 参数，参照链接参数“proguardOptimizations in Android” <https://github.com/jinntrance/douban-android/blob/master/build.sbt>
+3.其他使用可refer to <http://twitter.github.io/scala_school/java.html>
 
 目前已完成的接口有：
 ```
@@ -25,7 +30,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 * 图片 Photo
 * 回复 Comment
 ```
-待完成的：
+待完成的(api key还未授权)：
 
 ```
 * 广播 Status
