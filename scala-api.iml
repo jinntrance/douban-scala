@@ -12,7 +12,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -26,7 +26,9 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.10.1" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.2.3" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.scalatest:scalatest_2.10:2.0.M6-SNAP14" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.scalatest:scalatest_2.10:1.9" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.scala-lang:scala-actors:2.10.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.scala-lang:scala-reflect:2.10.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.testng:testng:6.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.10" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />

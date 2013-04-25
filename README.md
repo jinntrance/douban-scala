@@ -119,8 +119,8 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 ```
 __图书、电影、音乐 Book/Movie/Music__
 ```
-获取图书标签 .tags(id) ,id为当前对象id
-获取某个Item中标记最多的标签 .PopTags(id)
+获取图书标签 .tagsOf(id) ,id为当前对象id
+获取某个Item中标记最多的标签 .popTags(id)
 发表新评论 .postReview(r),其中r为BookReviewPosted/MovieReviewPosted/MusicReviewPosted
 修改评论  .updateReview(reviewId,r),其中rF为ReviewPosted
 删除评论 .deleteReview(reviewId)
