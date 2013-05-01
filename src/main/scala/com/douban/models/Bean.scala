@@ -109,7 +109,7 @@ abstract class BookMovieMusicAPI[+B: Manifest, +RT: Manifest, +RV: Manifest] ext
   /**
    * 获取用户对Items的所有标签
    */
-  def tags(userId: Long) = get[TagsResult](tagsUrl.format(userId))
+  def tagsOf(userId: Long) = get[TagsResult](tagsUrl.format(userId))
 
   /**
    * 搜索，query/tag必传其一

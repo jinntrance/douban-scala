@@ -45,7 +45,7 @@ class BookTest extends BaseTest {
     prettyJSON(Book.popTags(bookId))
   }
   test("the user tags") {
-    prettyJSON(Book.tags(userId))
+    prettyJSON(Book.tagsOf(userId))
   }
   test("the book review") {
     val review = Book.postReview(new BookReviewPosted(bookId.toString, "呵呵", content, 4)).get

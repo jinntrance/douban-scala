@@ -22,7 +22,7 @@ class MusicTest extends BaseTest {
     prettyJSON(Music.popTags(musicId))
   }
   test("tesing music tags") {
-    prettyJSON(Music.tags(userId))
+    prettyJSON(Music.tagsOf(userId))
   }
   test("tesing music postReview") {
     val review = Music.postReview(new MusicReviewPosted(musicId.toString, "Test", content, 5)).get

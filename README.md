@@ -1,16 +1,31 @@
 ###豆瓣 API v2的Scala/Java/Android SDK
 
-java也可使用本SDK，但不如Scala使用便利。Android开发需要添加proguard 参数，参照链接参数“proguardOptimizations in Android” <https://github.com/jinntrance/douban-android/blob/master/build.sbt>
+java也可使用本SDK，但不如Scala使用便利。
 
-使用scala 2.10,json處理使用GSON
-
-本SDK还不够完善，主要是豆瓣的官方文档还不够完善，后面有童鞋有兴趣的话，可以共同完善。
+本SDK使用scala 2.10，json處理使用GSON。本SDK还不够完善，主要是豆瓣的官方文档还不够完善，后面有童鞋有兴趣的话，可以共同完善。
 
 使用时也可参照test下的内容。
 
 Scala <https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com/douban/models/AuthTest.scala>
 
 Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/douban/models/AuthJavaTest.java>
+
+####开发注意事项
+
+1.请求成功返回结果形式如Option<AccessTokenResult>，使用其get()获取想要结构AccessTokenResult；失败则返回None。
+
+2.很多接口添加了withResult参数，默认为true。例如发表评论后，知道成功失败与否即可，不必返回发表成功后的评论信息，则可设置其为false节省流量。
+
+3.最好使用maven添加函數依赖，这样可以同时下载source和javadoc便于开发
+
+####java/android使用注意
+
+1.getter直接使用"属性+()"的方法，如Auth.api_key()，setter使用Auth.api_key$_eq("you key")
+
+2.Android开发需要添加proguard 参数，参照链接中的参数“proguardOptimizations in Android” <https://github.com/jinntrance/douban-android/blob/master/build.sbt>
+
+3.其他使用可refer to <http://twitter.github.io/scala_school/java.html>
+
 
 目前已完成的接口有：
 ```
@@ -25,7 +40,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 * 图片 Photo
 * 回复 Comment
 ```
-待完成的：
+待完成的(api key还未授权)：
 
 ```
 * 广播 Status
@@ -35,12 +50,12 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 ```
 
 ### 开发配置
-使用maven作Scala开发，在pom.xml中添加如下配置
+使用maven开发，在pom.xml中添加如下配置
 ```
 <repositories>
     <repository>
-        <id>scala-sdk</id>
-        <url>https://github.com/jinntrance/douban-scala/raw/master/repo/releases/</url>
+        <id>OSS repo</id>
+        <url>https://oss.sonatype.org/content/repositories/releases/</url>
     </repository>
 </repositories>
 <dependencies>
@@ -53,8 +68,10 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 
 ```
 使用SBT作scala开发，在build.sbt中添加如下配置(注意scala需要是2.10)
+
+使用sbt作android开发可以参照配置<https://github.com/jinntrance/douban-android>
 ```
-resolvers += "scala-sdk" "https://raw.github.com/jinntrance/douban-scala/master/repo/releases/"
+resolvers += "oss repo" "https://oss.sonatype.org/content/repositories/releases/"
 
 libraryDependencies += "com.douban" %% "scala-api" % "2.2"
 
@@ -102,8 +119,8 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 ```
 __图书、电影、音乐 Book/Movie/Music__
 ```
-获取图书标签 .tags(id) ,id为当前对象id
-获取某个Item中标记最多的标签 .PopTags(id)
+获取图书标签 .tagsOf(id) ,id为当前对象id
+获取某个Item中标记最多的标签 .popTags(id)
 发表新评论 .postReview(r),其中r为BookReviewPosted/MovieReviewPosted/MusicReviewPosted
 修改评论  .updateReview(reviewId,r),其中rF为ReviewPosted
 删除评论 .deleteReview(reviewId)
