@@ -28,12 +28,12 @@ class BookTest extends BaseTest {
     val a = Book.postAnnotation(bookId, a2p).get
     prettyJSON(a)
     prettyJSON(Book.annotation(a.id))
-    a2p.content="add new"+a2p.content
+    a2p.content = "add new" + a2p.content
     prettyJSON(Book.updateAnnotation(a.id, a2p))
     prettyJSON(Book.deleteAnnotation(a.id))
   }
   test("the book search") {
-    prettyJSON(Book.search("Book", ""))
+    prettyJSON(Book.search("willpower", ""))
   }
   test("the book byId") {
     prettyJSON(Book.byId(bookId))

@@ -3,8 +3,7 @@ package com.douban.models
 import java.util.Date
 import com.douban.common.Req
 import Req._
-import java.util.List
-import java.util.Map
+import java.util
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -47,12 +46,12 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult, BookReview] {
   /**
    * 用户收藏某本图书
    */
-  def postCollection(bookId: Long, c: CollectionPosted,withResult:Boolean=true) = post[Collection](collectionUrl.format(bookId), c,withResult)
+  def postCollection(bookId: Long, c: CollectionPosted, withResult: Boolean = true) = post[Collection](collectionUrl.format(bookId), c, withResult)
 
   /**
    * 用户修改对某本图书的收藏
    */
-  def updateCollection(bookId: Long, c: CollectionPosted,withResult:Boolean=true) = put[Collection](collectionUrl.format(bookId), c,withResult)
+  def updateCollection(bookId: Long, c: CollectionPosted, withResult: Boolean = true) = put[Collection](collectionUrl.format(bookId), c, withResult)
 
   /**
    * 用户删除对某本图书的收藏
@@ -79,12 +78,12 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult, BookReview] {
   /**
    * 用户给某本图书写笔记
    */
-  def postAnnotation(bookId: Long, a: AnnotationPosted,withResult:Boolean=true) = post[Annotation](annotationPostUrl.format(bookId), a,withResult)
+  def postAnnotation(bookId: Long, a: AnnotationPosted, withResult: Boolean = true) = post[Annotation](annotationPostUrl.format(bookId), a, withResult)
 
   /**
    * 用户修改某篇笔记
    */
-  def updateAnnotation(annotationId: Long, a: AnnotationPosted,withResult:Boolean=true) = put[Annotation](annotationUrl.format(annotationId), a,withResult)
+  def updateAnnotation(annotationId: Long, a: AnnotationPosted, withResult: Boolean = true) = put[Annotation](annotationUrl.format(annotationId), a, withResult)
 
 
   /**
@@ -97,7 +96,7 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult, BookReview] {
    * @param index 图片序号，本笔记中第几个图片
    * @return 图片展示的tag,直接添加到笔记内容中
    */
-  private def addAnnotationPicture(index:Int)=s"<图片$index>"
+  private def addAnnotationPicture(index: Int) = s"<图片$index>"
 }
 
 /**
@@ -146,11 +145,11 @@ case class AnnotationSearch(order: String = "rank", page: Int = 1, format: Strin
  * @param privacy 隐私设置	选填，值为'private'为设置成仅自己可见，其他默认为公开  TODO 设置privacy为 private使仅自己可见
  * @see  http://developers.douban.com/wiki/?title=book_v2#post_book_annotation
  */
-case class AnnotationPosted(var content: String, page: Int, chapter: String, privacy: String = "public") extends Bean{
-  override def files={
-    for (i<- 1 to _files.size if !content.contains(s"<图片$i>")){
-      content+=s"<图片$i>"
-     }
+case class AnnotationPosted(var content: String, page: Int, chapter: String, privacy: String = "public") extends Bean {
+  override def files = {
+    for (i <- 1 to _files.size if !content.contains(s"<图片$i>")) {
+      content += s"<图片$i>"
+    }
     _files
   }
 }
@@ -173,10 +172,12 @@ case class Image(small: String, large: String, medium: String)
  * 图书信息
  */
 case class Book(id: Long, isbn10: String, isbn13: String, title: String, origin_title: String,
-                alt_title: String, subtitle: String, url: String, alt: String, image: String, images: Image,
-                author: List[String], translator: List[String], publisher: String, pubdate: String,
-                rating: ItemRating, tags: List[Tag], binding: String, price: String, pages: String,
-                author_intro: String, summary: String = "")
+                alt_title: String, subtitle: String, url: String, alt: String, images: Image,
+                author: util.List[String], translator: util.List[String], publisher: String, pubdate: String,
+                rating: ItemRating, tags: util.List[Tag], binding: String, price: String, pages: String,
+                author_intro: String, summary: String = "", current_user_collection: Collection) {
+  def image = images.medium
+}
 
 /**
  * 评论信息
@@ -190,17 +191,17 @@ case class BookReview(id: Long, title: String, alt: String, author: User, book: 
  * @param photos 图片按照Photo中的1,2,3...获取并对应图片url
  */
 case class Annotation(id: Long, book_id: String, book: Book, author_id: String, author_user: User, chapter: String, page_no: Int, privacy: Int,
-                      content: String, `abstract`: String, abstract_photo: String, photos: Map[String, String], last_photo: Int, comments_count: Int, hasmath: Boolean, time: String)
+                      content: String, `abstract`: String, abstract_photo: String, photos: util.Map[String, String], last_photo: Int, comments_count: Int, hasmath: Boolean, time: String)
 
 /**
  * 收藏信息
  */
-case class Collection(status: String, book_id: Long, book: Book, comment: String, id: Long, rating: ReviewRating = null, tags: List[String], updated: String, user_id: String, user: User)
+case class Collection(status: String, book_id: Long, book: Book, comment: String, id: Long, rating: ReviewRating = null, tags: util.List[String], updated: String, user_id: String, user: User)
 
-case class AnnotationSearchResult(start: Int, count: Int, total: Int, annotations: List[Annotation]) extends ListResult(start, count, total)
+case class AnnotationSearchResult(start: Int, count: Int, total: Int, annotations: util.List[Annotation]) extends ListResult(start, count, total)
 
-case class BookSearchResult(start: Int, count: Int, total: Int, books: List[Book]) extends ListResult(start, count, total)
+case class BookSearchResult(start: Int, count: Int, total: Int, books: util.List[Book]) extends ListResult(start, count, total)
 
-case class TagsResult(start: Int, count: Int, total: Int, tags: List[Tag]) extends ListResult(start, count, total)
+case class TagsResult(start: Int, count: Int, total: Int, tags: util.List[Tag]) extends ListResult(start, count, total)
 
-case class CollectionSearchResult(start: Int, count: Int, total: Int, collections: List[Collection]) extends ListResult(start, count, total)
+case class CollectionSearchResult(start: Int, count: Int, total: Int, collections: util.List[Collection]) extends ListResult(start, count, total)

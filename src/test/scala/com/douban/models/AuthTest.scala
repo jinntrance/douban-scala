@@ -3,8 +3,6 @@ package com.douban.models
 import java.awt.Desktop
 import java.net.URI
 import com.douban.common._
-import com.douban.common.AuthorizationCode
-import com.douban.common.Token
 
 
 /**
@@ -17,14 +15,14 @@ import com.douban.common.Token
 class AuthTest extends BaseTest {
   test("the auth url") {
     Desktop.getDesktop.browse(new URI(Auth.getAuthUrl(Auth.api_key)))
-//    val codeUrl = readLine("please copy the url here after authorization>\n")
-//    Auth.code = Auth.extractCode(codeUrl)
+    //    val codeUrl = readLine("please copy the url here after authorization>\n")
+    //    Auth.code = Auth.extractCode(codeUrl)
   }
   test("the acess token url") {
-    prettyJSON(Auth.getTokenByCode("a4100050a8df2b06",api_key,secret))
+    prettyJSON(Auth.getTokenByCode("20ed2c81eccbb031", api_key, secret))
   }
   test("the refresh token url") {
-    val t=Auth.getTokenByFresh(refresh_token,api_key,secret)
+    val t = Auth.getTokenByFresh(refresh_token, api_key, secret)
     prettyJSON(t)
 
   }

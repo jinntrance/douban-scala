@@ -5,11 +5,9 @@ import java.net.URLEncoder
 import java.util.Date
 import scala.Predef._
 import scala._
-import com.douban.common.{Auth, Req}
-import com.google.gson.{JsonPrimitive, JsonNull, JsonElement}
+import com.douban.common.Req
+import com.google.gson.JsonElement
 import scala.collection.JavaConverters._
-import java.util.List
-import scala.util.parsing.json.{JSONArray, JSONObject}
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -19,7 +17,8 @@ import scala.util.parsing.json.{JSONArray, JSONObject}
  * @version 1.0
  */
 trait Bean {
-  protected var _files: Map[String, String]=Map()
+  protected var _files: Map[String, String] = Map()
+
   def files_=(fs: Map[String, String]) {
     _files = fs
   }
@@ -46,10 +45,10 @@ trait Bean {
    * 层级参数全部flattened 成一层的key-value形式，
    * List的values用 n=value,n=1,2,3,4
    */
-  private def flat(json:JsonElement ): String = {
-    val l=for {e <- json.getAsJsonObject.entrySet().asScala
+  private def flat(json: JsonElement): String = {
+    val l = for {e <- json.getAsJsonObject.entrySet().asScala
     } yield {
-      if (e.getValue.isJsonPrimitive) e.getKey+"="+URLEncoder.encode(e.getValue.getAsString, Req.ENCODING)
+      if (e.getValue.isJsonPrimitive) e.getKey + "=" + URLEncoder.encode(e.getValue.getAsString, Req.ENCODING)
       else if (e.getValue.isJsonObject) this.flat(e.getValue)
     }
 
@@ -61,7 +60,7 @@ abstract class API[+B: Manifest] {
   var secured = false
   val api_prefix = "https://api.douban.com/v2/"
   val shuo_prefix = "https://api.douban.com/shuo/v2/"
-  val bub_prefix="http://api.douban.com/labs/bubbler/"
+  val bub_prefix = "http://api.douban.com/labs/bubbler/"
 
   protected def url_prefix: String
 
@@ -93,12 +92,12 @@ abstract class BookMovieMusicAPI[+B: Manifest, +RT: Manifest, +RV: Manifest] ext
    * 发表新评论
    */
 
-  def postReview[R <: ReviewPosted](r: R,withResult:Boolean=true) = post[RV](reviewsPostUrl, r,withResult)
+  def postReview[R <: ReviewPosted](r: R, withResult: Boolean = true) = post[RV](reviewsPostUrl, r, withResult)
 
   /**
    * 修改评论
    */
-  def updateReview[R <: ReviewPosted](reviewId: Long, r: R,withResult:Boolean=true) = put[RV](reviewUpdateUrl.format(reviewId), r,withResult)
+  def updateReview[R <: ReviewPosted](reviewId: Long, r: R, withResult: Boolean = true) = put[RV](reviewUpdateUrl.format(reviewId), r, withResult)
 
 
   /**
@@ -120,7 +119,7 @@ abstract class BookMovieMusicAPI[+B: Manifest, +RT: Manifest, +RV: Manifest] ext
    * @param count  每页显示数量
    * @return
    */
-  def search(query: String, tag: String, page: Int = 1, count: Int = 20) = get[RT](new Search(query, tag, (page - 1) * count, count).flatten(searchUrl))
+  def search(query: String, tag: String, page: Int = 1, count: Int = 20) = get[RT](new Search(query, tag, (page - 1) * count, count).flatten(searchUrl), true)
 
 }
 

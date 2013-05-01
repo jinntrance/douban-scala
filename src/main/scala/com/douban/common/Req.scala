@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken
 import scala.reflect.ClassTag
 import scala.reflect.classTag
 import collection.JavaConverters._
+import scala.annotation._, elidable._
 
 
 /**
@@ -20,25 +21,25 @@ import collection.JavaConverters._
  * @version 1.0
  */
 object Req {
-  var accessToken=""
-  var apiKey=Auth.api_key
+  var accessToken = ""
+  var apiKey = Auth.api_key
   //20 seconds
-  val timeout = 20 * 1000
+  @inline val timeout = 20 * 1000
   //10 minutes
-  val persistenceTimeout = 10 * 60
-  val PUT = "PUT"
-  val POST = "POST"
-  val GET = "GET"
-  val DELETE = "DELETE"
-  val ENCODING = "UTF-8"
-  val emptyJSON="""{}"""
-  val g=new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
+  @inline val persistenceTimeout = 10 * 60
+  @inline val PUT = "PUT"
+  @inline val POST = "POST"
+  @inline val GET = "GET"
+  @inline val DELETE = "DELETE"
+  @inline val ENCODING = "UTF-8"
+  val emptyJSON = """{}"""
+  lazy val g = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
 
 
-  def init(accessToken:String,apiKey:String=Auth.api_key,scope:String="")={
-    this.accessToken=accessToken
-    this.apiKey=apiKey
-    Auth.scope=scope
+  def init(accessToken: String, apiKey: String = Auth.api_key, scope: String = "") = {
+    this.accessToken = accessToken
+    this.apiKey = apiKey
+    Auth.scope = scope
     this
   }
 
@@ -49,9 +50,9 @@ object Req {
    * @tparam RESULT 返回的类型。不读取数据时返回None为成功，抛出异常为读取数据不成功
    * @return
    */
-  def post[RESULT: Manifest](url: String, request: Bean,withResult:Boolean=true):Option[RESULT]= {
+  def post[RESULT: Manifest](url: String, request: Bean, withResult: Boolean = true): Option[RESULT] = {
     val c: HttpURLConnection = postData(url, request)
-    if(withResult) Some(parseJSON[RESULT](c))
+    if (withResult) Some(parseJSON[RESULT](c))
     else {
       if (!succeed(c.getResponseCode)) parseJSON(c)
       c.disconnect()
@@ -77,10 +78,10 @@ object Req {
    * @param withResult 是否读取返回数据，默认读取,不读取数据时返回null为成功
    * @return RESULT put成功后的数据，不读取数据时返回null为成功，，抛出异常为读取数据不成功
    */
-  def put[RESULT: Manifest](url: String, request: Bean,withResult:Boolean=true): Option[RESULT] = {
+  def put[RESULT: Manifest](url: String, request: Bean, withResult: Boolean = true): Option[RESULT] = {
     val c: HttpURLConnection = putData(url, request)
-    if(withResult) Some(parseJSON[RESULT](c))
-    else  {
+    if (withResult) Some(parseJSON[RESULT](c))
+    else {
       if (!succeed(c.getResponseCode)) parseJSON(c)
       c.disconnect()
       None
@@ -106,20 +107,20 @@ object Req {
     if (authorized)
       c.setRequestProperty("Authorization", s"Bearer $accessToken")
     c.setRequestProperty("Charset", ENCODING)
-    println(c.getRequestMethod + "ing " + URLDecoder.decode(c.getURL.toString, ENCODING))
+
     if ((c.getRequestMethod == POST || c.getRequestMethod == PUT) && null != request) {
       if (request.files.size == 0) {
         c.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
         val out = new BufferedOutputStream(c.getOutputStream)
         val paras = request.toParas
-        println("request body-->" + URLDecoder.decode(paras, ENCODING))
+        debug("request body-->" + URLDecoder.decode(paras, ENCODING))
         out.write(paras.getBytes(ENCODING))
         out.flush()
         out.close()
       } else {
         val b = genBoundary
         c.setRequestProperty("Content-Type", s"multipart/form-data;boundary=$b")
-        println(s"request body with boundary-->$b")
+        debug(s"request body with boundary-->$b")
         val out = new BufferedOutputStream(c.getOutputStream)
         upload(b, out, g.toJsonTree(request))
         request.files.foreach {
@@ -133,6 +134,9 @@ object Req {
       }
     }
     c.connect()
+    debug(c.getRequestMethod + "ing " + URLDecoder.decode(c.getURL.toString, ENCODING))
+    debug("all header-->")
+    debug(c.getHeaderFields)
   }
 
   /**
@@ -143,21 +147,20 @@ object Req {
    *
    */
   def parseJSON[R: ClassTag](c: HttpURLConnection): R = {
-    val v=getResponse(
+    val v = getResponse(
       if (succeed(c.getResponseCode)) c.getInputStream else c.getErrorStream
     )
-    println(s"response code-->${c.getResponseCode}")
+    debug(s"response code-->${c.getResponseCode}")
     c.disconnect()
-//    println(Req.g.toJson(v))
     val t = new TypeToken[ClassTag[R]]() {}.getType
-    if (succeed(c.getResponseCode)) g.fromJson(v,classTag[R].runtimeClass).asInstanceOf[R] else throw new DoubanException(g.fromJson(v,classOf[Error]))
+    if (succeed(c.getResponseCode)) g.fromJson(v, classTag[R].runtimeClass).asInstanceOf[R] else throw new DoubanException(g.fromJson(v, classOf[Error]))
   }
 
   /**
    * 把返回结果读出为String
    * @return
    */
-  private def getResponse(inputStream: InputStream): String = {
+  @inline private def getResponse(inputStream: InputStream): String = {
     val reader = new BufferedReader(new InputStreamReader(inputStream))
     val content = new StringBuilder
     var line = reader.readLine()
@@ -165,11 +168,11 @@ object Req {
       content.append(line)
       line = reader.readLine()
     }
-    println(content.result())
+    debug(content.result())
     content.result()
   }
 
-  private def postData(url: String, request: Bean): HttpURLConnection = {
+  @inline private def postData(url: String, request: Bean): HttpURLConnection = {
     val c: HttpURLConnection = getConnection(url)
     c.setDoOutput(true)
     c.setRequestMethod(POST)
@@ -177,7 +180,7 @@ object Req {
     c
   }
 
-  private def putData(url: String, request: Bean): HttpURLConnection = {
+  @inline private def putData(url: String, request: Bean): HttpURLConnection = {
     val c: HttpURLConnection = getConnection(url)
     c.setDoOutput(true)
     c.setRequestMethod(PUT)
@@ -185,7 +188,7 @@ object Req {
     c
   }
 
-  private def deleteData(url: String): HttpURLConnection = {
+  @inline private def deleteData(url: String): HttpURLConnection = {
     val c: HttpURLConnection = getConnection(url)
     c.setRequestMethod(DELETE)
     this.connect(c, null)
@@ -194,29 +197,29 @@ object Req {
 
   private def getData(url: String, authorized: Boolean): HttpURLConnection = {
     val c: HttpURLConnection = getConnection(url)
-    this.connect(c, null, authorized = authorized)
+    this.connect(c, null, authorized)
     c
   }
 
   /**
    * 判斷狀態碼，201-203都算成功
    */
-  private def succeed(code: Int): Boolean = {
+  @inline private def succeed(code: Int): Boolean = {
     code >= HTTP_OK && code <= HTTP_PARTIAL
   }
 
-  private def addApiKey(url: String) = {
-    val key="apikey=" + apiKey
+  @inline private def addApiKey(url: String) = {
+    val key = "apikey=" + apiKey
     if (-1 == url.indexOf('?')) url + "?" + key
     else url + "&" + key
   }
 
-  private def getConnection(url: String) = new URL(url).openConnection().asInstanceOf[HttpURLConnection]
+  @inline private def getConnection(url: String) = new URL(url).openConnection().asInstanceOf[HttpURLConnection]
 
   private def upload(boundary: String, out: BufferedOutputStream, json: JsonElement) {
-    json.getAsJsonObject.entrySet().asScala.foreach(e=>{
-      if(e.getValue.isJsonPrimitive) uploadFile(boundary, out, e.getKey,e.getValue.getAsString)
-      else if (e.getValue.isJsonObject) upload(boundary,out,e.getValue)
+    json.getAsJsonObject.entrySet().asScala.foreach(e => {
+      if (e.getValue.isJsonPrimitive) uploadFile(boundary, out, e.getKey, e.getValue.getAsString)
+      else if (e.getValue.isJsonObject) upload(boundary, out, e.getValue)
     })
 
   }
@@ -233,7 +236,7 @@ object Req {
     }
     else {
       val v = "\"" + value.trim + "\""
-      val contentType="Content-Type: image/"+value.substring(value.lastIndexOf('.')+1).trim.toLowerCase
+      val contentType = "Content-Type: image/" + value.substring(value.lastIndexOf('.') + 1).trim.toLowerCase
       val s = s"${boundaryString}Content-Disposition:form-data;name=$k;filename=$v$lineEnd$contentType$lineEnd$lineEnd"
       print(s)
       out.write(s.getBytes(ENCODING))
@@ -245,11 +248,15 @@ object Req {
 
   }
 
-  private def genBoundary: String = {
+  @inline private def genBoundary: String = {
     val multipartChars = "_1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray
     val buffer = new StringBuilder
     val rand = new Random()
     for (i <- 1 to 8) buffer.append(multipartChars.charAt(rand.nextInt(multipartChars.length)))
     buffer.result()
+  }
+
+  @elidable(FINE) def debug(a: Any) {
+    println(a)
   }
 }
