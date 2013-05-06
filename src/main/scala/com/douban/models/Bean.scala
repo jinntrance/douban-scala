@@ -61,15 +61,16 @@ trait Bean extends Serializable{
    *
    * @return map ,flattened fields-> values
    */
-  def toMap:util.Map[String,Any]={
-    g.toJsonTree(this).getAsJsonObject.entrySet().asScala.foldLeft(mutable.Map[String,Any]()){
+  def bean2Map(b:Any):util.Map[String,Any]={
+    Req.g.toJsonTree(b).getAsJsonObject.entrySet().asScala.foldLeft(mutable.Map[String,Any]()){
       case (a,e)=>
         if (e.getValue.isJsonPrimitive) a + (e.getKey -> e.getValue.getAsString)
         else  if (e.getValue.isJsonArray)  a+(e.getKey -> e.getValue.getAsJsonArray.iterator().asScala.mkString(","))
-        else if (e.getValue.isJsonObject)  a++ beanToMap(e.getValue).asScala
+        else if (e.getValue.isJsonObject)  a++ bean2Map(e.getValue).asScala
         else a
     }.asJava
   }
+  def bean2Map:util.Map[String,Any]=bean2Map(this)
 }
 
 abstract class API[+B: Manifest] {
