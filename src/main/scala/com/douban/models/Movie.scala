@@ -25,15 +25,15 @@ object Movie extends BookMovieMusicAPI[Movie, MovieSearchResult, MovieReview] {
 
 }
 
-case class Author(name: String)
+case class Author(name: String)  extends Bean
 
-case class MovieAttribute(language: List[String], pubdate: List[String], title: List[String], country: List[String], writer: List[String], director: List[String], cast: List[String], movie_duration: List[String], year: List[String], movie_type: List[String])
+case class MovieAttribute(language: List[String], pubdate: List[String], title: List[String], country: List[String], writer: List[String], director: List[String], cast: List[String], movie_duration: List[String], year: List[String], movie_type: List[String])  extends Bean
 
 case class MovieReview(id: Long, title: String, alt: String, author: User, movie: Movie, rating: ReviewRating,
                        votes: Int, useless: Int, comments: Int, summary: String, published: Date, updated: Date)
   extends Review(id, title, alt, author, rating, votes, useless, comments, summary, published, updated)
 
-case class Movie(id: String, title: String, author: List[Author], image: String, rating: ItemRating, summary: String, tags: List[Tag], alt: String, alt_title: String, mobile_link: String, attrs: MovieAttribute)
+case class Movie(id: String, title: String, author: List[Author], image: String, rating: ItemRating, summary: String, tags: List[Tag], alt: String, alt_title: String, mobile_link: String, attrs: MovieAttribute)  extends Bean
 
 /**
  *
@@ -44,4 +44,4 @@ case class Movie(id: String, title: String, author: List[Author], image: String,
  */
 case class MovieReviewPosted(movie: String, title: String, content: String, rating: Int = 0) extends ReviewPosted(title, content, rating)
 
-case class MovieSearchResult(start: Int, count: Int, total: Int, movies: List[Movie])
+case class MovieSearchResult(start: Int, count: Int, total: Int, movies: List[Movie]) extends ListResult(start,count,total)

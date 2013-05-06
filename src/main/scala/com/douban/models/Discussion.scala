@@ -29,7 +29,7 @@ trait DiscussionTrait[T] extends API[T]{
   def discussions(targetId: Long, page: Int = 0, count: Int = 20, query: String = "") = get[DiscussionsResult](new Search(query, "", page * count, count).flatten(discussionsUrl.format(targetId)))
 }
 
-case class Discussion(id: Long, title: String, alt: String, created: Date, updated: Date, content: String, comments_count: Int, author: User)
+case class Discussion(id: Long, title: String, alt: String, created: Date, updated: Date, content: String, comments_count: Int, author: User)   extends Bean
 
 case class DiscussionPosted(title: String, content: String) extends Bean
 

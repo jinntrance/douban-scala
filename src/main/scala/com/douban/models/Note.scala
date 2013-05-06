@@ -90,7 +90,7 @@ object Note extends API[Note] with CommentTrait[Note]{
  * @param recs_count  被推荐的次数
  * @param alt 日记网址
  */
-case class Note(id:Long,title:String,privacy:String,summary:String,content:String,update_time:Date,publish_time:Date,photos:util.Map[String,String]=new util.HashMap[String,String](),comments_count:Int,liked_count:Int,recs_count:Int,alt:String,can_reply:Boolean)
+case class Note(id:Long,title:String,privacy:String,summary:String,content:String,update_time:Date,publish_time:Date,photos:util.Map[String,String]=new util.HashMap[String,String](),comments_count:Int,liked_count:Int,recs_count:Int,alt:String,can_reply:Boolean)  extends Bean
 
 case class NotePosted(title:String,var content:String,pics:util.Map[String,String]=new util.HashMap[String,String](),privacy:String="public",can_reply:Boolean=true) extends Bean
 

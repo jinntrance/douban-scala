@@ -63,7 +63,7 @@ object Online extends ParticipationTrait[Online,OnlineList] with DiscussionTrait
  * @param liked  当前用户是否喜欢，参加
  */
 case class Online(id:Long,title:String,desc:String,tags:List[String],created:Date,begin_time:Date,end_time:Date,related_url:String,shuo_topic:String,cascade_invite:Boolean,
-                  group_id:Long,album_id:Long,participant_count:Int,photo_count:Int,liked_count:Int,recs_count:Int,thumb:String,cover:String,image:String,owner:User,liked:Boolean,participated:Boolean){
+                  group_id:Long,album_id:Long,participant_count:Int,photo_count:Int,liked_count:Int,recs_count:Int,thumb:String,cover:String,image:String,owner:User,liked:Boolean,participated:Boolean)  extends Bean{
   val alt=s"http://www.douban.com/online/$id"
 }
 case class OnlineList(start:Int,count:Int,total:Int,user:User,onlines:List[Online]) extends ListResult(start,count,total)

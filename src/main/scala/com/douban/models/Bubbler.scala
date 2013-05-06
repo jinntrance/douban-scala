@@ -22,12 +22,12 @@ import java.util.List
   def boards(boardId:Long)=get[BoardList](boardUrl.format(boardId))
   def walls(userId:Long)=get[Wall](wallUrl.format(userId))
 }
-case class Bubbler(id:Long,content:String,time:Date,song:Song)
-case class Song(album:String,song_name:String,cover:String,artist:String)
-case class SongList(song:Song,bubs:List[Bubbler])
-case class BubblerList(r:Int,result:List[Bubbler])
-case class Board(id:Long,title:String,thumbnail:String,create_time:Date,description:String,song_list:List[Long],user:BubUser)
-case class BubUser(id:Long,uid:String,title:String,homepage:String,icon:String,stats:BubStatus)
-case class BubStatus(bub:Int,collect:Int,board:Int)
-case class BoardList(r:Int,board:Board,song_list:List[SongList])
-case class Wall(user:BubUser,board_list:List[Board])
+case class Bubbler(id:Long,content:String,time:Date,song:Song)  extends Bean
+case class Song(album:String,song_name:String,cover:String,artist:String)  extends Bean
+case class SongList(song:Song,bubs:List[Bubbler])  extends Bean
+case class BubblerList(r:Int,result:List[Bubbler])  extends Bean
+case class Board(id:Long,title:String,thumbnail:String,create_time:Date,description:String,song_list:List[Long],user:BubUser)  extends Bean
+case class BubUser(id:Long,uid:String,title:String,homepage:String,icon:String,stats:BubStatus)  extends Bean
+case class BubStatus(bub:Int,collect:Int,board:Int)  extends Bean
+case class BoardList(r:Int,board:Board,song_list:List[SongList])   extends Bean
+case class Wall(user:BubUser,board_list:List[Board])  extends Bean

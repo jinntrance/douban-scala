@@ -18,7 +18,7 @@ object Music extends BookMovieMusicAPI[Music, MusicSearchResult, MusicReview] {
 
 }
 
-case class MusicAttribute(publisher: List[String], singer: List[String], discs: List[String], pubdate: List[String], title: List[String], media: List[String], tracks: List[String]) {
+case class MusicAttribute(publisher: List[String], singer: List[String], discs: List[String], pubdate: List[String], title: List[String], media: List[String], tracks: List[String])  extends Bean{
   def tracksList =tracks.asScala.map(_.split('\n').toList).flatten
 
 }
@@ -35,4 +35,4 @@ case class MusicReview(id: Long, title: String, alt: String, author: User, music
  */
 case class MusicReviewPosted(music: String, title: String, content: String, rating: Int = 0) extends ReviewPosted(title, content, rating)
 
-case class Music(id: Long, title: String, alt: String, author: List[Author], alt_title: String, tags: List[Tag], summary: String, image: String, mobile_link: String, attrs: MusicAttribute, rating: ItemRating)
+case class Music(id: Long, title: String, alt: String, author: List[Author], alt_title: String, tags: List[Tag], summary: String, image: String, mobile_link: String, attrs: MusicAttribute, rating: ItemRating)  extends Bean

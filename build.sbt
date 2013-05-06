@@ -12,7 +12,7 @@ homepage := Some(url("https://github.com/jinntrance/douban-scala"))
 
 scalaVersion := "2.10.1"
 
-scalacOptions ++= Seq("-unchecked", "-deprecation","-feature", "-Xcheckinit","-Xelide-below INFO","-optimise")
+scalacOptions ++= Seq("-unchecked", "-deprecation","-feature", "-Xcheckinit","-Xelide-below","INFO","-optimise")
 
 autoScalaLibrary := false
 

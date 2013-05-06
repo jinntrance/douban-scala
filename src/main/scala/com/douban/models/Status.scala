@@ -167,28 +167,28 @@ object StatusUser extends API[StatusUserInfo] {
 
 
 case class Status(category: String, reshared_count: Int, text: String, created_at: Date, title: String, can_reply: Int, liked: Boolean, attachments: util.List[Attachment]
-                  , source: java.util.Map[String, String], like_count: Int, comments_count: Int, user: StatusUser, is_follow: Boolean, has_photo: Boolean, `type`: String, id: Long, reshared_status: Status = null)
+                  , source: java.util.Map[String, String], like_count: Int, comments_count: Int, user: StatusUser, is_follow: Boolean, has_photo: Boolean, `type`: String, id: Long, reshared_status: Status = null)  extends Bean
 
-case class StatusUser(uid: String, id: Long, `type`: String, description: String, small_avatar: String, large_avatar: String, screen_name: String)
+case class StatusUser(uid: String, id: Long, `type`: String, description: String, small_avatar: String, large_avatar: String, screen_name: String)  extends Bean
 
-case class StatusUserInfo(uid: String, id: Long, `type`: String, description: String, small_avatar: String, large_avatar: String, screen_name: String, following_count: Int, blocked: Boolean, city: String, verified: Boolean, is_first_visit: Boolean, new_site_to_vu_count: Int, followers_count: Int, location: String, logged_in: Boolean, statuses_count: Int, blocking: Boolean, url: String, created_at: Date, icon_avatar: String, following: Boolean)
+case class StatusUserInfo(uid: String, id: Long, `type`: String, description: String, small_avatar: String, large_avatar: String, screen_name: String, following_count: Int, blocked: Boolean, city: String, verified: Boolean, is_first_visit: Boolean, new_site_to_vu_count: Int, followers_count: Int, location: String, logged_in: Boolean, statuses_count: Int, blocking: Boolean, url: String, created_at: Date, icon_avatar: String, following: Boolean)  extends Bean
 
-case class StatusCommentUser(uid: String, id: Long, `type`: String, description: String, small_avatar: String, large_avatar: String, screen_name: String, city: String, verified: Boolean, is_first_visit: Boolean, new_site_to_vu_count: Int, location: String, statuses_count: Int, url: String, created_at: Date, icon_avatar: String)
+case class StatusCommentUser(uid: String, id: Long, `type`: String, description: String, small_avatar: String, large_avatar: String, screen_name: String, city: String, verified: Boolean, is_first_visit: Boolean, new_site_to_vu_count: Int, location: String, statuses_count: Int, url: String, created_at: Date, icon_avatar: String)  extends Bean
 
-case class StatusSize(small: util.List[Int], raw: util.List[Int], median: util.List[Int])
+case class StatusSize(small: util.List[Int], raw: util.List[Int], median: util.List[Int])  extends Bean
 
-case class Media(src: String, sizes: StatusSize, secret_pid: String, original_src: String, href: String, `type`: String)
+case class Media(src: String, sizes: StatusSize, secret_pid: String, original_src: String, href: String, `type`: String) extends Bean
 
-case class Properties(href: String, uid: String, name: String)
+case class Properties(href: String, uid: String, name: String)  extends Bean
 
-case class Topic(text: String, indices: util.List[Int])
+case class Topic(text: String, indices: util.List[Int])  extends Bean
 
 //TODO user_mentions
-case class Entities(user_mentions: util.List[String], topics: util.List[Topic], urls: util.List[String])
+case class Entities(user_mentions: util.List[String], topics: util.List[Topic], urls: util.List[String]) extends Bean
 
-case class Attachment(description: String, title: String, expaned_href: String, caption: String, href: String, `type`: String, properties: Properties, media: util.List[Media])
+case class Attachment(description: String, title: String, expaned_href: String, caption: String, href: String, `type`: String, properties: Properties, media: util.List[Media])  extends Bean
 
-case class StatusComment(id: Long, entities: Entities, text: String, created_at: Date, source: String, user: StatusCommentUser)
+case class StatusComment(id: Long, entities: Entities, text: String, created_at: Date, source: String, user: StatusCommentUser)  extends Bean
 
 case class StatusPosted(text: String, img: String = "", rec_title: String = "", rec_url: String = "", rec_desc: String = "", rec_image: String = "", source: String = Auth.api_key) extends Bean {
   override def files = Map[String, String]("image" -> img)

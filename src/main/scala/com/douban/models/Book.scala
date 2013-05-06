@@ -175,7 +175,7 @@ case class Book(id: Long, isbn10: String, isbn13: String, title: String, origin_
                 alt_title: String, subtitle: String, url: String, alt: String, images: Image,
                 author: util.List[String], translator: util.List[String], publisher: String, pubdate: String,
                 rating: ItemRating, tags: util.List[Tag], binding: String, price: String, pages: String,
-                author_intro: String, summary: String = "", current_user_collection: Collection) {
+                author_intro: String, summary: String = "", current_user_collection: Collection)  extends Bean{
   def image = images.medium
 }
 
@@ -191,12 +191,12 @@ case class BookReview(id: Long, title: String, alt: String, author: User, book: 
  * @param photos 图片按照Photo中的1,2,3...获取并对应图片url
  */
 case class Annotation(id: Long, book_id: String, book: Book, author_id: String, author_user: User, chapter: String, page_no: Int, privacy: Int,
-                      content: String, `abstract`: String, abstract_photo: String, photos: util.Map[String, String], last_photo: Int, comments_count: Int, hasmath: Boolean, time: String)
+                      content: String, `abstract`: String, abstract_photo: String, photos: util.Map[String, String], last_photo: Int, comments_count: Int, hasmath: Boolean, time: String)  extends Bean
 
 /**
  * 收藏信息
  */
-case class Collection(status: String, book_id: Long, book: Book, comment: String, id: Long, rating: ReviewRating = null, tags: util.List[String], updated: String, user_id: String, user: User)
+case class Collection(status: String, book_id: Long, book: Book, comment: String, id: Long, rating: ReviewRating = null, tags: util.List[String], updated: String, user_id: String, user: User)  extends Bean
 
 case class AnnotationSearchResult(start: Int, count: Int, total: Int, annotations: util.List[Annotation]) extends ListResult(start, count, total)
 

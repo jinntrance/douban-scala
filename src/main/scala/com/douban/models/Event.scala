@@ -99,16 +99,16 @@ abstract class ParticipationTrait[T:Manifest,L:Manifest] extends API[T]{
   def targetsUserParticipated(userId: Long) = get[L](user_participatedUrl.format(userId),secured=true)
 }
 
-case class Loc(parent: String, habitable: String, id: Long, name: String, uid: String)
+case class Loc(parent: String, habitable: String, id: Long, name: String, uid: String)  extends Bean
 
 case class LocList(start: Int, count: Int, total: Int, locs: List[Loc]) extends ListResult(start, count, total)
 
 case class EventSearch(loc: String, day_type: String = "", `type`: String = "") extends Bean
 
 case class Event(is_priv: String, participant_count: Int, image: String, adapt_url: String, begin_time: Date, owner: User, alt: String, geo: String, id: Long, album: String, title: String,
-                 wisher_count: Int, content: String, `image-hlarge`: String, end_time: Date, `image-lmobile`: String, has_invited: String, can_invite: String, address: String, loc_name: String, loc_id: Long)
+                 wisher_count: Int, content: String, `image-hlarge`: String, end_time: Date, `image-lmobile`: String, has_invited: String, can_invite: String, address: String, loc_name: String, loc_id: Long)  extends Bean
 
-case class GPS(latitude: Double, longitude: Double)
+case class GPS(latitude: Double, longitude: Double)   extends Bean
 
 case class EventList(start: Int, count: Int, total: Int, events: List[Event]) extends ListResult(start, count, total)
 

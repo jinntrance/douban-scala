@@ -1,13 +1,15 @@
 package com.douban.models
 
 import com.douban.common.Req._
+import com.douban.common.Req
 import java.net.URLEncoder
 import java.util.Date
 import scala.Predef._
 import scala._
-import com.douban.common.Req
 import com.google.gson.JsonElement
 import scala.collection.JavaConverters._
+import java.util
+import scala.collection.mutable
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -16,7 +18,7 @@ import scala.collection.JavaConverters._
  * @since 1/3/13 10:46 PM
  * @version 1.0
  */
-trait Bean {
+trait Bean extends Serializable{
   protected var _files: Map[String, String] = Map()
 
   def files_=(fs: Map[String, String]) {
@@ -53,6 +55,20 @@ trait Bean {
     }
 
     l.mkString("&")
+  }
+
+  /**
+   *
+   * @return map ,flattened fields-> values
+   */
+  def toMap:util.Map[String,Any]={
+    g.toJsonTree(this).getAsJsonObject.entrySet().asScala.foldLeft(mutable.Map[String,Any]()){
+      case (a,e)=>
+        if (e.getValue.isJsonPrimitive) a + (e.getKey -> e.getValue.getAsString)
+        else  if (e.getValue.isJsonArray)  a+(e.getKey -> e.getValue.getAsJsonArray.iterator().asScala.mkString(","))
+        else if (e.getValue.isJsonObject)  a++ beanToMap(e.getValue).asScala
+        else a
+    }.asJava
   }
 }
 
@@ -126,7 +142,7 @@ abstract class BookMovieMusicAPI[+B: Manifest, +RT: Manifest, +RV: Manifest] ext
 /**
  * 标签信息
  */
-case class Tag(count: Int, title: String)
+case class Tag(count: Int, title: String)  extends Bean
 
 /**
  *
@@ -143,7 +159,7 @@ case class Search(q: String, tag: String, start: Int = 0, count: Int = 20) exten
  * @param min 0  最小值
  * @param value  評分
  */
-case class ReviewRating(max: Int, min: Int, value: String)
+case class ReviewRating(max: Int, min: Int, value: String)   extends Bean
 
 /**
  * @param max 10 評分結果最大值
@@ -151,12 +167,12 @@ case class ReviewRating(max: Int, min: Int, value: String)
  * @param average 平均评分
  * @param numRaters 评分人数
  */
-case class ItemRating(max: Int, min: Int, average: String, numRaters: Int)
+case class ItemRating(max: Int, min: Int, average: String, numRaters: Int)  extends Bean
 
-class ListResult(start: Int, count: Int, total: Int)
+class ListResult(start: Int, count: Int, total: Int)  extends Bean
 
 class Review(id: Long, title: String, alt: String, author: User, rating: ReviewRating,
-             votes: Int, useless: Int, comments: Int, summary: String, published: Date, updated: Date)
+             votes: Int, useless: Int, comments: Int, summary: String, published: Date, updated: Date)  extends Bean
 
 /**
  *

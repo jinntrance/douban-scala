@@ -58,7 +58,7 @@ object Doumail extends API[Doumail]{
  *
  * @param status  U:表示这封邮还未读 R:表示已读
  */
-case class Doumail(status:String,id:Long,sender:User,receiver:User,title:String,published:Date,content:String)
+case class Doumail(status:String,id:Long,sender:User,receiver:User,title:String,published:Date,content:String)  extends Bean
 case class DoumailIds(ids:String) extends Bean
 
 /**
@@ -75,4 +75,4 @@ case class DoumailSent(title:String,content:String,receiver_id:Long,captcha_toke
  * @param captcha_token 再次提交时需要加的token
  * @param captcha_string 再次提交时需要加用户输入的验证码字符串
  */
-case class Captcha(captcha_url:String,captcha_token:String,captcha_string:String)
+case class Captcha(captcha_url:String,captcha_token:String,captcha_string:String)  extends Bean
