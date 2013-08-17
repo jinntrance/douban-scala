@@ -40,13 +40,13 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 * 图片 Photo
 * 回复 Comment
 ```
-待完成的(api key还未授权)：
+待完成的(后面几个接口很难申请权限,接口中部分已测试通过)：
 
 ```
 * 广播 Status
 * 豆邮 Doumail
 * 线上活动 Online
-* 很多查詢需要添加 start,count
+* 我去 Place
 ```
 
 ### 开发配置
@@ -62,7 +62,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
     <dependency>
         <groupId>com.douban</groupId>
         <artifactId>scala-api_2.10</artifactId>
-        <version>2.3</version>
+        <version>2.4</version>
     </dependency>
 </dependencies>
 
@@ -73,7 +73,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 ```
 resolvers += "oss repo" "https://oss.sonatype.org/content/repositories/releases/"
 
-libraryDependencies += "com.douban" %% "scala-api" % "2.3"
+libraryDependencies += "com.douban" %% "scala-api" % "2.4"
 
 ```
 
@@ -288,6 +288,15 @@ __豆瓣实验室 Bubbler__
 用戶walls Bubbler.walls(userId)
 
 ```
+
+__我去接口 Place__
+<http://developers.douban.com/wiki/?title=travel_v2>
+```
+获取地点信息 Place.byId(placeId)
+获取某个用户的地点收藏 Place.userCollections(userId)
+
+```
+
 
 ### 联系
 * 使用 douban-scala 过程中遇到 bug, 可以到 [Issues](https://github.com/jinntrance/douban-scala/issues) 或 [豆瓣小组] (http://www.douban.com/group/topic/36158803/) 反馈

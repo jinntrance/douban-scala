@@ -9,7 +9,7 @@ import com.douban.common.BaseTest
  * @since 1/17/13 12:30 AM
  * @version 1.0
  */
-class NoteTests extends BaseTest{
+class NoteTest extends BaseTest{
   val noteId=84240297
     test("note"){
       prettyJSON(Note.byId(noteId))
