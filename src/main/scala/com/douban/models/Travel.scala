@@ -14,6 +14,11 @@ case class Place(id:Long,name:String,url:String,pic:String,zoom:Int,latitude:Dou
 case class TravelDate(year:Int,month:Int,day:Int)
 case class Travel(status: String, comment: String, rating: Int,status_label: String,place: Place,date: TravelDate)
 case class TravelResult(start: Int, count: Int, total: Int, places: List[Travel]) extends ListResult(start, count, total)
+
+/**
+ *
+ * @param status 选填（想去：wish 在这儿：visiting 去过：visited）默认为所有状态
+ */
 case class TravelSearch(status:String="",start:Int=0,count:Int=20) extends Bean
 
 object Place extends API[Place]{
