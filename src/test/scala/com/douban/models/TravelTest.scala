@@ -14,6 +14,6 @@ class TravelTest extends BaseTest{
     prettyJSON(Place.byId(1015176))
   }
   test("test user collected places") {
-    prettyJSON(Place.userCollections(38702920))
+    prettyJSON(Place.userCollections(38702920,TravelSearch("wish")))
   }
 }

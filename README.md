@@ -293,7 +293,7 @@ __我去接口 Place__
 <http://developers.douban.com/wiki/?title=travel_v2>
 ```
 获取地点信息 Place.byId(placeId)
-获取某个用户的地点收藏 Place.userCollections(userId)
+获取某个用户的地点收藏 Place.userCollections(userId)   //可选参数 TravelSearch
 
 ```
 

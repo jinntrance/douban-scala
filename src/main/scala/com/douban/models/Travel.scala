@@ -14,9 +14,10 @@ case class Place(id:Long,name:String,url:String,pic:String,zoom:Int,latitude:Dou
 case class TravelDate(year:Int,month:Int,day:Int)
 case class Travel(status: String, comment: String, rating: Int,status_label: String,place: Place,date: TravelDate)
 case class TravelResult(start: Int, count: Int, total: Int, places: List[Travel]) extends ListResult(start, count, total)
+case class TravelSearch(status:String="",start:Int=0,count:Int=20) extends Bean
 
 object Place extends API[Place]{
   protected def url_prefix: String = api_prefix+"travel/place"
   protected val collection_url=api_prefix+"travel/user/%s/collections"
-  def userCollections(userId:Long)=get[TravelResult](collection_url.format(userId))
+  def userCollections(userId:Long,s:TravelSearch=TravelSearch())=get[TravelResult](s.flatten(collection_url.format(userId)))
 }
