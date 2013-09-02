@@ -23,7 +23,7 @@ publishArtifact in Test := false
 libraryDependencies ++= Seq(
     "org.scala-lang" % "scala-library" % "2.10.2",
 	"com.google.code.gson" % "gson" % "2.2.4",
-	"org.scalatest" % "scalatest_2.10" % "1.9",
+	"org.scalatest" % "scalatest_2.10" % "1.9" %"test",
 	"org.testng" % "testng" % "6.8.5" % "test"
 	)
 
