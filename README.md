@@ -73,7 +73,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 ```
 resolvers += "oss repo" "https://oss.sonatype.org/content/repositories/releases/"
 
-libraryDependencies += "com.douban" % "scala-api_2.10" % "2.4.1"
+libraryDependencies += "com.douban" % "scala-api_2.10" % "2.4.1" withSources() withJavadoc()
 
 ```
 
