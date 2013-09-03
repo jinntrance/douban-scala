@@ -62,7 +62,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
     <dependency>
         <groupId>com.douban</groupId>
         <artifactId>scala-api_2.10</artifactId>
-        <version>2.4</version>
+        <version>2.4.1</version>
     </dependency>
 </dependencies>
 
@@ -73,7 +73,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 ```
 resolvers += "oss repo" "https://oss.sonatype.org/content/repositories/releases/"
 
-libraryDependencies += "com.douban" %% "scala-api" % "2.4"
+libraryDependencies += "com.douban" % "scala-api_2.10" % "2.4.1"
 
 ```
 
