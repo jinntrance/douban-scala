@@ -2,7 +2,9 @@
 
 java也可使用本SDK，但不如Scala使用便利。
 
-本SDK使用scala 2.10，json處理使用GSON。本SDK还不够完善，主要是豆瓣的官方文档还不够完善，后面有童鞋有兴趣的话，可以共同完善。
+本SDK使用scala 2.10，json處理使用GSON。
+
+其他语言SDK请参看豆瓣API小组<http://www.douban.com/group/dbapi/>
 
 使用时也可参照test下的内容。
 
