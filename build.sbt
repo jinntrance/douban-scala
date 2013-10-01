@@ -4,7 +4,7 @@ organization := "com.douban"
 
 name := "scala-api"
 
-version := "2.4"
+version := "2.4.1"
 
 licenses := Seq("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 
@@ -23,7 +23,7 @@ publishArtifact in Test := false
 libraryDependencies ++= Seq(
     "org.scala-lang" % "scala-library" % "2.10.2",
 	"com.google.code.gson" % "gson" % "2.2.4",
-	"org.scalatest" % "scalatest_2.10" % "1.9" %"test",
+	"org.scalatest" % "scalatest_2.10" % "1.9" % "test",
 	"org.testng" % "testng" % "6.8.5" % "test"
 	)
 
