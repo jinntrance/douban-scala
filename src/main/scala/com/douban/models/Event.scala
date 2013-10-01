@@ -3,7 +3,8 @@ package com.douban.models
 import java.util.Date
 import com.douban.common.Req
 import Req._
-import java.util.List
+import java.util
+import scala.language.implicitConversions
 
 /**
  * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
@@ -101,7 +102,7 @@ abstract class ParticipationTrait[T:Manifest,L:Manifest] extends API[T]{
 
 case class Loc(parent: String, habitable: String, id: Long, name: String, uid: String)  extends Bean
 
-case class LocList(start: Int, count: Int, total: Int, locs: List[Loc]) extends ListResult(start, count, total)
+case class LocList(start: Int, count: Int, total: Int, locs: util.List[Loc]) extends ListResult(start, count, total)
 
 case class EventSearch(loc: String, day_type: String = "", `type`: String = "") extends Bean
 
@@ -110,7 +111,7 @@ case class Event(is_priv: String, participant_count: Int, image: String, adapt_u
 
 case class GPS(latitude: Double, longitude: Double)   extends Bean
 
-case class EventList(start: Int, count: Int, total: Int, events: List[Event]) extends ListResult(start, count, total)
+case class EventList(start: Int, count: Int, total: Int, events: util.List[Event]) extends ListResult(start, count, total)
 
 /**
  * @param participate_date  时间格式：“％Y-％m-％d”，无此参数则时间待定

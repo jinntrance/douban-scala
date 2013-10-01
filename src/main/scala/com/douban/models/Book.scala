@@ -96,7 +96,7 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult, BookReview] {
    * @param index 图片序号，本笔记中第几个图片
    * @return 图片展示的tag,直接添加到笔记内容中
    */
-  private def addAnnotationPicture(index: Int) = s"<图片$index>"
+  def addAnnotationPicture(index: Int) = s"<图片$index>"
 }
 
 /**
@@ -177,6 +177,10 @@ case class Book(id: Long, isbn10: String, isbn13: String, title: String, origin_
                 rating: ItemRating, tags: util.List[Tag], binding: String, price: String, pages: String,
                 author_intro: String, var current_user_collection: Collection,summary: String = "",catalog: String = "")  extends Bean{
   def image = images.medium
+  def updateCollection(c:Collection):Collection = {
+    current_user_collection=c
+    c
+  }
 }
 
 /**
