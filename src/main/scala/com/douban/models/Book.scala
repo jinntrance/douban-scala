@@ -41,7 +41,7 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult, BookReview] {
   /**
    * 获取用户对某本图书的收藏信息
    */
-  def collectionOf(bookId: Long) = get[Collection](collectionUrl.format(bookId), secured = true)
+  def collectionOf(bookId: Long,userId:String="") = get[Collection](s"$collectionUrl?user_id=%s".format(bookId,userId), secured = true)
 
   /**
    * 用户收藏某本图书
@@ -175,7 +175,7 @@ case class Book(id: Long, isbn10: String, isbn13: String, title: String, origin_
                 alt_title: String, subtitle: String, url: String, alt: String, images: Image,
                 author: util.List[String], translator: util.List[String], publisher: String, pubdate: String,
                 rating: ItemRating, tags: util.List[Tag], binding: String, price: String, pages: String,
-                author_intro: String, summary: String = "", current_user_collection: Collection)  extends Bean{
+                author_intro: String, summary: String = "", var current_user_collection: Collection)  extends Bean{
   def image = images.medium
 }
 

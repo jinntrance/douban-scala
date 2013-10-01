@@ -61,7 +61,7 @@ public class BookJavaTest extends BaseJavaTest {
         CollectionPosted p = new CollectionPosted("read", "文政哲 Internet", "對於工具，我們應該更好的應用，而不是爲所累。信息過載的時代，利用好工具，攫取於我們最有益的信息 。", 5,"public");
         Collection c = Book.postCollection(bookId, p, true).get();
         prettyJSON(c);
-        prettyJSON(Book.collectionOf(bookId)) ;
+        prettyJSON(Book.collectionOf(bookId,"")) ;
         prettyJSON(Book.updateCollection(bookId, p,true));
         prettyJSON(Book.deleteCollection(bookId));
     }
