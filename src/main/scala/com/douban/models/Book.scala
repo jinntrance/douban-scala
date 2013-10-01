@@ -172,10 +172,10 @@ case class Image(small: String, large: String, medium: String)
  * 图书信息
  */
 case class Book(id: Long, isbn10: String, isbn13: String, title: String, origin_title: String,
-                alt_title: String, subtitle: String, url: String, alt: String, images: Image,
+                alt_title: String, subtitle: String, alt: String, images: Image,
                 author: util.List[String], translator: util.List[String], publisher: String, pubdate: String,
                 rating: ItemRating, tags: util.List[Tag], binding: String, price: String, pages: String,
-                author_intro: String, summary: String = "", var current_user_collection: Collection)  extends Bean{
+                author_intro: String, var current_user_collection: Collection,summary: String = "",catalog: String = "")  extends Bean{
   def image = images.medium
 }
 
