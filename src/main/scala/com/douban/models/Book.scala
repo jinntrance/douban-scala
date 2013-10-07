@@ -133,11 +133,11 @@ case class CollectionPosted(status: String, tags: String, comment: String, ratin
  * 获取某本图书的所有笔记
  * @param format 返回content字段格式,选填（编辑伪标签格式：text, HTML格式：html），默认为text
  * @param order 排序	选填（最新笔记：collect, 按有用程度：rank, 按页码先后：page），默认为rank
- * @param bookPage 按图书页码过滤
+ * @param page 按图书页码过滤
  * @param start 查询起始index
  * @param count 当前页显示数量
  */
-case class AnnotationSearch(order: String = "rank", start:Long=1, count:Int=20,bookPage: String = "", format: String = "text") extends Bean
+case class AnnotationSearch(order: String = "rank", start:Long=1, count:Int=20,page: String = "", format: String = "text") extends Bean
 
 /**
  * 给某本图书写笔记
