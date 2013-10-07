@@ -152,7 +152,7 @@ case class Tag(count: Int, title: String)  extends Bean
  * @param count 返回总数
  * @param tag  图书 电影可以传tags
  */
-case class Search(q: String, tag: String, start: Int = 0, count: Int = 20) extends Bean
+case class Search(q: String, tag: String, start: Long = 0, count: Int = 20) extends Bean
 
 /**
  *
