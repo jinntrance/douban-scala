@@ -172,6 +172,8 @@ case class ItemRating(max: Int, min: Int, average: String, numRaters: Int)  exte
 
 class ListResult(start: Int, count: Int, total: Int)  extends Bean
 
+class ListSearch(start:Int,count:Int) extends Bean
+
 class Review(id: Long, title: String, alt: String, author: User, rating: ReviewRating,
              votes: Int, useless: Int, comments: Int, summary: String, published: Date, updated: Date)  extends Bean
 

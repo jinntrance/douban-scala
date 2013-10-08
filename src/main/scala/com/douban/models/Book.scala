@@ -117,7 +117,7 @@ case class BookReviewPosted(book: String, title: String, content: String, rating
  * @param from 按收藏更新时间过滤的起始时间,格式为符合rfc3339的字符串，例如"2012-10-19T17:14:11"，其他信息默认为不传此项
  * @param to 按收藏更新时间过滤的结束时间
  */
-case class CollectionSearch(status: String = "", tag: String = "", rating: Int = 0, from: String = "", to: String = "") extends Bean
+case class CollectionSearch(status: String = "", tag: String = "", rating: Int = 0, from: String = "", to: String = "",start:Int=0,count:Int=20) extends ListSearch(start,count)
 
 /**
  * 收藏某本图书
@@ -137,7 +137,7 @@ case class CollectionPosted(status: String, tags: String, comment: String, ratin
  * @param start 查询起始index
  * @param count 当前页显示数量
  */
-case class AnnotationSearch(order: String = "rank", start:Long=1, count:Int=20,page: String = "", format: String = "text") extends Bean
+case class AnnotationSearch(order: String = "rank", start:Int=0, count:Int=20 ,page: String = "", format: String = "text") extends ListSearch(start,count)
 
 /**
  * 给某本图书写笔记
