@@ -58,6 +58,7 @@ case class User(id: String, name: String, uid: String, alt: String, avatar: Stri
  * @param loc_name 常居地点
  * @param signature  签名档
  * @param desc 个人描述
+ * @param large_avatar 头像
  */
 case class UserInfo(id: String, uid: String, name: String, avatar: String, alt: String, created: Date, loc_id: String, loc_name: String, signature: String, desc: String,large_avatar:String)  extends Bean
 
