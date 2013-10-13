@@ -4,7 +4,7 @@ organization := "com.douban"
 
 name := "scala-api"
 
-version := "2.4.2"
+version := "2.4.3"
 
 licenses := Seq("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 
@@ -29,8 +29,8 @@ libraryDependencies ++= Seq(
 
 publishTo <<= version { (v: String) =>
   val nexus = "https://oss.sonatype.org/"
-  if (v.trim.endsWith("SNAPSHOT")) 
-    Some("snapshots" at nexus + "content/repositories/snapshots") 
+  if (v.trim.endsWith("SNAPSHOT"))
+    Some("snapshots" at nexus + "content/repositories/snapshots")
   else
     Some("releases"  at nexus + "service/local/staging/deploy/maven2")
 }
@@ -47,5 +47,5 @@ pomExtra := (
       <url>http://crazyadam.diandian.com</url>
     </developer>
   </developers>)
-  
+
 

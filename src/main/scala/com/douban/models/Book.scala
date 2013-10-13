@@ -202,7 +202,11 @@ case class Annotation(id: Long, book_id: String, book: Book, author_id: String, 
 /**
  * 收藏信息
  */
-case class Collection(status: String, book_id: Long, book: Book, comment: String, id: Long, rating: ReviewRating = null, tags: util.List[String], updated: String, user_id: String, user: User)  extends Bean
+case class Collection(status: String, book_id: Long, var book: Book, comment: String, id: Long, rating: ReviewRating = null, tags: util.List[String], updated: String, user_id: String, user: User)  extends Bean{
+  def updateBook(b:Book){
+     book=b
+  }
+}
 
 case class AnnotationSearchResult(start: Int, count: Int, total: Int, annotations: util.List[Annotation]) extends ListResult(start, count, total)
 
