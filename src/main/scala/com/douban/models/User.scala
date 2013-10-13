@@ -48,7 +48,7 @@ case class UserSearchResult(start: Int, count: Int, total: Int, users: List[User
 /**
  * 用户简版
  */
-case class User(id: String, name: String, uid: String, alt: String, avatar: String) extends Bean
+case class User(id: String, name: String, uid: String, alt: String, avatar: String,large_avatar:String) extends Bean
 
 /**
  * 用户完整版信息
@@ -59,7 +59,7 @@ case class User(id: String, name: String, uid: String, alt: String, avatar: Stri
  * @param signature  签名档
  * @param desc 个人描述
  */
-case class UserInfo(id: String, uid: String, name: String, avatar: String, alt: String, created: Date, loc_id: String, loc_name: String, signature: String, desc: String)  extends Bean
+case class UserInfo(id: String, uid: String, name: String, avatar: String, alt: String, created: Date, loc_id: String, loc_name: String, signature: String, desc: String,large_avatar:String)  extends Bean
 
 class Relation extends Enumeration {
   val FRIEND = Value("friend")
