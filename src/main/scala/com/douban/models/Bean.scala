@@ -136,7 +136,7 @@ abstract class BookMovieMusicAPI[+B: Manifest, +RT: Manifest, +RV: Manifest] ext
    * @param count  每页显示数量
    * @return
    */
-  def search(query: String, tag: String, page: Int = 1, count: Int = 20) = get[RT](new Search(query, tag, (page - 1) * count, count).flatten(searchUrl), true)
+  def search(query: String, tag: String, page: Int = 1, count: Int = 20) = get[RT](new Search(query, tag, (page - 1) * count, count).flatten(searchUrl), secured = true)
 
 }
 
@@ -172,7 +172,7 @@ case class ItemRating(max: Int, min: Int, average: String, numRaters: Int)  exte
 
 class ListResult(start: Int, count: Int, total: Int)  extends Bean
 
-class ListSearch(start:Int,count:Int) extends Bean
+class ListSearch(start:Int=0,count:Int=20) extends Bean
 
 class Review(id: Long, title: String, alt: String, author: User, rating: ReviewRating,
              votes: Int, useless: Int, comments: Int, summary: String, published: Date, updated: Date)  extends Bean
