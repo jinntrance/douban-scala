@@ -62,7 +62,7 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult, BookReview] {
    * 获取某个用户的所有笔记
    * 默认按update_time倒序排列
    */
-  def annotationsOfUser(userId: Long,search:ListSearch=new ListSearch) = get[AnnotationSearchResult](search.flatten(userAnnotationsUrl.format(userId)))
+  def annotationsOfUser(userId: Long,search:ListSearchPara) = get[AnnotationSearchResult](search.flatten(userAnnotationsUrl.format(userId)))
 
 
   /**
@@ -180,7 +180,7 @@ case class Book(id: Long, isbn10: String, isbn13: String, title: String, origin_
                 rating: ItemRating, tags: util.List[Tag], binding: String, price: String, pages: String,
                 author_intro: String, var current_user_collection: Collection,summary: String = "",catalog: String = "")  extends Bean{
   def image = images.medium
-  def updateCollection(c:Collection):Collection = {
+  def updateExistCollection(c:Collection):Collection = {
     current_user_collection=c
     c
   }

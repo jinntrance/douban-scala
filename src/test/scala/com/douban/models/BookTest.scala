@@ -17,7 +17,7 @@ class BookTest extends BaseTest {
     prettyJSON(Book.annotationsOf(bookId, new AnnotationSearch("collect", 2)))
   }
   test("the book annotationOfUser") {
-    prettyJSON(Book.annotationsOfUser("jinntrance"))
+    prettyJSON(Book.annotationsOfUser(userId,new ListSearchPara(10,15)))
   }
   test("the book postAnnotation") {
     val photos = Map(
