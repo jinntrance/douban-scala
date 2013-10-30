@@ -62,7 +62,7 @@ object Book extends BookMovieMusicAPI[Book, BookSearchResult, BookReview] {
    * 获取某个用户的所有笔记
    * 默认按update_time倒序排列
    */
-  def annotationsOfUser(userId: Long,search:ListSearchPara) = get[AnnotationSearchResult](search.flatten(userAnnotationsUrl.format(userId)))
+  def annotationsOfUser(userId: Long,search:ListSearchPara=new ListSearchPara()) = get[AnnotationSearchResult](search.flatten(userAnnotationsUrl.format(userId)))
 
 
   /**
