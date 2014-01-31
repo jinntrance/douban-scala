@@ -6,7 +6,7 @@
     <name>douban-scala-sdk</name>
     <groupId>com.douban</groupId>
     <artifactId>scala-api_${scala.version}</artifactId>
-    <version>2.2</version>
+    <version>2.4.3</version>
     <url>https://github.com/jinntrance/douban-scala</url>
     <packaging>jar</packaging>
     <description>Scala SDK for www.douban.com</description>
@@ -26,12 +26,12 @@
         <developer>
             <name>Joseph J.C. Tang</name>
             <email>jinntrance@gmail.com</email>
-            <url>http://crazyadam.net</url>
+            <url>http://crazyadam.diandian.com</url>
         </developer>
     </developers>
     <properties>
         <scala.version>2.10</scala.version>
-        <scala.release>2.10.1</scala.release>
+        <scala.release>2.10.3</scala.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <performRelease>true</performRelease>
         <maven.test.skip>true</maven.test.skip>
