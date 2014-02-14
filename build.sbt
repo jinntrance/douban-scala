@@ -4,7 +4,7 @@ organization := "com.douban"
 
 name := "scala-api"
 
-version := "2.4.3"
+version := "2.4.4"
 
 licenses := Seq("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 
@@ -12,7 +12,7 @@ homepage := Some(url("https://github.com/jinntrance/douban-scala"))
 
 scalaVersion := "2.10.2"
 
-scalacOptions ++= Seq("-unchecked", "-deprecation","-feature", "-Xcheckinit","-Xelide-below","INFO","-optimise")
+scalacOptions ++= Seq("-unchecked", "-deprecation","-feature", "-Xcheckinit","-Xelide-below","INFO")
 
 autoScalaLibrary := false
 
