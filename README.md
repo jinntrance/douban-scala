@@ -1,4 +1,4 @@
-###豆瓣 API v2的Scala/Java/Android SDK
+###豆瓣 API v2的非官方Scala/Java/Android SDK
 
 java也可使用本SDK，但不如Scala使用便利。
 
