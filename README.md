@@ -44,7 +44,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 * 图片 Photo
 * 回复 Comment
 ```
-待完成的(后面几个接口很难申请权限,接口中部分已测试通过)：
+待完成的(后面几个接口很难申请权限,接口中可测试部分已测试通过)：
 
 ```
 * 广播 Status
