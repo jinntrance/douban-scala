@@ -24,7 +24,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 
 1.getter直接使用"属性+()"的方法，如Auth.api_key()，setter使用Auth.api_key$_eq("you key")
 
-2.Android开发需要添加proguard 参数，参照链接中的参数“proguardOptimizations in Android” <https://github.com/jinntrance/douban-android/blob/master/build.sbt>
+2.Android开发需要添加proguard 参数，参照链接中proguard 配置文件 <https://github.com/jinntrance/douban-android/blob/master/proguard.cfg>
 
 3.其他使用可refer to <http://twitter.github.io/scala_school/java.html>
 
