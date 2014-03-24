@@ -62,7 +62,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 </dependency>
 
 ```
-使用SBT作scala开发，在build.sbt中添加如下配置(注意scala需要是2.10)
+使用SBT作scala开发，在build.sbt中添加如下配置
 
 使用sbt作android开发可以参照配置<https://github.com/jinntrance/douban-android>
 ```
