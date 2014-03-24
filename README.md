@@ -54,28 +54,20 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 ### 开发配置
 使用maven开发，在pom.xml中添加如下配置
 ```
-<repositories>
-    <repository>
-        <id>OSS repo</id>
-        <url>https://oss.sonatype.org/content/repositories/releases/</url>
-    </repository>
-</repositories>
-<dependencies>
-    <dependency>
-        <groupId>com.douban</groupId>
-        <artifactId>scala-api_2.10</artifactId>
-        <version>2.4.2</version>
-    </dependency>
-</dependencies>
+
+<dependency>
+    <groupId>com.douban</groupId>
+    <artifactId>scala-api_2.11.0-RC3</artifactId>
+    <version>2.4.5</version>
+</dependency>
 
 ```
 使用SBT作scala开发，在build.sbt中添加如下配置(注意scala需要是2.10)
 
 使用sbt作android开发可以参照配置<https://github.com/jinntrance/douban-android>
 ```
-resolvers += "oss repo" "https://oss.sonatype.org/content/repositories/releases/"
 
-libraryDependencies += "com.douban" % "scala-api_2.10" % "2.4.2" withSources() withJavadoc()
+libraryDependencies += "com.douban" % "scala-api_2.11.0-RC3" % "2.4.5" withSources() withJavadoc()
 
 ```
 
