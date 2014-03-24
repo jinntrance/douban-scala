@@ -2,7 +2,7 @@
 
 java也可使用本SDK，但不如Scala使用便利。
 
-本SDK使用scala 2.10，json處理使用GSON。
+本SDK使用scala 2.11，json處理使用GSON。
 
 其他语言SDK请参看豆瓣API小组<http://www.douban.com/group/dbapi/>
 
