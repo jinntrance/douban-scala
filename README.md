@@ -1,5 +1,7 @@
 ###豆瓣 API v2的非官方Scala/Java/Android SDK
 
+囊括豆瓣开放了的稳定API或测试API。文档不够完善处，大家可以一起完善。
+
 java也可使用本SDK，但不如Scala使用便利。
 
 本SDK使用scala 2.11，json處理使用GSON。
