@@ -6,7 +6,7 @@ java也可使用本SDK，但不如Scala使用便利。
 
 其他语言SDK请参看豆瓣API小组<http://www.douban.com/group/dbapi/>
 
-使用时也可参照test下的内容。
+使用本SDK时也可参照test下的内容。
 
 Scala <https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com/douban/models/AuthTest.scala>
 
@@ -16,7 +16,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 
 1.请求成功返回结果形式如Option<AccessTokenResult>，使用其get()获取想要结构AccessTokenResult；失败则返回None。
 
-2.很多接口添加了withResult参数，默认为true。例如发表评论后，知道成功失败与否即可，不必返回发表成功后的评论信息，则可设置其为false节省流量。
+2.很多接口添加了withResult参数，默认为true。例如Android上发表评论后，知道成功失败与否即可，不必返回发表成功后的评论信息，则可设置其为false节省流量。
 
 3.最好使用maven添加函數依赖，这样可以同时下载source和javadoc便于开发
 
@@ -24,7 +24,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 
 1.getter直接使用"属性+()"的方法，如Auth.api_key()，setter使用Auth.api_key$_eq("you key")
 
-2.Android开发需要添加proguard 参数，参照链接中proguard 配置文件 <https://github.com/jinntrance/douban-android/blob/master/proguard.cfg>
+2.Android开发需要添加proguard 参数，参照链接中proguard 配置文件 <https://github.com/jinntrance/douban-android/blob/master/proguard.cfg> 若想使用Scala在Android上开发，请参照“赌书泼茶” <https://github.com/jinntrance/douban-android> 
 
 3.其他使用可refer to <http://twitter.github.io/scala_school/java.html>
 
