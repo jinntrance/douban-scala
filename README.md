@@ -91,7 +91,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 ##如果有之前有refresh token，则可用
 
 ```
-    val refresh_token="your access token"
+    val refresh_token="your refresh token"
     val token: AccessTokenResult = Auth.getTokenByFresh(refresh_token,api_key,secret)
 
 ```
@@ -296,5 +296,5 @@ __我去接口 Place__
 
 ### 联系
 * 使用 douban-scala 过程中遇到 bug, 可以到 [Issues](https://github.com/jinntrance/douban-scala/issues) 或 [豆瓣小组] (http://www.douban.com/group/topic/36158803/) 反馈
-* 本文档很多参照豆瓣Python SDK的文档，多谢。
+* 本文档多参照豆瓣Python SDK的文档，多谢。
 
