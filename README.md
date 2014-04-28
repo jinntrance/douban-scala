@@ -59,7 +59,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 
 <dependency>
     <groupId>com.douban</groupId>
-    <artifactId>scala-api_2.11.0-RC3</artifactId>
+    <artifactId>scala-api_2.11.0</artifactId>
     <version>2.4.5</version>
 </dependency>
 
@@ -69,7 +69,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 使用sbt作android开发可以参照配置<https://github.com/jinntrance/douban-android>
 ```
 
-libraryDependencies += "com.douban" % "scala-api_2.11.0-RC3" % "2.4.5" withSources() withJavadoc()
+libraryDependencies += "com.douban" % "scala-api_2.11.0" % "2.4.5" withSources() withJavadoc()
 
 ```
 
