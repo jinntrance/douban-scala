@@ -10,9 +10,9 @@ licenses := Seq("The Apache Software License, Version 2.0" -> url("http://www.ap
 
 homepage := Some(url("https://github.com/jinntrance/douban-scala"))
 
-scalaVersion := "2.11.0"
+scalaVersion := "2.11.1"
 
-crossScalaVersions := Seq("2.10.4","2.11.0")
+crossScalaVersions := Seq("2.10.4","2.11.1")
 
 scalacOptions ++= Seq("-unchecked", "-deprecation","-feature", "-Xcheckinit","-Xelide-below","INFO")
 
@@ -25,9 +25,9 @@ publishArtifact in Test := false
 useGpg := true
 
 libraryDependencies ++= Seq(
-    "org.scala-lang" % "scala-library" % "2.11.0",
+    "org.scala-lang" % "scala-library" % "2.11.1",
 	"com.google.code.gson" % "gson" % "2.2.4",
-	"org.scalatest" % "scalatest_2.11.0-RC1" % "2.1.0" % "test",
+	"org.scalatest" % "scalatest_2.11" % "2.2.0" % "test",
 	"org.testng" % "testng" % "6.8.8" % "test"
 	)
 
