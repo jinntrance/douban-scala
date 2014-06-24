@@ -4,7 +4,7 @@ organization := "com.douban"
 
 name := "scala-api"
 
-version := "2.4.5"
+version := "2.4.6"
 
 licenses := Seq("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 
