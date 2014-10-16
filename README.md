@@ -14,6 +14,9 @@ Scala <https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com
 
 Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/douban/models/AuthJavaTest.java>
 
+###使用本SDK应用列表
+赌书泼茶 <https://github.com/jinntrance/douban-android>
+
 ####开发注意事项
 
 1.请求成功返回结果形式如Option<AccessTokenResult>，使用其get()获取想要结构AccessTokenResult；失败则返回None。
