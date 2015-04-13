@@ -6,7 +6,7 @@ import Req._
 import java.util
 
 /**
- * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
+ * Copyright by <a href="http://www.josephjctang.com"><em><i>Joseph J.C. Tang</i></em></a> <br/>
  * Email: <a href="mailto:jinntrance@gmail.com">jinntrance@gmail.com</a> <br/>
  * <em>see:</em><br/>
  * <a href="http://developers.douban.com/wiki/?title=book_v2">豆瓣图书API</a>
