@@ -16,7 +16,7 @@ object Auth {
   var scope = ""
   val auth_url = "https://www.douban.com/service/auth2/auth"
   val token_url = "https://www.douban.com/service/auth2/token"
-  var redirect_url = "http://crazyadam.diandian.com/"
+  var redirect_url = "http://www.josephjctang.com/"
   val response_type = "code"
   val grant_type = "authorization_code"
   val refresh_token_string = "refresh_token"
