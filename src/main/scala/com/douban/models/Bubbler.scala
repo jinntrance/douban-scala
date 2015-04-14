@@ -3,7 +3,7 @@ import java.util.Date
 import com.douban.common.Req._
 import java.util.List
 /**
- * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
+ * Copyright by <a href="http://www.josephjctang.com"><em><i>Joseph J.C. Tang</i></em></a> <br/>
  * Email: <a href="mailto:jinntrance@gmail.com">jinntrance@gmail.com</a>
  * @author joseph
  * @since 1/18/13 3:58 PM

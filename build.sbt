@@ -48,7 +48,7 @@ pomExtra := (
     <developer>
       <id>jinntrance</id>
       <name>Joseph J.C. Tang</name>
-      <url>http://crazyadam.diandian.com</url>
+      <url>http://www.josephjctang.com</url>
     </developer>
   </developers>)
 

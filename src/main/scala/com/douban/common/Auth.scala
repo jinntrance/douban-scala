@@ -4,7 +4,7 @@ import com.douban.models.Bean
 
 
 /**
- * Copyright by <a href="http://crazyadam.net"><em><i>Joseph J.C. Tang</i></em></a> <br/>
+ * Copyright by <a href="http://www.josephjctang.com"><em><i>Joseph J.C. Tang</i></em></a> <br/>
  * Email: <a href="mailto:jinntrance@gmail.com">jinntrance@gmail.com</a>
  * @author joseph
  * @since 12/26/12 8:12 PM
@@ -16,7 +16,7 @@ object Auth {
   var scope = ""
   val auth_url = "https://www.douban.com/service/auth2/auth"
   val token_url = "https://www.douban.com/service/auth2/token"
-  var redirect_url = "http://crazyadam.diandian.com/"
+  var redirect_url = "http://www.josephjctang.com/"
   val response_type = "code"
   val grant_type = "authorization_code"
   val refresh_token_string = "refresh_token"
