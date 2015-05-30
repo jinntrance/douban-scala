@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Douban-scala by jinntrance</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Douban-scala</h1>
+        <h2>Scala SDK for http://www.douban.com</h2>
+        <a href="https://github.com/jinntrance/douban-scala" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h2>
+<a id="豆瓣-api-v2的非官方scalajavaandroid-sdk" class="anchor" href="#%E8%B1%86%E7%93%A3-api-v2%E7%9A%84%E9%9D%9E%E5%AE%98%E6%96%B9scalajavaandroid-sdk" aria-hidden="true"><span class="octicon octicon-link"></span></a>豆瓣 API v2的非官方Scala/Java/Android SDK</h2>
+
+<p>囊括豆瓣开放了的稳定API或测试API。文档不够完善处，大家可以一起完善。</p>
+
+<p>java也可使用本SDK，但不如Scala使用便利。</p>
+
+<p>本SDK使用scala 2.11，json處理使用GSON。</p>
+
+<p>其他语言SDK<a href="http://developers.douban.com/wiki/?title=sdk">http://developers.douban.com/wiki/?title=sdk</a>请参看豆瓣API小组<a href="http://www.douban.com/group/dbapi/">http://www.douban.com/group/dbapi/</a></p>
+
+<p>使用本SDK时也可参照test下的内容。</p>
+
+<p>Scala <a href="https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com/douban/models/AuthTest.scala">https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com/douban/models/AuthTest.scala</a></p>
+
+<p>Java <a href="https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/douban/models/AuthJavaTest.java">https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/douban/models/AuthJavaTest.java</a></p>
+
+<h3>
+<a id="使用本sdk应用列表" class="anchor" href="#%E4%BD%BF%E7%94%A8%E6%9C%ACsdk%E5%BA%94%E7%94%A8%E5%88%97%E8%A1%A8" aria-hidden="true"><span class="octicon octicon-link"></span></a>使用本SDK应用列表</h3>
+
+<p>赌书泼茶 <a href="https://github.com/jinntrance/douban-android">https://github.com/jinntrance/douban-android</a></p>
+
+<h4>
+<a id="开发注意事项" class="anchor" href="#%E5%BC%80%E5%8F%91%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9" aria-hidden="true"><span class="octicon octicon-link"></span></a>开发注意事项</h4>
+
+<p>1.请求成功返回结果形式如Option，使用其get()获取想要结构AccessTokenResult；失败则返回None。</p>
+
+<p>2.很多接口添加了withResult参数，默认为true。例如Android上发表评论后，知道成功失败与否即可，不必返回发表成功后的评论信息，则可设置其为false节省流量。</p>
+
+<p>3.最好使用maven添加函數依赖，这样可以同时下载source和javadoc便于开发</p>
+
+<h4>
+<a id="javaandroid使用注意" class="anchor" href="#javaandroid%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F" aria-hidden="true"><span class="octicon octicon-link"></span></a>java/android使用注意</h4>
+
+<p>1.getter直接使用"属性+()"的方法，如Auth.api_key()，setter使用Auth.api_key$_eq("you key")</p>
+
+<p>2.Android开发需要添加proguard 参数，参照链接中proguard 配置文件 <a href="https://github.com/jinntrance/douban-android/blob/master/proguard.cfg">https://github.com/jinntrance/douban-android/blob/master/proguard.cfg</a> 若想使用Scala在Android上开发，请参照“赌书泼茶” <a href="https://github.com/jinntrance/douban-android">https://github.com/jinntrance/douban-android</a> </p>
+
+<p>3.其他使用可refer to <a href="http://twitter.github.io/scala_school/java.html">http://twitter.github.io/scala_school/java.html</a></p>
+
+<p>目前已完成的接口有：</p>
+
+<pre><code>* 用户 User
+* 读书 Book
+* 电影 Movie
+* 音乐 Music
+* 同城活动 Event
+* 论坛 Discussion
+* 日记 Note
+* 相册 Album
+* 图片 Photo
+* 回复 Comment
+</code></pre>
+
+<p>待完成的(后面几个接口很难申请权限,接口中可测试部分已测试通过)：</p>
+
+<pre><code>* 广播 Status
+* 豆邮 Doumail
+* 线上活动 Online
+* 我去 Place
+</code></pre>
+
+<h2>
+<a id="开发配置" class="anchor" href="#%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE" aria-hidden="true"><span class="octicon octicon-link"></span></a>开发配置</h2>
+
+<p>使用maven开发，在pom.xml中添加如下配置</p>
+
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.douban&lt;/groupId&gt;
+    &lt;artifactId&gt;scala-api_2.11&lt;/artifactId&gt;
+    &lt;version&gt;2.4.7&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<p>使用SBT作scala开发，在build.sbt中添加如下配置</p>
+
+<p>使用sbt作android开发可以参照配置<a href="https://github.com/jinntrance/douban-android">https://github.com/jinntrance/douban-android</a></p>
+
+<pre><code>libraryDependencies += "com.douban" % "scala-api_2.11" % "2.4.7" withSources() withJavadoc()
+</code></pre>
+
+<h3>
+<a id="使用说明" class="anchor" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E" aria-hidden="true"><span class="octicon octicon-link"></span></a>使用说明</h3>
+
+<h4>
+<a id="oauth-20-认证" class="anchor" href="#oauth-20-%E8%AE%A4%E8%AF%81" aria-hidden="true"><span class="octicon octicon-link"></span></a>OAuth 2.0 认证</h4>
+
+<p>Scala 参见<a href="https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com/douban/models/AuthTest.scala">https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com/douban/models/AuthTest.scala</a></p>
+
+<p>Java <a href="https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/douban/models/AuthJavaTest.java">https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/douban/models/AuthJavaTest.java</a></p>
+
+<h2>
+<a id="引导用户授权" class="anchor" href="#%E5%BC%95%E5%AF%BC%E7%94%A8%E6%88%B7%E6%8E%88%E6%9D%83" aria-hidden="true"><span class="octicon octicon-link"></span></a>引导用户授权</h2>
+
+<pre><code>    Desktop.getDesktop.browse(new URI(Auth.getAuthUrl(Auth.api_key)))
+    val codeUrl = readLine("please copy the url here after authorization&gt;\n")
+    val code = Auth.extractCode(codeUrl) //取出 authorization code
+    val token:AccessTokenResult=Auth.getTokenByCode(code,api_key,secret) //取回 access token
+</code></pre>
+
+<h2>
+<a id="如果有之前有refresh-token则可用" class="anchor" href="#%E5%A6%82%E6%9E%9C%E6%9C%89%E4%B9%8B%E5%89%8D%E6%9C%89refresh-token%E5%88%99%E5%8F%AF%E7%94%A8" aria-hidden="true"><span class="octicon octicon-link"></span></a>如果有之前有refresh token，则可用</h2>
+
+<pre><code>    val refresh_token="your refresh token"
+    val token: AccessTokenResult = Auth.getTokenByFresh(refresh_token,api_key,secret)
+
+</code></pre>
+
+<h4>
+<a id="接口说明" class="anchor" href="#%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E" aria-hidden="true"><span class="octicon octicon-link"></span></a>接口说明</h4>
+
+<p>默认参数（参考豆瓣官方文档）,查询时分页需要:</p>
+
+<pre><code>start: 0
+count: 20
+</code></pre>
+
+<p>所有返回数据以豆瓣官方文档为准，各接口末尾处均有相应链接入口。</p>
+
+<p>__所有 __</p>
+
+<pre><code>通过id查找当前对象.byId(id),例如 获取一本图书信息 Book.byId(id)
+使用任何接口前，需要设置授权后的Access Token：Req.init(access_token) 
+Scala &lt;https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com/douban/common/BaseTest.scala&gt;
+Java &lt;https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/douban/common/BaseJavaTest.java&gt;
+</code></pre>
+
+<p><strong>图书、电影、音乐 Book/Movie/Music</strong></p>
+
+<pre><code>获取图书标签 .tagsOf(id) ,id为当前对象id
+获取某个Item中标记最多的标签 .popTags(id)
+发表新评论 .postReview(r),其中r为BookReviewPosted/MovieReviewPosted/MusicReviewPosted
+修改评论  .updateReview(reviewId,r),其中rF为ReviewPosted
+删除评论 .deleteReview(reviewId)
+搜索 .search(query: String, tag: String, page: Int = 1, count: Int = 20)，其中query为关键字，tag为标签，page为查询第几页，count为每页显示数量
+</code></pre>
+
+<p><strong>用户 User</strong>
+<a href="http://developers.douban.com/wiki/?title=user_v2">http://developers.douban.com/wiki/?title=user_v2</a></p>
+
+<pre><code># 以下 id 指用户数字 id
+当前用户 User.ofMe
+指定用户 User.byId(id)
+搜索用户 User.search(q,page=1,count=20)       // q: 搜索的关键词,page查询第几页，count每页多少
+</code></pre>
+
+<p><strong>读书 Book</strong>
+<a href="http://developers.douban.com/wiki/?title=book_v2">http://developers.douban.com/wiki/?title=book_v2</a></p>
+
+<pre><code>## 以下 id 指图书条目数字 id
+## q: 关键词, tag: 标签
+通过isbn获取信息 Book.byISBN(isbn_number)
+获取某个用户的所有图书收藏信息 Book.collectionsOfUser(userId)
+获取用户对某本图书的收藏信息 Book.collectionOf(bookId)
+用户收藏某本图书 postCollection(bookId,c: CollectionPosted)
+用户修改对某本图书的收藏 updateCollection(bookId,c: CollectionPosted)
+用户删除对某本图书的收藏  deleteCollection(bookId)
+获取某个用户的所有笔记 annotationsOfUser(userId)
+获取某本图书的所有笔记 annotationsOf(bookId)
+获取某篇笔记的信息 annotation(annotationId)
+用户给某本图书写笔记 postAnnotation(bookId,a: AnnotationPosted)
+用户修改某篇笔记 updateAnnotation((annotationId: Long, a: AnnotationPosted)
+用户刪除某篇笔记 deleteAnnotation(annotationId)
+</code></pre>
+
+<p><strong>电影 Movie</strong>
+<a href="http://developers.douban.com/wiki/?title=movie_v2">http://developers.douban.com/wiki/?title=movie_v2</a></p>
+
+<pre><code>## 以下 id 指电影条目数字 id
+通过imdb获取电影 Movie.byImdb(imdb_number)
+</code></pre>
+
+<p><strong>音乐 Music</strong>
+<a href="http://developers.douban.com/wiki/?title=music_v2">http://developers.douban.com/wiki/?title=music_v2</a></p>
+
+<pre><code>见"图书、电影、音乐 Book/Movie/Music"
+</code></pre>
+
+<p><strong>日记 Note</strong>
+<a href="http://developers.douban.com/wiki/?title=note_v2">http://developers.douban.com/wiki/?title=note_v2</a></p>
+
+<pre><code>## 以下 id 指日记数字 id
+## format: html_full, html_short, abstract, text，默认为text
+获取一篇日记 Note.byId(id, format='text')
+新写一篇日记 Note.postNote(n:NotePosted)
+更新一篇日记 Note.update(noteId:Long,n:NotePosted)
+上传图片到日记 Note.uploadPicture(noteId:Long,n:NotePosted)//Note.genPicFormat,genUrlFormat生成图片和url格式放在日记内容中
+删除一篇日记 Note.deleteNote(id)
+喜欢一篇日记     Note.like(id)
+取消喜欢一篇日记 Note.unlike(id)
+获取用户日记列表       Note.notesUserCreated(userId, start, count)
+获取用户喜欢的日记列表 Note.notesUserLiked(userId, start, count)
+</code></pre>
+
+<p><strong>相册 Album</strong>
+<a href="http://developers.douban.com/wiki/?title=album_v2">http://developers.douban.com/wiki/?title=album_v2</a>
+<a href="http://developers.douban.com/wiki/?title=photo_v2">http://developers.douban.com/wiki/?title=photo_v2</a></p>
+
+<pre><code>## 以下 id 指相册数字 id
+## desc 描述文字
+获取相册或图片 Album.byId Photo.byId
+获取相册图片列表 Album.photos(id, s:AlbumSearch)
+</code></pre>
+
+<p><strong>线上活动 Online</strong>
+<a href="http://developers.douban.com/wiki/?title=online_v2">http://developers.douban.com/wiki/?title=online_v2</a></p>
+
+<pre><code>## 以下 id 指线上活动数字 id
+## begin_time, end_time 格式为 '%Y-%m-%d %H:%M:%S'
+## cate 可选值: day, week, latest
+发表一条线上活动 Online.createOnline(o:OnlinePosted)
+更新一条线上活动 Online.updateOnline(onlineId:Long,o:OnlinePosted)
+删除一条线上活动 Online.deleteOnline(id)
+喜欢一条线上活动 Online.likeOnline(id)
+取消喜欢线上活动 Online.unlikeOnline(id)
+获取线上活动图片列表 Online.photos(id, start, count)
+上传图片到线上活动   Online.upload(id, image) # image = open('xxx.jpg')
+获取参加线上活动成员列表 Online.targetsUserParticipated(id)
+参加活动 Online.participate(targetId,p: ParticipateDate )
+取消参加活动 Online.participate(targetId)
+活动参与人 Online.participants
+获取线上活动列表 Online.onlinesList(cate="week")
+获取参加过的活动 Online.targetsUserParticipated(userId)
+获取创建过的活动 Online.targetsUserCreated(userId)
+</code></pre>
+
+<p><strong>同城活动 Event</strong>
+<a href="http://developers.douban.com/wiki/?title=event_v2">http://developers.douban.com/wiki/?title=event_v2</a></p>
+
+<pre><code>## 以下 id 指同城活动 id
+## Loc: 城市
+## dayType: dayType 时间类型    future, week, weekend, today, tomorrow
+## type: 活动类型   all,music, film, drama, commonweal, salon, exhibition, party, sports, travel, others
+搜索同城活动 Event.events(location,dayType, type)
+
+参加同城活动 Event.participate(id)
+取消参加活动 Event.unParticipate(id)
+
+对同城活动感兴趣 Event.wish(id)
+取消同城活动兴趣 Event.unwish(id)
+
+某同城活动参加者   Event.participants(id)
+某同城活动感兴趣者 Event.wishers(id)
+
+获取用户创建过的同城活动 Event.targetsUserCreated(userId)
+获取用户参加过的同城活动 Event.participated(userId)
+获取用户感兴趣的同城活动 Event.eventsUserWished(userId)
+
+获取城市列表 Loc.list
+获取某個城市列表信息 Loc.byId
+</code></pre>
+
+<p><strong>论坛 Discussion</strong>
+<a href="http://developers.douban.com/wiki/?title=discussion_v2">http://developers.douban.com/wiki/?title=discussion_v2</a></p>
+
+<pre><code>## 以下 discussionId 指论坛帖子 id
+## target 指相应产品线（如 online, event 等）
+## targetId 指相应产品 id
+获取帖子 Discussion.byId(id)
+发表帖子 Discussion.postDiscussion(targetId: Long, d: DiscussionPosted)
+更新帖子 Discussion.updateDiscussion(discussionId, d: DiscussionPosted)
+删除帖子 Discussion.deleteDiscussion(discussionId)
+</code></pre>
+
+<p><strong>评论 Comment</strong>
+<a href="http://developers.douban.com/wiki/?title=comment_v2">http://developers.douban.com/wiki/?title=comment_v2</a></p>
+
+<pre><code>// target 指相应产品线（如 Online, Event，Note,Album 等）
+新加一条回复 postComment(targetId:Long,content:String,
+获取某条回复 getComment(targetId:Long,commentId:String)
+删除某条回复 deleteComment(targetId:Long,commentId:String)
+</code></pre>
+
+<p><strong>豆瓣实验室 Bubbler</strong>
+<a href="http://developers.douban.com/wiki/?title=labs">http://developers.douban.com/wiki/?title=labs</a></p>
+
+<pre><code>用戶信息 Bubbler.user(userId)
+用戶Bubs Bubbler.bubs(userId)
+用戶boards Bubbler.boards(boardId)
+用戶walls Bubbler.walls(userId)
+</code></pre>
+
+<p><strong>我去接口 Place</strong>
+<a href="http://developers.douban.com/wiki/?title=travel_v2">http://developers.douban.com/wiki/?title=travel_v2</a></p>
+
+<pre><code>获取地点信息 Place.byId(placeId)
+获取某个用户的地点收藏 Place.userCollections(userId)   //可选参数 TravelSearch
+</code></pre>
+
+<h3>
+<a id="联系" class="anchor" href="#%E8%81%94%E7%B3%BB" aria-hidden="true"><span class="octicon octicon-link"></span></a>联系</h3>
+
+<ul>
+<li>使用 douban-scala 过程中遇到 bug, 可以到 <a href="https://github.com/jinntrance/douban-scala/issues">Issues</a> 或 <a href="http://www.douban.com/group/topic/36158803/">豆瓣小组</a> 反馈</li>
+<li>本文档多参照豆瓣Python SDK的文档，多谢。</li>
+</ul>
+
+
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/jinntrance/douban-scala/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/jinntrance/douban-scala/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/jinntrance/douban-scala"></a> is maintained by <a href="https://github.com/jinntrance">jinntrance</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-39438576-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
