@@ -31,7 +31,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 
 2.Android开发需要添加proguard 参数，参照链接中proguard 配置文件 <https://github.com/jinntrance/douban-android/blob/master/proguard.cfg> 若想使用Scala在Android上开发，请参照“赌书泼茶” <https://github.com/jinntrance/douban-android> 
 
-3.其他使用可refer to <http://twitter.github.io/scala_school/java.html>
+3.其他使用可refer to [Twitter Tutorial](http://twitter.github.io/scala_school/java.html) 和Udemy 上的 [Scala Tutorial](https://blog.udemy.com/scala-tutorial-getting-started-with-scala/)
 
 
 目前已完成的接口有：
