@@ -14,14 +14,14 @@ import com.douban.common._
  */
 class AuthTest extends BaseTest {
   test("the auth url") {
-    val url=new URI(Auth.getAuthUrl(Auth.api_key))
+    val url=new URI(Auth.getAuthUrl(Auth.api_key, Auth.redirect_url))
     println(url)
     Desktop.getDesktop.browse(url)
     //    val codeUrl = readLine("please copy the url here after authorization>\n")
     //    Auth.code = Auth.extractCode(codeUrl)
   }
   test("the acess token url") {
-    prettyJSON(Auth.getTokenByCode("6ad1537d694028e4", api_key, secret))
+    prettyJSON(Auth.getTokenByCode("3f5bd2951eb79e98", api_key, secret))
   }
   test("the refresh token url") {
     val t = Auth.getTokenByFresh(refresh_token, api_key, secret)
