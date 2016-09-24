@@ -3,6 +3,7 @@ package com.douban.common;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import scala.None;
+import scala.Option;
 
 /**
  * @author joseph
@@ -22,8 +23,7 @@ public class BaseJavaTest {
     }
 
     public void prettyJSON(Object p) {
-        if (None.canEqual(p)) println(p);
-        else println(gp.toJson(p));
+        println(gp.toJson(p));
     }
 
     public void println(Object s) {

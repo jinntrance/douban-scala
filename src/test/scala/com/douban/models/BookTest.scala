@@ -55,7 +55,7 @@ class BookTest extends BaseTest {
     prettyJSON(Book.deleteCollection(bookId))
   }
   test("the book collectionOfUser") {
-    prettyJSON(Book.collectionsOfUser(userId))
+    prettyJSON(Book.collectionsOfUser(userId, new CollectionSearch(tag="语言")))
   }
   test("the book collection") {
     val p = new CollectionPosted("read", "文政哲 Internet", "對於工具，我們應該更好的應用，而不是爲所累。信息過載的時代，利用好工具，攫取於我們最有益的信息 。", 5)

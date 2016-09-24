@@ -4,15 +4,15 @@ organization := "com.douban"
 
 name := "scala-api"
 
-version := "2.4.6"
+version := "2.4.7"
 
 licenses := Seq("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt"))
 
 homepage := Some(url("https://github.com/jinntrance/douban-scala"))
 
-scalaVersion := "2.11.1"
+scalaVersion := "2.11.6"
 
-crossScalaVersions := Seq("2.10.4","2.11.1")
+crossScalaVersions := Seq("2.11.6")
 
 scalacOptions ++= Seq("-unchecked", "-deprecation","-feature", "-Xcheckinit","-Xelide-below","INFO")
 
@@ -25,10 +25,10 @@ publishArtifact in Test := false
 useGpg := true
 
 libraryDependencies ++= Seq(
-    "org.scala-lang" % "scala-library" % "2.11.1",
-	"com.google.code.gson" % "gson" % "2.2.4",
-	"org.scalatest" % "scalatest_2.11" % "2.2.0" % "test",
-	"org.testng" % "testng" % "6.8.8" % "test"
+    "org.scala-lang" % "scala-library" % "2.11.6",
+	"com.google.code.gson" % "gson" % "2.3.1",
+	"org.scalatest" % "scalatest_2.11" % "2.2.4" % "test",
+	"org.testng" % "testng" % "6.8.21" % "test"
 	)
 
 publishTo <<= version { (v: String) =>

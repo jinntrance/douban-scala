@@ -13,8 +13,8 @@ import com.google.gson.GsonBuilder
 trait BaseTest extends FunSuite {
   var api_key = "0f86acdf44c03ade2e94069dce40b09a"
   var secret = "95125490b60b01ee"
-  var access_token = "a9b4e849f59f8887fd1eb8dde0de9995"
-  var refresh_token = "54b280b5e94f4727fe178221bbedd575"
+  var access_token = "8ad892f109966347a089b8d31cc329d5"
+  var refresh_token = "a6b5693e74b31cc2f4203bbb5e195646"
   val userId = 38702920
 
   def picPath: String = getClass.getClassLoader.getResource("headshot.jpg").getPath

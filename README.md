@@ -1,4 +1,4 @@
-###豆瓣 API v2的非官方Scala/Java/Android SDK
+##豆瓣 API v2的非官方Scala/Java/Android SDK
 
 囊括豆瓣开放了的稳定API或测试API。文档不够完善处，大家可以一起完善。
 
@@ -31,7 +31,7 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 
 2.Android开发需要添加proguard 参数，参照链接中proguard 配置文件 <https://github.com/jinntrance/douban-android/blob/master/proguard.cfg> 若想使用Scala在Android上开发，请参照“赌书泼茶” <https://github.com/jinntrance/douban-android> 
 
-3.其他使用可refer to <http://twitter.github.io/scala_school/java.html>
+3.其他使用可refer to [Twitter Tutorial](http://twitter.github.io/scala_school/java.html) 和Udemy 上的 [Scala Tutorial](https://blog.udemy.com/scala-tutorial-getting-started-with-scala/)
 
 
 目前已完成的接口有：
@@ -56,24 +56,23 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 * 我去 Place
 ```
 
-### 开发配置
+## 开发配置
 使用maven开发，在pom.xml中添加如下配置
-```
 
+```
 <dependency>
     <groupId>com.douban</groupId>
     <artifactId>scala-api_2.11</artifactId>
-    <version>2.4.6</version>
+    <version>2.4.7</version>
 </dependency>
-
 ```
+
 使用SBT作scala开发，在build.sbt中添加如下配置
 
 使用sbt作android开发可以参照配置<https://github.com/jinntrance/douban-android>
+
 ```
-
-libraryDependencies += "com.douban" % "scala-api_2.11" % "2.4.6" withSources() withJavadoc()
-
+libraryDependencies += "com.douban" % "scala-api_2.11" % "2.4.7" withSources() withJavadoc()
 ```
 
 
@@ -105,18 +104,20 @@ Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/d
 ```
 start: 0
 count: 20
-
 ```
 所有返回数据以豆瓣官方文档为准，各接口末尾处均有相应链接入口。
 
 __所有 __
+
 ```
 通过id查找当前对象.byId(id),例如 获取一本图书信息 Book.byId(id)
 使用任何接口前，需要设置授权后的Access Token：Req.init(access_token) 
 Scala <https://github.com/jinntrance/douban-scala/blob/master/src/test/scala/com/douban/common/BaseTest.scala>
 Java <https://github.com/jinntrance/douban-scala/blob/master/src/test/java/com/douban/common/BaseJavaTest.java>
 ```
+
 __图书、电影、音乐 Book/Movie/Music__
+
 ```
 获取图书标签 .tagsOf(id) ,id为当前对象id
 获取某个Item中标记最多的标签 .popTags(id)
@@ -128,18 +129,20 @@ __图书、电影、音乐 Book/Movie/Music__
 
 __用户 User__
 <http://developers.douban.com/wiki/?title=user_v2>
+
 ```
 # 以下 id 指用户数字 id
 当前用户 User.ofMe
 指定用户 User.byId(id)
 搜索用户 User.search(q,page=1,count=20)       // q: 搜索的关键词,page查询第几页，count每页多少
 ```
+
 __读书 Book__
 <http://developers.douban.com/wiki/?title=book_v2>
-```
-# 以下 id 指图书条目数字 id
-# q: 关键词, tag: 标签
 
+```
+## 以下 id 指图书条目数字 id
+## q: 关键词, tag: 标签
 通过isbn获取信息 Book.byISBN(isbn_number)
 获取某个用户的所有图书收藏信息 Book.collectionsOfUser(userId)
 获取用户对某本图书的收藏信息 Book.collectionOf(bookId)
@@ -152,91 +155,83 @@ __读书 Book__
 用户给某本图书写笔记 postAnnotation(bookId,a: AnnotationPosted)
 用户修改某篇笔记 updateAnnotation((annotationId: Long, a: AnnotationPosted)
 用户刪除某篇笔记 deleteAnnotation(annotationId)
-
 ```
 
 __电影 Movie__
 <http://developers.douban.com/wiki/?title=movie_v2>
-```
-# 以下 id 指电影条目数字 id
-通过imdb获取电影 Movie.byImdb(imdb_number)
 
+```
+## 以下 id 指电影条目数字 id
+通过imdb获取电影 Movie.byImdb(imdb_number)
 ```
 
 __音乐 Music__
 <http://developers.douban.com/wiki/?title=music_v2>
+
 ```
 见"图书、电影、音乐 Book/Movie/Music"
-
 ```
 
 __日记 Note__
 <http://developers.douban.com/wiki/?title=note_v2>
+
 ```
-# 以下 id 指日记数字 id
-# format: html_full, html_short, abstract, text，默认为text
+## 以下 id 指日记数字 id
+## format: html_full, html_short, abstract, text，默认为text
 获取一篇日记 Note.byId(id, format='text')
 新写一篇日记 Note.postNote(n:NotePosted)
 更新一篇日记 Note.update(noteId:Long,n:NotePosted)
 上传图片到日记 Note.uploadPicture(noteId:Long,n:NotePosted)//Note.genPicFormat,genUrlFormat生成图片和url格式放在日记内容中
 删除一篇日记 Note.deleteNote(id)
-
 喜欢一篇日记     Note.like(id)
 取消喜欢一篇日记 Note.unlike(id)
-
 获取用户日记列表       Note.notesUserCreated(userId, start, count)
 获取用户喜欢的日记列表 Note.notesUserLiked(userId, start, count)
-
 ```
 
 __相册 Album__
 <http://developers.douban.com/wiki/?title=album_v2>
 <http://developers.douban.com/wiki/?title=photo_v2>
+
 ```
-# 以下 id 指相册数字 id
-# desc 描述文字
+## 以下 id 指相册数字 id
+## desc 描述文字
 获取相册或图片 Album.byId Photo.byId
 获取相册图片列表 Album.photos(id, s:AlbumSearch)
-
 ```
 
 __线上活动 Online__
 <http://developers.douban.com/wiki/?title=online_v2>
 
 ```
-# 以下 id 指线上活动数字 id
-# begin_time, end_time 格式为 '%Y-%m-%d %H:%M:%S'
-# cate 可选值: day, week, latest
+## 以下 id 指线上活动数字 id
+## begin_time, end_time 格式为 '%Y-%m-%d %H:%M:%S'
+## cate 可选值: day, week, latest
 发表一条线上活动 Online.createOnline(o:OnlinePosted)
 更新一条线上活动 Online.updateOnline(onlineId:Long,o:OnlinePosted)
 删除一条线上活动 Online.deleteOnline(id)
-
 喜欢一条线上活动 Online.likeOnline(id)
 取消喜欢线上活动 Online.unlikeOnline(id)
-
 获取线上活动图片列表 Online.photos(id, start, count)
 上传图片到线上活动   Online.upload(id, image) # image = open('xxx.jpg')
-
 获取参加线上活动成员列表 Online.targetsUserParticipated(id)
-
-
 参加活动 Online.participate(targetId,p: ParticipateDate )
 取消参加活动 Online.participate(targetId)
 活动参与人 Online.participants
 获取线上活动列表 Online.onlinesList(cate="week")
 获取参加过的活动 Online.targetsUserParticipated(userId)
 获取创建过的活动 Online.targetsUserCreated(userId)
-
 ```
 
 
 __同城活动 Event__
 <http://developers.douban.com/wiki/?title=event_v2>
+
 ```
-# 以下 id 指同城活动 id
-# Loc: 城市
-# dayType: dayType 时间类型	future, week, weekend, today, tomorrow
-# type: 活动类型	all,music, film, drama, commonweal, salon, exhibition, party, sports, travel, others
+## 以下 id 指同城活动 id
+## Loc: 城市
+## dayType: dayType 时间类型	future, week, weekend, today, tomorrow
+## type: 活动类型	all,music, film, drama, commonweal, salon, exhibition, party, sports, travel, others
 搜索同城活动 Event.events(location,dayType, type)
 
 参加同城活动 Event.participate(id)
@@ -258,15 +253,15 @@ __同城活动 Event__
 
 __论坛 Discussion__
 <http://developers.douban.com/wiki/?title=discussion_v2>
+
 ```
-# 以下 discussionId 指论坛帖子 id
-# target 指相应产品线（如 online, event 等）
-# targetId 指相应产品 id
+## 以下 discussionId 指论坛帖子 id
+## target 指相应产品线（如 online, event 等）
+## targetId 指相应产品 id
 获取帖子 Discussion.byId(id)
 发表帖子 Discussion.postDiscussion(targetId: Long, d: DiscussionPosted)
 更新帖子 Discussion.updateDiscussion(discussionId, d: DiscussionPosted)
 删除帖子 Discussion.deleteDiscussion(discussionId)
-
 ```
 __评论 Comment__
 <http://developers.douban.com/wiki/?title=comment_v2>
@@ -285,15 +280,14 @@ __豆瓣实验室 Bubbler__
 用戶Bubs Bubbler.bubs(userId)
 用戶boards Bubbler.boards(boardId)
 用戶walls Bubbler.walls(userId)
-
 ```
 
 __我去接口 Place__
 <http://developers.douban.com/wiki/?title=travel_v2>
+
 ```
 获取地点信息 Place.byId(placeId)
 获取某个用户的地点收藏 Place.userCollections(userId)   //可选参数 TravelSearch
-
 ```
 
 
